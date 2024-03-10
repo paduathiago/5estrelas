@@ -21,7 +21,7 @@ A ideia do sistema é ser um ambiente de compartilhamento de experiências, prom
  - React: O react é uma biblioteca front-end Javascript de código aberto com foco em criar interfaces de usuário em páginas web.
 
 ## Membros e Tarefas
-Janderson: Desenvolvedor Front-end
-Thiago Pádua: Desenvolvedor Fullstack
-Mariano: Desenvolvedor Back-end
-Gabriel Fialho: Desenvolvedor Front-end
+ - Janderson: Desenvolvedor Front-end
+ - Thiago Pádua: Desenvolvedor Fullstack
+ - Mariano: Desenvolvedor Back-end
+ - Gabriel Fialho: Desenvolvedor Front-end
