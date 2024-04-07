@@ -30,7 +30,18 @@ A ideia do sistema é ser um ambiente de compartilhamento de experiências, prom
  - Como usuário, eu quero poder me cadastrar na plataforma fornecendo informações como nome, e-mail e senha.
  - Como usuário, eu quero poder visualizar as avaliações deixadas para um determinado estabelecimento.
  - Como usuário, eu quero poder filtrar a lista de estabelecimentos por categoria (produto/serviço/lugar) para encontrar facilmente o que estou procurando.
+ - Como usuário, eu gostaria de reportar um comentário ofensivo.
  - Como cliente, eu quero poder avaliar um estabelecimento adicionando uma classificação em estrelas e deixando um comentário opcional sobre minha experiência.
- - Como cliente, eu gostaria de manter uma lista de estabelecimentos favoritos
+ - Como cliente, eu gostaria de adicionar imagens em minhas avaliações.
+ - Como cliente, eu gostaria de poder ordenar as avaliações de um estabelecimento pela nota, relevância ou data de postagem.
+ - Como cliente, eu gostaria de manter uma lista de estabelecimentos favoritos.
+ - Como cliente, eu gostaria de compartilhar um estabelecimento.
+ - Como cliente, eu gostaria de poder votar (Like ou dislike) em uma avaliação.
+ - Como cliente, eu gostaria de poder adicionar a faixa de preço média do estabelecimento.
+ - Como cliente, eu gostaria de receber recomendações personalizadas de estabelecimentos com base nas minhas preferências e histórico de avaliações.
  - Como dono de estabelecimento, eu quero poder adicionar um novo estabelecimento à plataforma, incluindo informações como nome, categoria (produto/serviço/lugar), endereço e descrição.
+ - Como dono de estabelecimento, eu gostaria de adicionar o horário de funcionamento e telefone de contato.
+ - Como dono de estabelecimento, eu gostaria de adicionar fotos do local.
  - Como dono de estabelecimento, eu gostaria de responder comentários de clientes.
+ - Como dono de estabelecimento, eu gostaria de linkar o perfil do meu estabelecimento em diferentes redes sociais (como Facebook e Instagram).
+ - Como dono de estabelecimento, eu gostaria de adicionar uma aba de informações sobre a equipe do estabelecimento.
