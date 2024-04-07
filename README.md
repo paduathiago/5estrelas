@@ -48,7 +48,41 @@ A ideia do sistema é ser um ambiente de compartilhamento de experiências, prom
 
 ## Backlog da Sprint
 - História #1: Como usuário, eu quero poder me cadastrar na plataforma fornecendo informações como nome, e-mail e senha.
-                        - Tarefas e responsáveis: a  fazer
+	- Tarefas e responsáveis:
+		- A fazer.
+		- A fazer. 
 
-- História #1: Como usuário, eu quero poder me cadastrar na plataforma fornecendo informações como nome, e-mail e senha.
-                        - Tarefas e responsáveis: a  fazer
+- História #2: Como usuário, eu quero poder visualizar as avaliações deixadas para um determinado estabelecimento.
+	- Tarefas e responsáveis:
+		- A fazer.
+		- A fazer.
+ 
+- História #3: Como usuário, eu quero poder filtrar a lista de estabelecimentos por categoria (produto/serviço/lugar) para encontrar facilmente o que estou procurando.
+	- Tarefas e responsáveis:
+		- A fazer.
+		- A fazer.
+
+- História #4: Como cliente, eu quero poder avaliar um estabelecimento adicionando uma classificação em estrelas e deixando um comentário opcional sobre minha experiência.
+	- Tarefas e responsáveis:
+		- A fazer.
+		- A fazer.
+ 
+- História #5: Como cliente, eu gostaria de manter uma lista de estabelecimentos favoritos.
+	- Tarefas e responsáveis:
+		- A fazer.
+		- A fazer.
+ 
+- História #6: Como dono de estabelecimento, eu quero poder adicionar um novo estabelecimento à plataforma, incluindo informações como nome, categoria (produto/serviço/lugar), endereço e descrição.
+	- Tarefas e responsáveis:
+		- A fazer.
+		- A fazer.
+ 
+- História #7: Como dono de estabelecimento, eu gostaria de responder comentários de clientes.
+	- Tarefas e responsáveis:
+		- A fazer.
+		- A fazer.
+
+ - História #8: Como dono de estabelecimento, eu gostaria de linkar o perfil do meu estabelecimento em diferentes redes sociais (como Facebook e Instagram).
+	- Tarefas e responsáveis:
+		- A fazer.
+		- A fazer. 
