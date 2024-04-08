@@ -48,40 +48,45 @@ A ideia do sistema é ser um ambiente de compartilhamento de experiências, prom
 ## Backlog da Sprint
 - História #1: Como usuário, eu quero poder me cadastrar na plataforma fornecendo informações como nome, e-mail e senha.
 	- Tarefas e responsáveis:
-		- A fazer.
-		- A fazer. 
+ 		- Front-end: Inicializar rotas de cadastro e login (Janderson)
+		- Front-end: Criar tela de login, cadastro e lógica de autenticação, criptografia e cookies (Gabriel)
+  		- Back-end: Desenvolver lógica de cadastro (Thiago)
+		- Back-end: Desenvolver lógica de autenticação, utilizando token de autenticação ou e-mail e senha (Thiago)
 
 - História #2: Como usuário, eu quero poder visualizar as avaliações deixadas para um determinado estabelecimento.
 	- Tarefas e responsáveis:
-		- A fazer.
-		- A fazer.
+ 		- Front-end: Criar página para visualização de informações do estabelecimento (Janderson) 
+		- Front-end: Criar componente para visualização de avaliações (Janderson)
+		- Back-end: Criar rota para inserção e obtenção de avaliações (Mariano)
  
 - História #3: Como usuário, eu quero poder filtrar a lista de estabelecimentos por categoria (produto/serviço/lugar) para encontrar facilmente o que estou procurando.
 	- Tarefas e responsáveis:
-		- A fazer.
-		- A fazer.
+		- Front-end: Criar componente de listagem de estabelecimentos, com filtros (Gabriel)
+		- Back-end: Criar rota para obtenção de estabelecimentos, com opção de ordenação e filtragem (Thiago)
 
 - História #4: Como cliente, eu quero poder avaliar um estabelecimento adicionando uma classificação em estrelas e deixando um comentário opcional sobre minha experiência.
 	- Tarefas e responsáveis:
-		- A fazer.
-		- A fazer.
+		- Front-end: Criar componente de formulário de avaliação do usuário (Gabriel)
+		- Back-end: Criar rota para inserção de avaliações e recalcular média de avaliação dos estabelecimentos (Mariano)
  
 - História #5: Como cliente, eu gostaria de manter uma lista de estabelecimentos favoritos.
 	- Tarefas e responsáveis:
-		- A fazer.
-		- A fazer.
- 
-- História #6: Como dono de estabelecimento, eu quero poder adicionar um novo estabelecimento à plataforma, incluindo informações como nome, categoria (produto/serviço/lugar), endereço e descrição.
-	- Tarefas e responsáveis:
-		- A fazer.
-		- A fazer.
- 
-- História #7: Como dono de estabelecimento, eu gostaria de responder comentários de clientes.
-	- Tarefas e responsáveis:
-		- A fazer.
-		- A fazer.
+		- Front-end: Criar componente de lista de favoritos e opção de adiçionar estabelecimento aos favoritos em sua página (Janderson)
+		- Back-end: Criar rota para inserção de estabelecimento na lista de favoritos de um usuário (Mariano)
+  		- Back-end: Criar rota para obtenção de lista de favoritos de determinado usuário (Mariano)
 
- - História #8: Como dono de estabelecimento, eu gostaria de linkar o perfil do meu estabelecimento em diferentes redes sociais (como Facebook e Instagram).
+- História #6: Como cliente, eu gostaria de poder votar (Like ou dislike) em uma avaliação.
 	- Tarefas e responsáveis:
-		- A fazer.
-		- A fazer. 
+		- Front-end: Adicionar opções de Like e dislike no componente de avaliação (Gabriel)
+		- Back-end: Criar rota para inserção de estabelecimento na lista de favoritos de um usuário (Mariano)
+  		- Back-end: Criar rota para obtenção de lista de favoritos de determinado usuário (Mariano)
+ 
+- História #7: Como dono de estabelecimento, eu quero poder adicionar um novo estabelecimento à plataforma, incluindo informações como nome, categoria (produto/serviço/lugar), endereço e descrição.
+	- Tarefas e responsáveis:
+		- Front-end: Criar formulário de cadastro de novos estabelecimentos (Gabriel)
+		- Back-end: Criar rota para inserção de novos estabelecimentos (Mariano)
+ 
+- História #8: Como dono de estabelecimento, eu gostaria de responder comentários de clientes.
+	- Tarefas e responsáveis:
+		- Front-end: Criar componente de formulário para resposta de avaliação, disponível apenas para o dono do estabelecimento (Janderson)
+		- Back-end: Criar rotas para inserção e obtenção de comentários em avaliações (Thiago)
