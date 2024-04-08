@@ -71,7 +71,7 @@ A ideia do sistema é ser um ambiente de compartilhamento de experiências, prom
  
 - História #5: Como cliente, eu gostaria de manter uma lista de estabelecimentos favoritos.
 	- Tarefas e responsáveis:
-		- Front-end: Criar componente de lista de favoritos e opção de adiçionar estabelecimento aos favoritos em sua página (Janderson)
+		- Front-end: Criar componente de lista de favoritos e opção de adicionar estabelecimento aos favoritos em sua página (Janderson)
 		- Back-end: Criar rota para inserção de estabelecimento na lista de favoritos de um usuário (Mariano)
   		- Back-end: Criar rota para obtenção de lista de favoritos de determinado usuário (Mariano)
 
