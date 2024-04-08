@@ -44,8 +44,7 @@ A ideia do sistema é ser um ambiente de compartilhamento de experiências, prom
  - Como dono de estabelecimento, eu gostaria de adicionar fotos do local.
  - Como dono de estabelecimento, eu gostaria de responder comentários de clientes.
  - Como dono de estabelecimento, eu gostaria de linkar o perfil do meu estabelecimento em diferentes redes sociais (como Facebook e Instagram).
- - Como dono de estabelecimento, eu gostaria de adicionar uma aba de informações sobre a equipe do estabelecimento.
-
+   
 ## Backlog da Sprint
 - História #1: Como usuário, eu quero poder me cadastrar na plataforma fornecendo informações como nome, e-mail e senha.
 	- Tarefas e responsáveis:
