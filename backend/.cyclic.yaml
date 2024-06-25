@@ -1,0 +1,10 @@
+version: 1
+name: 5estrelas
+language: nodejs
+build:
+  steps:
+    - run: npm install
+    - run: npm run build
+run:
+  command: npm run prod
+  port: 3000
