@@ -5,13 +5,14 @@ export type User = {
   password: string;
 }
 
-export type Etablishment = {
+export type Establishment = {
   id: string;
   name: string;
   address: string;
   category: string;
   description: string;
   rating: number;
+  numberOfReviews: number;
 }
 
 export type Review = {
