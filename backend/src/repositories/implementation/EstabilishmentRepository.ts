@@ -71,23 +71,33 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
 
     async updateRating(id: string, newRating: number): Promise<Establishment | null> {
         return new Promise<Establishment | null>((resolve, reject) => {
-
-            this.db.run(
-                'UPDATE establishments SET rating = ? WHERE id = ?',
-                [newR, id],
-                function (err) {
-                    if (err) {
-                        console.error('Error updating establishment rating:', err.message);
-                        reject(err);
-                    } else {
-                        this.get(id).then((establishment) => {
-                            resolve(establishment);
-                        }).catch((err) => {
-                            reject(err);
-                        });
-                    }
+            this.db.get('SELECT rating, numberOfReviews, FROM establishments WHERE id = ?', [id], (err, row) => {
+                if (err) {
+                    console.error('Error fetching establishment rating:', err.message);
+                    reject(err);
+                    return;
                 }
-            );
+                if (!row) {
+                    reject(new Error('Establishment not found'));
+                    return;
+                }
+
+                const oldRating = row.rating;
+                const numberOfReviews = row.numberOfReviews;
+                const newGeneralRating = oldRating * numberOfReviews + newRating / (numberOfReviews + 1);
+                this.db.run(
+                    'UPDATE establishments SET rating = ?, numberOfReviews = ? WHERE id = ?',
+                    [newGeneralRating, numberOfReviews + 1, id],
+                    function (err) {
+                        if (err) {
+                            console.error('Error updating establishment rating:', err.message);
+                            reject(err);
+                        } else {
+                            resolve(row as Establishment | null);
+                        }
+                    }
+                );
+            });
         });
     }
 }
