@@ -1,16 +1,13 @@
-import StablishmentList from '@/components/stablishment-list/StablishmentList'
+import EstablishmentList from '@/components/establishment-list/EstablishmentList'
 import { Input } from '@/components/ui/input'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination'
 import React from 'react'
 
-function Stablishments() {
+function Establishments() {
     return (
-        <div className='flex flex-col items-center justify-center w-full px-8 gap-2'>
-
-            <Input type="search" />
-
-            <StablishmentList></StablishmentList>
-
+        <div className='flex flex-col w-full p-8 gap-2'>
+            <Input type="search" className='border-2-primary bg-background' />
+            <EstablishmentList></EstablishmentList>
             <Pagination>
                 <PaginationContent>
                     <PaginationItem>
@@ -33,4 +30,4 @@ function Stablishments() {
     )
 }
 
-export default Stablishments
+export default Establishments
