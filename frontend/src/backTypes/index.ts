@@ -5,7 +5,7 @@ export type User = {
     password: string;
   }
   
-  export type Etablishment = {
+  export type EstablishmentType = {
     id: string;
     name: string;
     address: string;

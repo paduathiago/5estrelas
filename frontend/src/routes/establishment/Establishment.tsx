@@ -1,6 +1,6 @@
 import Stars from '@/components/stars/Stars'
 import UserReview from '@/components/user-review/UserReview'
-import React from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   Carousel,
@@ -10,9 +10,33 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { Card, CardContent } from '@/components/ui/card'
+import { useParams } from 'react-router-dom'
+import { fetchEstablishment } from '@/api'
+import { EstablishmentType } from '@/backTypes'
 
 
 function Establishment() {
+  const { id } = useParams();
+  const [establishment, setEstablishment] = useState<EstablishmentType>();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getEstablishment = async () => {
+      if(!id) return;
+      setLoading(true);
+      const data = await fetchEstablishment(id);
+      setEstablishment(data);
+      setLoading(false);
+    };
+
+
+    getEstablishment();
+
+
+  }, [id]);
+
+
+
   return (
     <div className='flex flex-col p-8 gap-6'>
       <div className="container mx-auto p-16 shadow-lg rounded-lg bg-card">
@@ -24,15 +48,15 @@ function Establishment() {
           </div>
           <div className="md:w-2/3 md:pl-6 mt-4 md:mt-0 flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <h1 className="text-3xl font-bold">Nome do Estabelecimento</h1>
+              <h1 className="text-3xl font-bold">{establishment?.name}</h1>
             </div>
             <span className="text-gray-600">Aberto: 8h - 22h</span>
             <div className="mt-2 flex items-center justify-between">
               <p className="text-gray-700"><strong>Telefone:</strong> (00) 1234-5678</p>
             </div>
             <div className="flex items-center">
-              <Stars score={5}></Stars>
-              <span className="ml-2 text-gray-600">(5.0)</span>
+              <Stars score={establishment?.rating}></Stars>
+              <span className="ml-2 text-gray-600">({establishment?.rating})</span>
             </div>
             <p className="mt-4 text-gray-700">Descrição do estabelecimento. Aqui você pode falar um pouco sobre o que o estabelecimento oferece e suas principais características.</p>
           </div>

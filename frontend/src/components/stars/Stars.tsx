@@ -2,10 +2,12 @@ import React from 'react'
 import { Star, StarHalf } from "lucide-react"
 
 type StarsProps = {
-    readonly score: number;
+    readonly score?: number;
 }
 
 function Stars({ score }: StarsProps) {
+
+    if(!score) score = 5;
 
     let fullStars = 5;
     let halfStar = false;

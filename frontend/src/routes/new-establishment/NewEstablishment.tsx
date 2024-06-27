@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from '@/components/ui/textarea'
-import { TimePicker } from '@/components/time-picker/TimePicker'
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
