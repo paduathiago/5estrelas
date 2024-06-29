@@ -18,8 +18,15 @@ export class EstablishmentService {
         return establishment
     }
 
-    async updateRating(id: string, newRating: number): Promise<Establishment | null> {
-        const establishment = await this.establishmentRepository.updateRating(id, newRating)
-        return establishment
+    async updateRating(id: string, newRating: number): Promise<void> {
+        let establishment = await this.getEstablishment(id)
+        if (!establishment) {
+            return
+        }
+        const oldRating = establishment.rating
+        const numberOfReviews = establishment.numberOfReviews
+        const newGeneralRating = ((oldRating * numberOfReviews) + newRating) / (numberOfReviews + 1);
+
+        await this.establishmentRepository.updateRatingOnDb(id, newGeneralRating)
     }
 }

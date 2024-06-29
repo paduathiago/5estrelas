@@ -9,5 +9,5 @@ export interface UserRepositoryInterface {
 export interface EstablishmentRepositoryInterface {
     create(establishmentData: { name: string; address: string; category: string; description: string }): Promise<Establishment>;
     get(id: string): Promise<Establishment | null>;
-    updateRating(id: string, newRating: number): Promise<Establishment | null>;
+    updateRatingOnDb(id: string, newRating: number): Promise<void>;
 }
