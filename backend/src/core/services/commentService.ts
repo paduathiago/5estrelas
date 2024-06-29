@@ -8,7 +8,8 @@ export class CommentService {
         this.commentRepository = new CommentRepository()
     }
 
-    async createComment(reviewId: string, comment: string, timestamp: Date): Promise<Comment> {
+    async createComment(reviewId: string, comment: string): Promise<Comment> {
+        const timestamp = new Date();
         const newUser = await this.commentRepository.create({ reviewId, comment, timestamp })
         return newUser
     }

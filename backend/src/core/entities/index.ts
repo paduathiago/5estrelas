@@ -3,6 +3,7 @@ export type User = {
   name: string;
   email: string;
   password: string;
+  favoriteEstablishments: Establishment[];
 }
 
 export type Establishment = {
@@ -12,17 +13,19 @@ export type Establishment = {
   category: string;
   description: string;
   rating: number;
+  numberOfReviews: number;
 }
 
+
 export type Review = {
-  likes: number;
-  dislikes: number;
   id: string;
   userId: string;
   establishmentId: string;
   rating: number;
   comment?: string;
   timestamp: Date;
+  likes: number;
+  dislikes: number;
 }
 
 export type ReviewFeedback = {

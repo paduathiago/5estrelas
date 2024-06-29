@@ -8,13 +8,18 @@ export class UserService {
         this.userRepository = new UserRepository()
     }
 
-    async createUser(name: string, email: string, password: string): Promise<User> {
-        const newUser = await this.userRepository.create({ name, email, password })
+    async createUser(name: string, email: string): Promise<User> {
+        const newUser = await this.userRepository.create({ name, email })
         return newUser
     }
 
     async getUser(id: string): Promise<User | null> {
         const user = await this.userRepository.get(id)
+        return user
+    }
+
+    async addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<User | null> {
+        const user = await this.userRepository.addEstablishmentToFavorites(userId, establishmentId)
         return user
     }
 }

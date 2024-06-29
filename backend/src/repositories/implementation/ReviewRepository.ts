@@ -75,16 +75,49 @@ export class ReviewRepository implements ReviewRepositoryInterface {
 
     async updateLike(id: string, amountOfLikes: number): Promise<Review | null> {
         return new Promise<Review | null>((resolve, reject) => {
-            this.db.run(
-                'UPDATE reviews SET likes = ? WHERE id = ?',
-                [amountOfLikes, id],
-                function (err) {
+            this.db.get(
+                'SELECT * FROM reviews WHERE id = ?',
+                [id],
+                (err, row: Review) => { 
                     if (err) {
-                        console.error('Error updating review likes', err.message);
+                        console.error('Error retrieving review', err.message);
                         reject(err);
                     } else {
-                        // Simplesmente resolve com null após a atualização bem-sucedida
-                        resolve(null);
+                        if (!row) {
+                            resolve(null);
+                        } else {
+                            this.db.run(
+                                'UPDATE reviews SET likes = ? WHERE id = ?',
+                                [amountOfLikes, id],
+                                (err) => {
+                                    if (err) {
+                                        console.error('Error updating review likes', err.message);
+                                        reject(err);
+                                    } else {
+                                        this.db.get(
+                                            'SELECT * FROM reviews WHERE id = ?',
+                                            [id],
+                                            (err, updatedRow: Review) => {
+                                                if (err) {
+                                                    console.error('Error retrieving updated review', err.message);
+                                                    reject(err);
+                                                } else {
+                                                    if (!updatedRow) {
+                                                        resolve(null);
+                                                    } else {
+                                                        const updatedReview: Review = {
+                                                            ...updatedRow, 
+                                                            likes: amountOfLikes 
+                                                        };
+                                                        resolve(updatedReview);
+                                                    }
+                                                }
+                                            }
+                                        );
+                                    }
+                                }
+                            );
+                        }
                     }
                 }
             );
@@ -93,16 +126,49 @@ export class ReviewRepository implements ReviewRepositoryInterface {
 
     async updateDislike(id: string, amountOfDislikes: number): Promise<Review | null> {
         return new Promise<Review | null>((resolve, reject) => {
-            this.db.run(
-                'UPDATE reviews SET likes = ? WHERE id = ?',
-                [amountOfDislikes, id],
-                function (err) {
+            this.db.get(
+                'SELECT * FROM reviews WHERE id = ?',
+                [id],
+                (err, row: Review) => {
                     if (err) {
-                        console.error('Error updating review likes', err.message);
+                        console.error('Error retrieving review', err.message);
                         reject(err);
                     } else {
-                        // Simplesmente resolve com null após a atualização bem-sucedida
-                        resolve(null);
+                        if (!row) {
+                            resolve(null);
+                        } else {
+                            this.db.run(
+                                'UPDATE reviews SET dislikes = ? WHERE id = ?',
+                                [amountOfDislikes, id],
+                                (err) => {
+                                    if (err) {
+                                        console.error('Error updating review dislikes', err.message);
+                                        reject(err);
+                                    } else {
+                                        this.db.get(
+                                            'SELECT * FROM reviews WHERE id = ?',
+                                            [id],
+                                            (err, updatedRow: Review) => {
+                                                if (err) {
+                                                    console.error('Error retrieving updated review', err.message);
+                                                    reject(err);
+                                                } else {
+                                                    if (!updatedRow) {
+                                                        resolve(null); 
+                                                    } else {
+                                                        const updatedReview: Review = {
+                                                            ...updatedRow,
+                                                            dislikes: amountOfDislikes
+                                                        };
+                                                        resolve(updatedReview);
+                                                    }
+                                                }
+                                            }
+                                        );
+                                    }
+                                }
+                            );
+                        }
                     }
                 }
             );
