@@ -20,16 +20,16 @@ function Stars({ score }: StarsProps) {
         <div className="relative">
             <div className="flex gap-2">
                 {Array.from({ length: 5 }, (_, index) => (
-                    <Star key={index} fill="#111" strokeWidth={0} />
+                    <Star key={index} fill="#111" strokeWidth={0.2} />
                 ))}
             </div>
             <div className="flex gap-2 absolute top-0">
 
                 {Array.from({ length: fullStars }, (_, index) => (
-                    <Star key={index} fill="#FFBF00" strokeWidth={0} />
+                    <Star key={index} fill="#FFBF00" strokeWidth={0.2} />
                 ))}
 
-                {halfStar && <StarHalf fill="yellow" strokeWidth={0} />}
+                {halfStar && <StarHalf fill="FFBF00" strokeWidth={0.2} />}
             </div>
         </div>
         </div>

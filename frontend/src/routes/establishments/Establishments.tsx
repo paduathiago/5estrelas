@@ -1,13 +1,22 @@
+import { fetchEstablishments } from '@/api';
+import { EstablishmentType } from '@/backTypes';
 import EstablishmentList from '@/components/establishment-list/EstablishmentList'
 import { Input } from '@/components/ui/input'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination'
+import useAsync from '@/hooks/useAsync';
 import React from 'react'
 
 function Establishments() {
+
+    const {data: establishments} = useAsync<EstablishmentType[]>(() => fetchEstablishments(), []);
+    
+    console.log(establishments);
     return (
         <div className='flex flex-col w-full p-8 gap-2'>
             <Input type="search" className='border-2-primary bg-background' />
-            <EstablishmentList></EstablishmentList>
+            {establishments &&
+            <EstablishmentList establishments={establishments}></EstablishmentList>
+            }
             <Pagination>
                 <PaginationContent>
                     <PaginationItem>
@@ -24,8 +33,6 @@ function Establishments() {
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
-
-
         </div>
     )
 }

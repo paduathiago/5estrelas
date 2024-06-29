@@ -1,15 +1,26 @@
 import React from 'react'
 import EstablishmentCard from '../establishment-card/EstablishmentCard'
+import { EstablishmentType } from '@/backTypes';
 
-function EstablishmentList() {
+type Props = {
+    readonly establishments: EstablishmentType[]
+}
+
+function EstablishmentList({ establishments }: Props) {
+
+
+
     return (
         <div className='w-full grid gap-4 grid-cols-2 grid-rows-3'>
-            <EstablishmentCard />
-            <EstablishmentCard />
-            <EstablishmentCard />
-            <EstablishmentCard />
-            <EstablishmentCard />
-            <EstablishmentCard />
+
+            {establishments.map(establishment => {
+                return <EstablishmentCard
+                    key={establishment.id}
+                    {...establishment}
+                />
+            })}
+
+
         </div>
     )
 }

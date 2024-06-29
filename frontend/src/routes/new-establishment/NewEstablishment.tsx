@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,23 +17,24 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from '@/components/ui/textarea'
 
 const formSchema = z.object({
-  username: z.string().min(2).max(50),
-  description: z.string().min(5).max(300),
-})
+  name: z.string(),
+  description: z.string(),
+  phone: z.string(),
+  openingHours: z.string(),
+  address: z.string(),
+  mainImage: z.string(),
+});
 
 function renderNameField(form: any) {
   return <FormField
     control={form.control}
-    name="username"
+    name="name"
     render={({ field }) => (
       <FormItem>
         <FormLabel>Nome do estabelecimento</FormLabel>
         <FormControl>
           <Input placeholder="Estabelecimento" {...field} />
         </FormControl>
-        <FormDescription>
-          Este nome aparecerá na sua página do estabelecimento
-        </FormDescription>
         <FormMessage />
       </FormItem>
     )}
@@ -49,11 +49,40 @@ function renderDescriptionField(form: any) {
       <FormItem>
         <FormLabel>Descrição do estabelecimento</FormLabel>
         <FormControl>
-        <Textarea placeholder="Estabelecimento" {...field} />
+          <Textarea placeholder="Estabelecimento" {...field} />
         </FormControl>
-        <FormDescription>
-          Esta é a descrição do estabelecimento
-        </FormDescription>
+        <FormMessage />
+      </FormItem>
+    )}
+  />
+}
+
+function renderPhoneField(form: any) {
+  return <FormField
+    control={form.control}
+    name="phone"
+    render={({ field }) => (
+      <FormItem>
+        <FormLabel>Telefone do estabelecimento</FormLabel>
+        <FormControl>
+          <Textarea placeholder="Telefone" {...field} />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    )}
+  />
+}
+
+function renderImageField(form: any) {
+  return <FormField
+    control={form.control}
+    name="mainImage"
+    render={({ field }) => (
+      <FormItem>
+        <FormLabel>Imagem</FormLabel>
+        <FormControl>
+          <Input type="file" placeholder="Imagem" {...field} />
+        </FormControl>
         <FormMessage />
       </FormItem>
     )}
@@ -65,7 +94,13 @@ function NewEstablishment() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      name: '',
+      description: '',
+      phone: '',
+      openingHours: '',
+      address: '',
+      mainImage: undefined,
+      images: [],
     },
   })
 
@@ -82,6 +117,8 @@ function NewEstablishment() {
 
           {renderNameField(form)}
           {renderDescriptionField(form)}
+          {renderPhoneField(form)}
+          {renderImageField(form)}
 
           <Button type="submit">Criar estabelecimento ou serviço</Button>
         </form>

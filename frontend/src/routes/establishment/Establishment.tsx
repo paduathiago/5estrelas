@@ -13,28 +13,15 @@ import { Card, CardContent } from '@/components/ui/card'
 import { useParams } from 'react-router-dom'
 import { fetchEstablishment } from '@/api'
 import { EstablishmentType } from '@/backTypes'
+import useAsync from '@/hooks/useAsync'
 
+type Params = {
+  id: string;
+};
 
 function Establishment() {
-  const { id } = useParams();
-  const [establishment, setEstablishment] = useState<EstablishmentType>();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const getEstablishment = async () => {
-      if(!id) return;
-      setLoading(true);
-      const data = await fetchEstablishment(id);
-      setEstablishment(data);
-      setLoading(false);
-    };
-
-
-    getEstablishment();
-
-
-  }, [id]);
-
+  const { id } = useParams<Params>();
+  const {data: establishment} = useAsync<EstablishmentType>(() => fetchEstablishment(id), [id]);
 
 
   return (

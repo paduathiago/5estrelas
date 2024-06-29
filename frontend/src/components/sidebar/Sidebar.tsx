@@ -1,17 +1,18 @@
 import { cn } from '@/lib/utils';
 import {
-  LayoutGrid,
-  Radio,
+  Briefcase,
+  Star,
   Home,
-  User
+  User,
+  LogOut
 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Link } from 'react-router-dom';
 
 function Sidebar() {
   return (
-    <div className={cn("pb-12")}>
-      <div className="space-y-4 py-4">
+    <div className={cn("pb-12 h-full")}>
+      <div className="space-y-4 py-4 h-full flex flex-col justify-between items-center">
         <div className="px-4 py-2">
           <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
             5estrelas
@@ -21,25 +22,34 @@ function Sidebar() {
               to="/"
             >
               <Button
-              variant="secondary"
-              size="sm"
-              className="w-full justify-start"
-            >
-              <Home className="mr-2 h-4 w-4" />
-              Home
-            </Button>
+                variant="secondary"
+                size="sm"
+                className="w-full justify-start"
+              >
+                <Home className="mr-2 h-4 w-4" />
+                Página inicial
+              </Button>
             </Link>
-            
+
             <Button variant="secondary" size="sm" className="w-full justify-start">
-              <LayoutGrid className="mr-2 h-4 w-4" />
-              Browse
+              <Star className="mr-2 h-4 w-4" />
+              Favoritos
             </Button>
             <Button variant="secondary" size="sm" className="w-full justify-start">
               <User className="mr-2 h-4 w-4" />
-              Usuário
+              Meu Perfil
+            </Button>
+
+            <Button variant="default" size="sm" className="w-full justify-start">
+              <Briefcase className="mr-2 h-4 w-4" />
+              Meus serviços
             </Button>
           </div>
         </div>
+        <Button variant="default" size="sm" className="w-40">
+          <LogOut className="mr-2 h-4 w-4" />
+          Sair
+        </Button>
       </div>
     </div>
   )
