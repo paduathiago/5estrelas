@@ -21,6 +21,15 @@ export class UserRepository implements UserRepositoryInterface {
         email TEXT NOT NULL
       )
     `);
+
+        this.db.run(`
+        CREATE TABLE IF NOT EXISTS user_favorite_establishments (
+            userId INTEGER,
+            establishmentId INTEGER,
+            FOREIGN KEY (userId) REFERENCES users(id),
+            FOREIGN KEY (establishmentId) REFERENCES establishments(id)
+        )
+    `);
     }
 
     async create(userData: { name: string; email: string, password: string }): Promise<User> {
@@ -67,14 +76,6 @@ export class UserRepository implements UserRepositoryInterface {
 
     async addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<User | null> {
         return new Promise<User | null>((resolve, reject) => {
-            this.db.run(
-                `CREATE TABLE IF NOT EXISTS user_favorite_establishments (
-                    userId INTEGER,
-                    establishmentId INTEGER,
-                    FOREIGN KEY (userId) REFERENCES users(id),
-                    FOREIGN KEY (establishmentId) REFERENCES establishments(id)
-                )`
-            );
             this.db.run(
                 'INSERT INTO user_favorite_establishments (userId, establishmentId) VALUES (?, ?)',
                 [userId, establishmentId],
