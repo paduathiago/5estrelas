@@ -28,7 +28,7 @@ export class ReviewRepository implements ReviewRepositoryInterface {
     `);
     }
 
-    async create(reviewData: { userId: string; establishmentId: string, rating: number; comment?: string, timestamp: Date, likes: number, dislikes: number }): Promise<Review> {
+    async create(reviewData: { userId: string; establishmentId: string; rating: number; comment: string; timestamp: Date; likes: number; dislikes: number }): Promise<Review> {
         const { userId, establishmentId, rating, comment, timestamp, likes, dislikes } = reviewData;
         return new Promise<Review>((resolve, reject) => {
             this.db.run(

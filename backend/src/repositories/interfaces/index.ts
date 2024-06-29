@@ -15,7 +15,7 @@ export interface EstablishmentRepositoryInterface {
 }
 
 export interface ReviewRepositoryInterface {
-    create(reviewData: { userId: string; establishmentId: string; rating: number; comment?: string; timestamp: Date; }): Promise<Review>;
+    create(reviewData: { userId: string; establishmentId: string; rating: number; comment?: string; timestamp: Date; likes: number; dislikes: number }): Promise<Review>;
     get(id: string): Promise<Review | null>;
     updateLike(id: string, amountOfLikes: number): Promise<Review | null>;
     updateDislike(id: string, amountOfDislikes: number): Promise<Review | null>;

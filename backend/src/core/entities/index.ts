@@ -15,14 +15,14 @@ export type Establishment = {
 }
 
 export type Review = {
+  likes: number;
+  dislikes: number;
   id: string;
   userId: string;
   establishmentId: string;
   rating: number;
   comment?: string;
   timestamp: Date;
-  likes: number;
-  dislikes: number;
 }
 
 export type ReviewFeedback = {
