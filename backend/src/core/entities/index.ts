@@ -30,3 +30,10 @@ export type ReviewFeedback = {
   reviewId: string;
   feedback: 'LIKE' | 'DISLIKE';
 }
+
+export type Comment = {
+  id: string;
+  reviewId: string;
+  comment: string;
+  timestamp: Date;
+}
