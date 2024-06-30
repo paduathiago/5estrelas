@@ -22,3 +22,4 @@ export class UserService {
         const user = await this.userRepository.addEstablishmentToFavorites(userId, establishmentId)
         return user
     }
+}
