@@ -17,6 +17,7 @@ export type Establishment = {
   userId: string;
 }
 
+
 export type Review = {
   id: string;
   userId: string;
@@ -32,4 +33,11 @@ export type ReviewFeedback = {
   userId: string;
   reviewId: string;
   feedback: 'LIKE' | 'DISLIKE';
+}
+
+export type Comment = {
+  id: string;
+  reviewId: string;
+  comment: string;
+  timestamp: Date;
 }
