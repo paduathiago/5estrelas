@@ -132,7 +132,6 @@ function UserReview({ ...props }: Review) {
                 {comment && <>
 
                     <Separator></Separator>
-
                     <h1 className='text-xl'>Resposta do estabelecimento:</h1>
                     <p>{comment}</p>
                 </>}
