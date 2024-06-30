@@ -72,6 +72,22 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
         });
     }
 
+    async getAll(): Promise<Establishment[]> {
+        return new Promise<Establishment[]>((resolve, reject) => {
+            this.db.all(
+                'SELECT * FROM establishments',
+                (err, rows) => {
+                    if (err) {
+                        console.error('Error fetching all establishments:', err.message);
+                        reject(err);
+                    } else {
+                        resolve(rows as Establishment[]);
+                    }
+                }
+            );
+        });
+    }
+
     async updateRatingOnDb(id: string, newRating: number): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             this.db.run(
