@@ -14,6 +14,7 @@ export type Establishment = {
   description: string;
   rating: number;
   numberOfReviews: number;
+  userId: string;
 }
 
 export type Review = {
