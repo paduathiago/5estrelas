@@ -73,6 +73,24 @@ export class ReviewRepository implements ReviewRepositoryInterface {
         });
     }
 
+    async delete(id: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.db.run(
+                'DELETE FROM reviews WHERE id = ?',
+                [id],
+                function(err) {
+                    if (err) {
+                        console.error('Error deleting Review by id:', err.message);
+                        reject(err);
+                    } else {
+                        console.log(`Deleted review with id ${id}`);
+                        resolve();
+                    }
+                }
+            );
+        });
+    }
+
     async updateLike(id: string, amountOfLikes: number): Promise<Review | null> {
         return new Promise<Review | null>((resolve, reject) => {
             this.db.get(

@@ -32,12 +32,12 @@ export class UserRepository implements UserRepositoryInterface {
     `);
     }
 
-    async create(userData: { name: string; email: string, password: string }): Promise<User> {
-        const { name, email, password } = userData;
+    async create(userData: { name: string; email: string; password: string; image: string }): Promise<User> {
+        const { name, email, password, image } = userData;
         return new Promise<User>((resolve, reject) => {
             this.db.run(
-                'INSERT INTO users (name, email) VALUES (?, ?)',
-                [name, email, password],
+                'INSERT INTO users (name, email, password, image) VALUES (?, ?, ?, ?)',
+                [name, email, password, image],
                 function (err) {
                     if (err) {
                         console.error('Error inserting user:', err.message);
@@ -48,6 +48,7 @@ export class UserRepository implements UserRepositoryInterface {
                             name,
                             email,
                             password,
+                            image,
                             favoriteEstablishments: []
                         }
                         resolve(newUser);

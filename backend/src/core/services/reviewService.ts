@@ -26,6 +26,18 @@ export class ReviewService {
         return review
     }
 
+    async deleteReview(id:string, userId: string): Promise<void> {
+        const review = await this.getReview(id);
+        if(!review) {
+            throw new Error('Review não encontrada');
+        }
+        if (review.userId != userId) {
+            throw new Error('Usuário não autorizado');
+        } else {
+            await this.reviewRepository.delete(id);
+        }
+    }
+
     async updateLike(id: string, reviewFeedback: ReviewFeedback): Promise<Review | null> {
         const currentReview = await this.getReview(id);
         if (!currentReview) {
@@ -35,8 +47,6 @@ export class ReviewService {
         const currentLikes = currentReview.likes;
         const updatedReview = await this.reviewRepository.updateLike(id,currentLikes+1)
         return updatedReview;
-        
-
     }
 
     async updateDislike(id: string, reviewFeedback: ReviewFeedback): Promise<Review | null> {

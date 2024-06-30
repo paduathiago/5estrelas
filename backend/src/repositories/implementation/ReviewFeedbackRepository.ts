@@ -65,26 +65,4 @@ export class ReviewFeedbackRepository implements ReviewFeedbackRepositoryInterfa
             );
         });
     }
-
-    async updateReviewFeedback(userId: string, reviewId: string, feedback: 'LIKE' | 'DISLIKE'): Promise<ReviewFeedback> {
-        return new Promise<ReviewFeedback>((resolve, reject) => {
-            this.db.run(
-                'INSERT INTO reviewFeedbacks (userId, reviewId, feedback) VALUES (?, ?, ?)',
-                [userId, reviewId, feedback],
-                function (err) {
-                    if (err) {
-                        console.error('Error inserting comment:', err.message);
-                        reject(err);
-                    } else {
-                        const newReviewFeedback: ReviewFeedback = {
-                            userId,
-                            reviewId,
-                            feedback
-                        }
-                        resolve(newReviewFeedback);
-                    }
-                }
-            );
-        });
-    }
 }

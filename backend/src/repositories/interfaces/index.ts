@@ -5,8 +5,9 @@ import { ReviewFeedback } from '../../core/entities';
 import { Comment } from '../../core/entities';
 
 export interface UserRepositoryInterface {
-    create(userData: { name: string; email: string }): Promise<User>;
+    create(userData: { name: string; email: string, password: string, image: string }): Promise<User>;
     get(id: string): Promise<User | null>;
+    addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<User | null>;
 }
 
 export interface EstablishmentRepositoryInterface {
@@ -18,6 +19,7 @@ export interface EstablishmentRepositoryInterface {
 export interface ReviewRepositoryInterface {
     create(reviewData: { userId: string; establishmentId: string; rating: number; comment?: string; timestamp: Date; likes: number; dislikes: number }): Promise<Review>;
     get(id: string): Promise<Review | null>;
+    delete(id: string): Promise<void>;
     updateLike(id: string, amountOfLikes: number): Promise<Review | null>;
     updateDislike(id: string, amountOfDislikes: number): Promise<Review | null>;
 }
