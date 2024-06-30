@@ -7,8 +7,16 @@ import UserProfile from './routes/user-profile/UserProfile'
 import Login from './routes/login/Login'
 import Register from './routes/register/Register'
 import NewEstablishment from './routes/new-establishment/NewEstablishment'
+import { useCookies } from "react-cookie"
+
+
 
 function App() {
+    const [cookies] = useCookies();
+
+    const loggedIn = cookies.AuthToken;
+
+    console.log(cookies.AuthToken);
     return (
         <BrowserRouter>
             <Routes>
@@ -19,7 +27,9 @@ function App() {
                     <Route path="/user/:id" element={<UserProfile />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/new-establishment" element={<NewEstablishment />} />
+                    {loggedIn &&
+                        <Route path="/new-establishment" element={<NewEstablishment />} />
+                    }
                     <Route path="*" element={<div>404 not found</div>} />
                 </Route>
             </Routes>

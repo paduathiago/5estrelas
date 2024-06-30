@@ -6,6 +6,7 @@ const reviewService = new ReviewService();
 const router = express.Router();
 
 router.post('/', async (req: Request, res: Response) => {
+  // TODO: substituir aqui o userId pelo getUserId
   const { userId, establishmentId, rating, comment} = req.body;
   try {
     const newReview = await reviewService.createReview(userId, establishmentId, rating, comment);
@@ -16,6 +17,7 @@ router.post('/', async (req: Request, res: Response) => {
 });
 
 router.post('/:id/delete', async (req: Request, res: Response) => {
+  // TODO: substituir aqui o userId pelo getUserId
   const { id, userId } = req.body;
   try {
     await reviewService.deleteReview(id, userId);
@@ -25,20 +27,9 @@ router.post('/:id/delete', async (req: Request, res: Response) => {
     res.status(500).send('Error deleting review');
   }
 });
-
-router.post('/:id/delete', async (req: Request, res: Response) => {
-  const { id, userId } = req.body;
-  try {
-    await reviewService.deleteReview(id, userId);
-    res.status(201).send(); 
-  } catch (error: any) {
-    console.error('Error deleting review:', error.message);
-    res.status(500).send('Error deleting review');
-  }
-});
-
 
 router.post('/:establishmentId/reviews', async (req: Request, res: Response) => {
+  // TODO: substituir aqui o userId pelo getUserId
   const { userId } = req.body;
   const { establishmentId } = req.params;
   try {
