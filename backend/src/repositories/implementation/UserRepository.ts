@@ -120,4 +120,21 @@ export class UserRepository implements UserRepositoryInterface {
         });
     }
 
+    async removeEstablishmentFromFavorites(userId: string, establishmentId: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.db.run(
+                'DELETE FROM user_favorite_establishments WHERE userId = ? AND establishmentId = ?',
+                [userId, establishmentId],
+                function (err) {
+                    if (err) {
+                        console.error('Error deleting favorite establishment:', err.message);
+                        reject(err);
+                    } else {
+                        resolve();
+                    }
+                }
+            );
+        });
+    }
+
 }

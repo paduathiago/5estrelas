@@ -27,4 +27,9 @@ export class UserService {
         const establishments = await this.userRepository.getFavoriteEstablishments(userId)
         return establishments
     }
+
+    async removeEstablishmentFromFavorites(userId: string, establishmentId: string): Promise<void> {
+        await this.userRepository.removeEstablishmentFromFavorites(userId, establishmentId)
+    }
+
 }

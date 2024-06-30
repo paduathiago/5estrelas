@@ -10,6 +10,7 @@ export interface UserRepositoryInterface {
     get(id: string): Promise<User | null>;
     addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<User | null>;
     getFavoriteEstablishments(userId: string): Promise<Establishment[]>;
+    removeEstablishmentFromFavorites(userId: string, establishmentId: string): Promise<void>;
 }
 
 export interface EstablishmentRepositoryInterface {
