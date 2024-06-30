@@ -1,6 +1,6 @@
-import Stars from '@/components/stars/Stars'
-import UserReview from '@/components/user-review/UserReview'
-import { useEffect, useState } from 'react'
+import Stars from "@/components/stars/Stars";
+import UserReview from "@/components/user-review/UserReview";
+import { useEffect, useState } from "react";
 
 import {
   Carousel,
@@ -36,7 +36,7 @@ function Establishment() {
 
 
   return (
-    <div className='flex flex-col p-8 gap-6'>
+    <div className="flex flex-col p-8 gap-6">
       <div className="container mx-auto p-16 shadow-lg rounded-lg bg-card">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/3 flex justify-center items-center">
@@ -54,13 +54,20 @@ function Establishment() {
             </div>
             <span className="text-gray-600">Aberto: 8h - 22h</span>
             <div className="mt-2 flex items-center justify-between">
-              <p className="text-gray-700"><strong>Telefone:</strong> (00) 1234-5678</p>
+              <p className="text-gray-700">
+                <strong>Telefone:</strong> (00) 1234-5678
+              </p>
             </div>
             <div className="flex items-center">
               <Stars score={establishment?.rating}></Stars>
-              <span className="ml-2 text-gray-600">({establishment?.rating})</span>
+              <span className="ml-2 text-gray-600">
+                ({establishment?.rating})
+              </span>
             </div>
-            <p className="mt-4 text-gray-700">Descrição do estabelecimento. Aqui você pode falar um pouco sobre o que o estabelecimento oferece e suas principais características.</p>
+            <p className="mt-4 text-gray-700">
+              Descrição do estabelecimento. Aqui você pode falar um pouco sobre
+              o que o estabelecimento oferece e suas principais características.
+            </p>
           </div>
         </div>
       </div>
@@ -80,7 +87,9 @@ function Establishment() {
                   <div className="p-1">
                     <Card>
                       <CardContent className="flex aspect-square items-center justify-center p-6">
-                        <span className="text-3xl font-semibold">{index + 1}</span>
+                        <span className="text-3xl font-semibold">
+                          {index + 1}
+                        </span>
                       </CardContent>
                     </Card>
                   </div>
@@ -91,8 +100,6 @@ function Establishment() {
             <CarouselNext />
           </Carousel>
         </div>
-
-
       </div>
       <h1 className="text-2xl font-bold">Avaliações</h1>
       <div className="flex flex-col gap-4">
@@ -100,9 +107,8 @@ function Establishment() {
           return <UserReview key={review.id} {...review} {...establishment}></UserReview>
         })}
       </div>
-    </div>)
+    </div>
+  );
 }
 
-
-
-export default Establishment
+export default Establishment;

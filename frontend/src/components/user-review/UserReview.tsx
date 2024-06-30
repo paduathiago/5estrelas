@@ -1,7 +1,5 @@
 import React, { ChangeEvent, ChangeEventHandler, useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { buttonVariants } from "@/components/ui/button"
-
 import {
     Card,
     CardContent,
@@ -20,6 +18,7 @@ import { answerReview, updateFeedback } from '@/api'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Textarea } from '../ui/textarea'
 import { Separator } from '../ui/separator'
+import DialogCloseButton from '../dialog-answer/DialogAnswer'
 
 function formatDateToString(date: Date) {
     if (!(date instanceof Date)) {
@@ -76,7 +75,6 @@ function UserReview({ ...props }: Review) {
     }
 
     function updateEstablishmentCommentDraft(ev: ChangeEvent<HTMLTextAreaElement>) {
-        console.log(ev.target.value)
         setCommentDraft(ev.target.value);
     }
 
@@ -108,7 +106,7 @@ function UserReview({ ...props }: Review) {
                         <Stars score={props.rating}></Stars>
                         <p className='text-sm'>{formatDateToString(props.timestamp)}</p></div>
                     <div className='flex gap-2'>
-                        <Popover onOpenChange={handlePopOver}>
+                        {/* <Popover onOpenChange={handlePopOver}>
                             <PopoverTrigger asChild>
                                 <Button variant={openComment ? "default" : "outline"} className='gap-1'>
                                     <MessageCircle />
@@ -117,7 +115,8 @@ function UserReview({ ...props }: Review) {
                             <PopoverContent className='w-96 h-44'>
                                 <Textarea value={commentDraft} className='w-full h-full' onChange={updateEstablishmentCommentDraft}></Textarea>
                             </PopoverContent>
-                        </Popover>
+                        </Popover> */}
+                        <DialogCloseButton></DialogCloseButton>
                         <Button variant={feedback === 'LIKE' ? "default" : "outline"} className='gap-1' onClick={() => updateUserFeedback('LIKE')}>
                             <ThumbsUp />
                             {feedbackNumber['LIKE']}
@@ -132,7 +131,6 @@ function UserReview({ ...props }: Review) {
                 {comment && <>
 
                     <Separator></Separator>
-
                     <h1 className='text-xl'>Resposta do estabelecimento:</h1>
                     <p>{comment}</p>
                 </>}
@@ -144,4 +142,4 @@ function UserReview({ ...props }: Review) {
     )
 }
 
-export default UserReview
+export default UserReview;

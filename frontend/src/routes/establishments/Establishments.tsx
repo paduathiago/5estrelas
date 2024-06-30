@@ -9,8 +9,7 @@ import React from 'react'
 function Establishments() {
 
     const {data: establishments} = useAsync<EstablishmentType[]>(() => fetchEstablishments(), []);
-    
-    console.log(establishments);
+
     return (
         <div className='flex flex-col w-full p-8 gap-2'>
             <Input type="search" className='border-2-primary bg-background' />

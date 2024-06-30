@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { EstablishmentService } from '../../../core/services/establishmentService';
+import { getUserId } from '../../../utils/authentication';
 
 const establishmentService = new EstablishmentService();
 
@@ -27,7 +28,16 @@ router.get('/:id', async (req: Request, res: Response) => {
 });
 
 router.get('/', async (req: Request, res: Response) => {
+
+  const userId = getUserId(req);
+
+  // TODO: adicionar userId aqui no getEstablishments para conseguir listar os estabelecimentos com o "favorito" marcado
   const establishments = await establishmentService.getEstablishments();
+
+  
+
+  
+
 
   if (establishments) {
     res.json(establishments);

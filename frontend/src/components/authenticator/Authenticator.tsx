@@ -18,6 +18,9 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
+import { login } from '@/api';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 type AuthenticatorProps = {
     readonly mode: 'login' | 'register';
@@ -30,9 +33,10 @@ const loginFormSchema = z.object({
 
 
 function Authenticator({ mode }: AuthenticatorProps) {
-    const isRegister = mode === 'register'
-
     const formSchema = loginFormSchema;
+
+    const [cookie, setCookie] = useCookies();
+    const navigate = useNavigate();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -42,8 +46,17 @@ function Authenticator({ mode }: AuthenticatorProps) {
         },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        const input = {
+            password: values.password,
+            email: values.email
+        }
+
+        const signData = await login(input);
+
+        setCookie('AuthToken', signData.token);
+
+        navigate('/');
     }
     const cardTitle = mode === 'login' ? 'Login' : 'Regisrar-se'
     return (

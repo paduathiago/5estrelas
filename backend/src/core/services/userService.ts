@@ -18,6 +18,12 @@ export class UserService {
         return user
     }
 
+    async getUserByEmail(email: string): Promise<User | null> {
+        console.log(email);
+        const user = await this.userRepository.getByEmail(email)
+        return user;
+    }
+
     async addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<User | null> {
         const user = await this.userRepository.addEstablishmentToFavorites(userId, establishmentId)
         return user

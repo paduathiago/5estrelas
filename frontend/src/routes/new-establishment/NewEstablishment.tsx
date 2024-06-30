@@ -131,8 +131,6 @@ function renderImageField(form: any) {
     try {
       form.setValue('mainImage', imageData[0]);
       setImage(imageData);
-      // Enviar os dados para o servidor
-      console.log("Dados válidos:", imageData);
     } catch (e) {
       if (!(e instanceof Error)) return;
       console.error("Dados inválidos:", e.message);
