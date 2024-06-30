@@ -6,7 +6,7 @@ const reviewService = new ReviewService();
 const router = express.Router();
 
 router.post('/', async (req: Request, res: Response) => {
-  const { userId, establishmentId, rating, comment, timestamp} = req.body;
+  const { userId, establishmentId, rating, comment } = req.body;
   try {
     const newReview = await reviewService.createReview(userId, establishmentId, rating, comment);
     res.status(201).json(newReview);

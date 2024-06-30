@@ -1,12 +1,29 @@
-import { RouterProvider } from 'react-router-dom'
-import { router } from './routes/router'
+import { BrowserRouter, Route, Router, RouterProvider, Routes } from 'react-router-dom'
+import Layout from './routes/Layout'
+import MainPage from './routes/main-page/MainPage'
+import Establishments from './routes/establishments/Establishments'
+import Establishment from './routes/establishment/Establishment'
+import UserProfile from './routes/user-profile/UserProfile'
+import Login from './routes/login/Login'
+import Register from './routes/register/Register'
+import NewEstablishment from './routes/new-establishment/NewEstablishment'
 
 function App() {
     return (
-        <div className='h-full flex flex-row'>
-            <div className='h-full w-14 bg-black'></div>
-            <RouterProvider router={router} />
-        </div>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<MainPage />} />
+                    <Route path="/establishments" element={<Establishments />} />
+                    <Route path="/establishments/:id" element={<Establishment />} />
+                    <Route path="/user/:id" element={<UserProfile />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/new-establishment" element={<NewEstablishment />} />
+                    <Route path="*" element={<div>404 not found</div>} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
     )
 }
 

@@ -6,9 +6,9 @@ const commentService = new CommentService();
 const router = express.Router();
 
 router.post('/', async (req: Request, res: Response) => {
-  const { reviewId, comment, timestamp} = req.body;
+  const { reviewId, comment } = req.body;
   try {
-    const newComment = await commentService.createComment(reviewId, comment, timestamp);
+    const newComment = await commentService.createComment(reviewId, comment);
     res.status(201).json(newComment);
   } catch (error) {
     res.status(500).json({ message: 'Failed to create comment' });
