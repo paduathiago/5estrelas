@@ -1,4 +1,4 @@
-import { User } from '../entities';
+import { Establishment, User } from '../entities';
 import { UserRepositoryInterface } from '../../repositories/interfaces';
 import { UserRepository } from '../../repositories/implementation/UserRepository';
 
@@ -22,3 +22,9 @@ export class UserService {
         const user = await this.userRepository.addEstablishmentToFavorites(userId, establishmentId)
         return user
     }
+
+    async getFavoriteEstablishments(userId: string): Promise<Establishment[]> {
+        const establishments = await this.userRepository.getFavoriteEstablishments(userId)
+        return establishments
+    }
+}

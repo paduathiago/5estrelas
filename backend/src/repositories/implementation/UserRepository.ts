@@ -1,4 +1,4 @@
-import { User } from '../../core/entities';
+import { Establishment, User } from '../../core/entities';
 import { UserRepositoryInterface } from '../interfaces';
 import sqlite3 from 'sqlite3';
 
@@ -102,4 +102,22 @@ export class UserRepository implements UserRepositoryInterface {
             );
         });
     }
+
+    async getFavoriteEstablishments(userId: string): Promise<Establishment[]> {
+        return new Promise<Establishment[]>((resolve, reject) => {
+            this.db.all(
+                'SELECT * FROM user_favorite_establishments WHERE userId = ?',
+                [userId],
+                (err, rows) => {
+                    if (err) {
+                        console.error('Error fetching favorite establishments:', err.message);
+                        reject(err);
+                    } else {
+                        resolve(rows as Establishment[]);
+                    }
+                }
+            );
+        });
+    }
+
 }
