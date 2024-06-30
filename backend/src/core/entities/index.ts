@@ -3,16 +3,19 @@ export type User = {
   name: string;
   email: string;
   password: string;
+  favoriteEstablishments: Establishment[];
 }
 
-export type Etablishment = {
+export type Establishment = {
   id: string;
   name: string;
   address: string;
   category: string;
   description: string;
   rating: number;
+  numberOfReviews: number;
 }
+
 
 export type Review = {
   id: string;
@@ -29,4 +32,11 @@ export type ReviewFeedback = {
   userId: string;
   reviewId: string;
   feedback: 'LIKE' | 'DISLIKE';
+}
+
+export type Comment = {
+  id: string;
+  reviewId: string;
+  comment: string;
+  timestamp: Date;
 }
