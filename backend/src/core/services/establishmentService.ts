@@ -1,5 +1,5 @@
 import {Establishment} from '../entities'
-import {EstablishmentRepositoryInterface} from "../../repositories/interfaces/"
+import {EstablishmentRepositoryInterface} from "../../repositories/interfaces"
 import {EstablishmentRepository} from "../../repositories/implementation/EstablishmentRepository"
 
 export class EstablishmentService {

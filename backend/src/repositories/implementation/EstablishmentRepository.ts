@@ -1,5 +1,5 @@
 import { Establishment } from "../../core/entities";
-import { EstablishmentRepositoryInterface } from "../../repositories/interfaces";
+import { EstablishmentRepositoryInterface } from "../interfaces";
 import sqlite3 from 'sqlite3';
 
 export class EstablishmentRepository implements EstablishmentRepositoryInterface {

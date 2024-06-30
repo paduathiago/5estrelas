@@ -66,22 +66,18 @@ export class ReviewFeedbackRepository implements ReviewFeedbackRepositoryInterfa
         });
     }
 
-    async updateReviewFeedback(userId: string, reviewId: string, feedback: 'LIKE' | 'DISLIKE'): Promise<ReviewFeedback> {
-        return new Promise<ReviewFeedback>((resolve, reject) => {
-            this.db.run(
-                'INSERT INTO reviewFeedbacks (userId, reviewId, feedback) VALUES (?, ?, ?)',
-                [userId, reviewId, feedback],
-                function (err) {
+    async getFeedbacksByReview(reviewId: string): Promise<ReviewFeedback[]> {
+        return new Promise<ReviewFeedback[]>((resolve, reject) => {
+            this.db.all(
+                'SELECT * FROM review_feedbacks WHERE reviewId = ?',
+                [reviewId],
+                (err, rows) => {
                     if (err) {
-                        console.error('Error inserting comment:', err.message);
+                        console.error('Error fetching review feedbacks by reviewId:', err.message);
                         reject(err);
                     } else {
-                        const newReviewFeedback: ReviewFeedback = {
-                            userId,
-                            reviewId,
-                            feedback
-                        }
-                        resolve(newReviewFeedback);
+                        const feedbacks: ReviewFeedback[] = rows.map((row: any) => row as ReviewFeedback);
+                        resolve(feedbacks);
                     }
                 }
             );

@@ -15,15 +15,4 @@ router.post('/', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/:id', async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const comment = await commentService.getComment(id);
-
-  if (comment) {
-    res.json(comment);
-  } else {
-    res.status(404).send('Comment not found');
-  }
-});
-
 export default router;
