@@ -20,17 +20,19 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
         name TEXT NOT NULL,
         address TEXT NOT NULL,
         category TEXT NOT NULL,
-        description TEXT NOT NULL
+        description TEXT NOT NULL,
+        userId TEXT NOT NULL,
+        FOREIGN KEY (userId) REFERENCES users(id)
       )
     `);
     }
 
-    async create(establishmentData: { name: string; address: string; category: string; description: string }): Promise<Establishment> {
-        const { name, address, category, description } = establishmentData;
+    async create(establishmentData: { name: string; address: string; category: string; description: string; user: string }): Promise<Establishment> {
+        const { name, address, category, description, user } = establishmentData;
         return new Promise<Establishment>((resolve, reject) => {
             this.db.run(
-                'INSERT INTO establishments (name, address, category, description) VALUES (?, ?, ?, ?)',
-                [name, address, category, description],
+                'INSERT INTO establishments (name, address, category, description, userId) VALUES (?, ?, ?, ?)',
+                [name, address, category, description, user],
                 function (err) {
                     if (err) {
                         console.error('Error inserting establishment:', err.message);
@@ -43,7 +45,8 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
                             category,
                             description,
                             rating: 0,
-                            numberOfReviews: 0
+                            numberOfReviews: 0,
+                            userId: user
                         }
                         resolve(newEstablishment);
                     }
@@ -63,6 +66,22 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
                         reject(err);
                     } else {
                         resolve(row as Establishment | null);
+                    }
+                }
+            );
+        });
+    }
+
+    async getAll(): Promise<Establishment[]> {
+        return new Promise<Establishment[]>((resolve, reject) => {
+            this.db.all(
+                'SELECT * FROM establishments',
+                (err, rows) => {
+                    if (err) {
+                        console.error('Error fetching all establishments:', err.message);
+                        reject(err);
+                    } else {
+                        resolve(rows as Establishment[]);
                     }
                 }
             );

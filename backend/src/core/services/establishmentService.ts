@@ -18,6 +18,11 @@ export class EstablishmentService {
         return establishment
     }
 
+    async getEstablishments(): Promise<Establishment[]> {
+        const establishments = await this.establishmentRepository.getAll()
+        return establishments
+    }
+
     async updateRating(id: string, newRating: number): Promise<void> {
         let establishment = await this.getEstablishment(id)
         if (!establishment) {

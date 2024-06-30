@@ -1,9 +1,9 @@
-import StablishmentList from '@/components/stablishment-list/StablishmentList'
+import EstablishmentList from '@/components/establishment-list/EstablishmentList'
 import React from 'react'
 
 function MainPage() {
   return (
-    <StablishmentList />
+    <div></div>
   )
 }
 

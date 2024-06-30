@@ -6,7 +6,7 @@ const commentService = new CommentService();
 const router = express.Router();
 
 router.post('/', async (req: Request, res: Response) => {
-  const { reviewId, comment} = req.body;
+  const { reviewId, comment } = req.body;
   try {
     const newComment = await commentService.createComment(reviewId, comment);
     res.status(201).json(newComment);

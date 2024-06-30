@@ -9,11 +9,14 @@ export interface UserRepositoryInterface {
     create(userData: { name: string; email: string, password: string, image: string }): Promise<User>;
     get(id: string): Promise<User | null>;
     addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<User | null>;
+    getFavoriteEstablishments(userId: string): Promise<Establishment[]>;
+    removeEstablishmentFromFavorites(userId: string, establishmentId: string): Promise<void>;
 }
 
 export interface EstablishmentRepositoryInterface {
     create(establishmentData: { name: string; address: string; category: string; description: string }): Promise<Establishment>;
     get(id: string): Promise<Establishment | null>;
+    getAll(): Promise<Establishment[]>;
     updateRatingOnDb(id: string, newRating: number): Promise<void>;
 }
 
