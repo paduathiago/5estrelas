@@ -17,10 +17,20 @@ router.post('/', async (req: Request, res: Response) => {
 
 router.get('/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
-  const comment = await establishmentService.getEstablishment(id);
+  const establishment = await establishmentService.getEstablishment(id);
 
-  if (comment) {
-    res.json(comment);
+  if (establishment) {
+    res.json(establishment);
+  } else {
+    res.status(404).send('Establishment not found');
+  }
+});
+
+router.get('/', async (req: Request, res: Response) => {
+  const establishments = await establishmentService.getEstablishments();
+
+  if (establishments) {
+    res.json(establishments);
   } else {
     res.status(404).send('Establishment not found');
   }

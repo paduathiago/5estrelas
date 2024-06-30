@@ -4,7 +4,7 @@ export type User = {
   email: string;
   password: string;
   image: string;
-  favoriteEstablishments: Establishment[];
+  favoriteEstablishments: string[];
 }
 
 export type Establishment = {
