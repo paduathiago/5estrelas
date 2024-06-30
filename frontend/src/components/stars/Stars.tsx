@@ -15,12 +15,14 @@ function Stars({ score }: StarsProps) {
         fullStars = Math.floor(score);
         halfStar = score - fullStars >= 0.25;
     }
+
+    console.log(score, fullStars, halfStar)
     return (
         <div className='p-2 rounded-md bg-secondary'>
         <div className="relative">
             <div className="flex gap-2">
                 {Array.from({ length: 5 }, (_, index) => (
-                    <Star key={index} fill="#111" strokeWidth={0.2} />
+                    <Star key={index} fill="black" strokeWidth={0.2} />
                 ))}
             </div>
             <div className="flex gap-2 absolute top-0">
@@ -29,7 +31,7 @@ function Stars({ score }: StarsProps) {
                     <Star key={index} fill="#FFBF00" strokeWidth={0.2} />
                 ))}
 
-                {halfStar && <StarHalf fill="FFBF00" strokeWidth={0.2} />}
+                {halfStar && <StarHalf fill="#FFBF00" strokeWidth={0.2} />}
             </div>
         </div>
         </div>

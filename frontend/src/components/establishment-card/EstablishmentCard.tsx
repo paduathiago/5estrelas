@@ -3,57 +3,57 @@ import Stars from '../stars/Stars'
 import ImageContainer from '../image-container/ImageContainer'
 import { Star } from 'lucide-react'
 import { useState } from 'react'
+import { favouriteEstablishment } from '@/api'
 
 type Props = {
-   readonly id: string,
-   readonly name: string,
-   readonly address: string,
-   readonly category: string,
-   readonly description: string,
-   readonly rating: number
+    readonly id: string,
+    readonly name: string,
+    readonly address: string,
+    readonly category: string,
+    readonly description: string,
+    readonly rating: number
 }
 
-function EstablishmentCard({id, name, address, category, description, rating }: Props ) {
+function EstablishmentCard({ id, name, address, category, description, rating }: Props) {
     const href = `/establishments/${id}`
 
-    const [fav, setFav]= useState(false);
+    const [fav, setFav] = useState(false);
 
     function handleFavouriteCLick(ev: React.MouseEvent<SVGSVGElement, MouseEvent>): void {
         ev.preventDefault();
 
-        console.log(ev);
-
+        favouriteEstablishment(id, !fav);
         setFav(!fav);
     }
 
 
     return (
         <a href={href}>
-        <Card>
-            <CardHeader className='flex items-center justify-between flex-row'>
-                <CardTitle>{name}</CardTitle>
-                <Star fill={fav ? "#FFBF00" : "white"} onClick={(ev) => handleFavouriteCLick(ev)}></Star>
-            </CardHeader>
-            <CardContent>
-                <div className='flex flex-row gap-8'>
-                <div className='flex flex-row'>
-                    <ImageContainer />
-                </div>
-                <div className='flex flex-col gap-4'>
-                    <p>{description}</p>
+            <Card>
+                <CardHeader className='flex items-center justify-between flex-row'>
+                    <CardTitle>{name}</CardTitle>
+                    <Star fill={fav ? "#FFBF00" : "white"} onClick={(ev) => handleFavouriteCLick(ev)}></Star>
+                </CardHeader>
+                <CardContent>
+                    <div className='flex flex-row gap-8'>
+                        <div className='flex flex-row'>
+                            <ImageContainer />
+                        </div>
+                        <div className='flex flex-col gap-4'>
+                            <p>{description}</p>
 
-                    <p>{address}</p>
+                            <p>{address}</p>
 
 
-                    <p>{category}</p>
-                </div>
-                </div>
+                            <p>{category}</p>
+                        </div>
+                    </div>
 
-            </CardContent>
-            <CardFooter>
-                <Stars score={rating}/>
-            </CardFooter>
-        </Card>
+                </CardContent>
+                <CardFooter>
+                    <Stars score={rating} />
+                </CardFooter>
+            </Card>
         </a>
     )
 }

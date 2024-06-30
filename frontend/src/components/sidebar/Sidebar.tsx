@@ -4,12 +4,20 @@ import {
   Star,
   Home,
   User,
-  LogOut
+  LogOut,
+  Plus,
+  BriefcaseBusiness,
+  BriefcaseBusinessIcon,
+  LucideBriefcase,
+  UserSquareIcon
 } from 'lucide-react';
 import { Button } from '../ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Sidebar() {
+  const location = useLocation();
+  const path = location.pathname;
+  console.log(path);
   return (
     <div className={cn("pb-12 h-full")}>
       <div className="space-y-4 py-4 h-full flex flex-col justify-between items-center">
@@ -17,12 +25,12 @@ function Sidebar() {
           <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
             5estrelas
           </h2>
-          <div className="space-y-1 w-40">
+          <div className="flex flex-col gap-2 w-40">
             <Link
               to="/"
             >
               <Button
-                variant="secondary"
+                variant={path === "/" ? "default" : "secondary"}
                 size="sm"
                 className="w-full justify-start"
               >
@@ -31,19 +39,51 @@ function Sidebar() {
               </Button>
             </Link>
 
-            <Button variant="secondary" size="sm" className="w-full justify-start">
+            <Link
+              to="/establishments"
+            >
+              <Button variant={path === "/establishments" ? "default" : "secondary"} size="sm" className="w-full justify-start">
+                <BriefcaseBusiness className="mr-2 h-4 w-4" />
+                Todos os serviços
+              </Button>
+            </Link>
+
+            <Link
+              to="/new-establishment"
+            >
+              <Button variant={path === "/new-establishment" ? "default" : "secondary"} size="sm" className="w-full justify-start">
+                <Plus className="mr-2 h-4 w-4" />
+                Cadastrar serviço
+              </Button>
+            </Link>
+
+            <Link
+              to="/favorites"
+            >
+            <Button variant={path === "/favorites" ? "default" : "secondary"} size="sm" className="w-full justify-start">
               <Star className="mr-2 h-4 w-4" />
               Favoritos
             </Button>
-            <Button variant="secondary" size="sm" className="w-full justify-start">
+            </Link>
+
+            <Link
+              to="/profile"
+            >
+            <Button variant={path === "/profile" ? "default" : "secondary"} size="sm" className="w-full justify-start">
               <User className="mr-2 h-4 w-4" />
               Meu Perfil
             </Button>
+            </Link>
 
-            <Button variant="default" size="sm" className="w-full justify-start">
-              <Briefcase className="mr-2 h-4 w-4" />
+            <Link
+              to="/my-services"
+            >
+            <Button variant={path === "/my-services" ? "default" : "secondary"} size="sm" className="w-full justify-start">
+            <UserSquareIcon className="mr-2 h-4 w-4" />
               Meus serviços
             </Button>
+            </Link>
+
           </div>
         </div>
         <Button variant="default" size="sm" className="w-40">
