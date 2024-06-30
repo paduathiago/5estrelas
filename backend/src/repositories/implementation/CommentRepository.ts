@@ -64,4 +64,22 @@ export class CommentRepository implements CommentRepositoryInterface {
             );
         });
     }
+
+    async getCommentsByReview(reviewId: string): Promise<Comment[]> {
+        return new Promise<Comment[]>((resolve, reject) => {
+            this.db.all(
+                'SELECT * FROM comments WHERE reviewId = ?',
+                [reviewId],
+                (err, rows) => {
+                    if (err) {
+                        console.error('Error fetching comments by reviewId:', err.message);
+                        reject(err);
+                    } else {
+                        const comments: Comment[] = rows.map((row: any) => row as Comment);
+                        resolve(comments);
+                    }
+                }
+            );
+        });
+    }
 }

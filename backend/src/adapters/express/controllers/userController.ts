@@ -6,9 +6,9 @@ const userService = new UserService();
 const router = express.Router();
 
 router.post('/', async (req: Request, res: Response) => {
-  const { name, email, password} = req.body;
+  const { name, email, password, image} = req.body;
   try {
-    const newUser = await userService.createUser(name, email, password);
+    const newUser = await userService.createUser(name, email, password, image);
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ message: 'Failed to create user' });

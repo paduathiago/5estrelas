@@ -1,5 +1,5 @@
 import { Establishment } from "../../core/entities";
-import { EstablishmentRepositoryInterface } from "../../repositories/interfaces";
+import { EstablishmentRepositoryInterface } from "../interfaces";
 import sqlite3 from 'sqlite3';
 
 export class EstablishmentRepository implements EstablishmentRepositoryInterface {
@@ -27,12 +27,12 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
     `);
     }
 
-    async create(establishmentData: { name: string; address: string; category: string; description: string; user: string }): Promise<Establishment> {
-        const { name, address, category, description, user } = establishmentData;
+    async create(establishmentData: { name: string; address: string; category: string; description: string; userId: string }): Promise<Establishment> {
+        const { name, address, category, description, userId } = establishmentData;
         return new Promise<Establishment>((resolve, reject) => {
             this.db.run(
-                'INSERT INTO establishments (name, address, category, description, userId) VALUES (?, ?, ?, ?)',
-                [name, address, category, description, user],
+                'INSERT INTO establishments (name, address, category, description, userId) VALUES (?, ?, ?, ?, ?)',
+                [name, address, category, description, userId],
                 function (err) {
                     if (err) {
                         console.error('Error inserting establishment:', err.message);
@@ -46,7 +46,7 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
                             description,
                             rating: 0,
                             numberOfReviews: 0,
-                            userId: user
+                            userId: userId
                         }
                         resolve(newEstablishment);
                     }
