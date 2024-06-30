@@ -23,7 +23,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-export function DialogCloseButton() {
+export function SendReview() {
   const FormSchema = z.object({
     comment: z
       .string()
@@ -48,7 +48,7 @@ export function DialogCloseButton() {
       <DialogTrigger asChild>
         <Button variant="outline" className="gap-1">
           <MessageCircle />
-          Responder
+          Escreva um comentário
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
@@ -75,7 +75,7 @@ export function DialogCloseButton() {
                 )}
               />
               <Button type="submit" className="w-full">
-                Enviar Resposta
+                Enviar Avaliação
               </Button>
             </form>
           </Form>
@@ -92,4 +92,4 @@ export function DialogCloseButton() {
   );
 }
 
-export default DialogCloseButton;
+export default SendReview;
