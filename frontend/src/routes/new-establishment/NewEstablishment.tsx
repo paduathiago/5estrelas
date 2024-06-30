@@ -47,10 +47,9 @@ const dowSchema = z.array(z.enum(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'T
   .nonempty('Campo obrigatório')
 
 const formSchema = z.object({
-  establishmentName: z.string(),
+  name: z.string(),
   description: z.string(),
   phone: z.string(),
-  openingHours: z.string(),
   address: z.string(),
   mainImage: imageSchema,
   images: z.array(imageSchema).optional(),
@@ -70,7 +69,7 @@ const convertToBase64 = (file: any) => {
 function renderNameField(form: any) {
   return <FormField
     control={form.control}
-    name="establishmentName"
+    name="name"
     render={({ field }) => (
       <FormItem>
         <FormLabel>Nome do estabelecimento</FormLabel>
@@ -266,18 +265,20 @@ function NewEstablishment() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      establishmentName: '',
+      name: '',
       description: '',
       phone: '',
-      openingHours: '',
       address: '',
     },
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
-
-    createEstablishment(values);
+    createEstablishment({
+      name: values.name,
+      description: values.description,
+      address: values.address,
+      category: values.category
+    });
   }
 
   return (
