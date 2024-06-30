@@ -4,6 +4,7 @@ import { Review } from '../../core/entities';
 import { ReviewFeedback } from '../../core/entities';
 import { Comment } from '../../core/entities';
 
+
 export interface UserRepositoryInterface {
     create(userData: { name: string; email: string, password: string, image: string }): Promise<User>;
     get(id: string): Promise<User | null>;
