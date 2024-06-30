@@ -3,7 +3,7 @@ import Stars from '../stars/Stars'
 import ImageContainer from '../image-container/ImageContainer'
 import { Star } from 'lucide-react'
 import { useState } from 'react'
-import { favouriteEstablishment } from '@/api'
+import { favoriteEstablishment } from '@/api'
 
 type Props = {
     readonly id: string,
@@ -22,7 +22,7 @@ function EstablishmentCard({ id, name, address, category, description, rating }:
     function handleFavouriteCLick(ev: React.MouseEvent<SVGSVGElement, MouseEvent>): void {
         ev.preventDefault();
 
-        favouriteEstablishment(id, !fav);
+        favoriteEstablishment(id, !fav);
         setFav(!fav);
     }
 

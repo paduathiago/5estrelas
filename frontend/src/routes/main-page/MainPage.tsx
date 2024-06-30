@@ -55,7 +55,7 @@ const categories = [
 function MainPage() {
   return (
     <div className="page-container">
-      <h1>Escolha uma Catégoria de Serviço</h1>
+      <h1>Escolha uma Categoria de Serviço</h1>
       <div className="search-bar">
         {/* <Input
           type="email"
@@ -66,7 +66,7 @@ function MainPage() {
           <MagnifyingGlassIcon className="mr-2 h-4 w-4" /> Buscar
         </Button> */}
         <InputForm
-          placeholder="Busque por uma catégoria"
+          placeholder="Busque por uma categoria"
           buttonLabel="Buscar"
         ></InputForm>
       </div>

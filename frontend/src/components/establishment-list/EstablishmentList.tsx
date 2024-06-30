@@ -19,8 +19,6 @@ function EstablishmentList({ establishments }: Props) {
                     {...establishment}
                 />
             })}
-
-
         </div>
     )
 }
