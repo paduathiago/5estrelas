@@ -25,3 +25,26 @@ export const fetchEstablishments = async (): Promise<EstablishmentType[]> => {
     }, 500);
   });
 };
+
+
+export const createEstablishment = async (input: any): Promise<EstablishmentType> => {
+
+  console.log("created: ", input);
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(establishment);
+    }, 500);
+  });
+};
+
+
+export const login = async(email: string, password: string): Promise<void> => {
+  console.log("login: ", email, password);
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, 500);
+  });
+}

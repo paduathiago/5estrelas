@@ -2,21 +2,49 @@ import React from 'react'
 import {
     Card,
     CardContent,
-    CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
 import { Input } from '../ui/input';
-import { Label } from '../ui/label';
 import { Button } from '../ui/button';
+import { z } from "zod"
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form"
 
 type AuthenticatorProps = {
     readonly mode: 'login' | 'register';
 }
 
+const loginFormSchema = z.object({
+    email: z.string().min(2).max(50),
+    password: z.string().min(8),
+})
+
+
 function Authenticator({ mode }: AuthenticatorProps) {
     const isRegister = mode === 'register'
+
+    const formSchema = loginFormSchema;
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            email: "",
+            password: ""
+        },
+    })
+
+    function onSubmit(values: z.infer<typeof formSchema>) {
+        console.log(values)
+    }
     const cardTitle = mode === 'login' ? 'Login' : 'Regisrar-se'
     return (
         <Card>
@@ -24,36 +52,37 @@ function Authenticator({ mode }: AuthenticatorProps) {
                 <CardTitle>{cardTitle}</CardTitle>
             </CardHeader>
             <CardContent>
-                <div className='flex flex-col gap-2'>
-                    {isRegister &&
-                        <div className='flex flex-col sm:flex-row gap-2'>
-                            <div>
-                                <Label>Nome</Label>
-                                <Input type="text" placeholder='Nome'></Input>
-                            </div>
-                            <div>
-                                <Label>Sobrenome</Label>
-                                <Input type="text" placeholder='Sobrenome'></Input>
-                            </div>
-                        </div>}
-
-                    <div>
-                        <Label>E-mail</Label>
-                        <Input type="email" placeholder='E-mail' title='E-mail' aria-label='E-mail' />
-                    </div>
-                    <div>
-                        <Label>Senha</Label>
-                        <Input type="password" placeholder='Senha' title='Senha'></Input>
-                    </div>
-                    {isRegister &&
-                        <div>
-                            <Label>Confirmar senha</Label>
-                            <Input type="password" placeholder='Confirmar Senha'></Input>
-                        </div>
-                    }
-                    <Button>{cardTitle}</Button>
-                </div>
-
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="e-mail" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Senha</FormLabel>
+                                    <FormControl>
+                                        <Input type="password" placeholder="Senha" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button type="submit">Submit</Button>
+                    </form>
+                </Form>
             </CardContent>
         </Card>
     )
