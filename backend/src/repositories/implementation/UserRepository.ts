@@ -18,7 +18,8 @@ export class UserRepository implements UserRepositoryInterface {
       CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        email TEXT NOT NULL
+        email TEXT NOT NULL,
+        password TEXT NOT NULL
       )
     `);
 
@@ -36,7 +37,7 @@ export class UserRepository implements UserRepositoryInterface {
         const { name, email, password } = userData;
         return new Promise<User>((resolve, reject) => {
             this.db.run(
-                'INSERT INTO users (name, email) VALUES (?, ?)',
+                'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
                 [name, email, password],
                 function (err) {
                     if (err) {
@@ -79,7 +80,7 @@ export class UserRepository implements UserRepositoryInterface {
             this.db.run(
                 'INSERT INTO user_favorite_establishments (userId, establishmentId) VALUES (?, ?)',
                 [userId, establishmentId],
-                function (err) {
+                (err) => {
                     if (err) {
                         console.error('Error inserting favorite establishment:', err.message);
                         reject(err);
@@ -92,7 +93,8 @@ export class UserRepository implements UserRepositoryInterface {
                                     console.error('Error fetching user by id:', err.message);
                                     reject(err);
                                 } else {
-                                    row.favoriteEstablishments.push(establishmentId);
+                                    const theRow = row as User
+                                    theRow.favoriteEstablishments.push(establishmentId);
                                     resolve(row as User | null);
                                 }
                             }

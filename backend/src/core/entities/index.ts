@@ -3,7 +3,7 @@ export type User = {
   name: string;
   email: string;
   password: string;
-  favoriteEstablishments: Establishment[];
+  favoriteEstablishments: string[];
 }
 
 export type Establishment = {
