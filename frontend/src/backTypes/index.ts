@@ -18,11 +18,15 @@ export type User = {
     id: string;
     userId: string;
     establishmentId: string;
+    userImage?: string;
+    userName: string;
     rating: number;
     comment?: string;
+    establishmentComment?: string;
     timestamp: Date;
     likes: number;
     dislikes: number;
+    currentUserFeedback: 'LIKE' | 'DISLIKE' | undefined;
   }
   
   export type ReviewFeedback = {

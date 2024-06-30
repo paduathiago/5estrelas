@@ -1,3 +1,5 @@
+import { Review } from "@/backTypes";
+
 export const establishment = {
   id: "12",
   name: "Mocked Establishment",
@@ -167,5 +169,92 @@ export const establishments = [
     category: "Home Decor",
     description: "Beautiful decor for your home.",
     rating: 4.7,
+  }
+];
+
+export const reviews: Review[] = [
+  {
+    id: '1',
+    userId: 'user1',
+    establishmentId: 'est1',
+    userImage: 'https://example.com/images/user1.jpg',
+    userName: 'João Silva',
+    rating: 5,
+    comment: 'Excelente atendimento e comida deliciosa!',
+    establishmentComment: 'Obrigado pelo feedback positivo, João!',
+    timestamp: new Date('2024-06-25T12:00:00Z'),
+    likes: 10,
+    dislikes: 1,
+    currentUserFeedback: 'LIKE'
+  },
+  {
+    id: '2',
+    userId: 'user2',
+    establishmentId: 'est2',
+    userImage: 'https://example.com/images/user2.jpg',
+    userName: 'Maria Oliveira',
+    rating: 4,
+    comment: 'Lugar agradável, mas poderia melhorar o tempo de espera.',
+    establishmentComment: 'Agradecemos o feedback, Maria. Estamos trabalhando para melhorar.',
+    timestamp: new Date('2024-06-26T14:30:00Z'),
+    likes: 8,
+    dislikes: 2,
+    currentUserFeedback: 'LIKE'
+  },
+  {
+    id: '3',
+    userId: 'user3',
+    establishmentId: 'est1',
+    userImage: 'https://example.com/images/user3.jpg',
+    userName: 'Carlos Pereira',
+    rating: 3,
+    comment: 'Comida boa, mas o atendimento deixou a desejar.',
+    establishmentComment: 'Lamentamos pela experiência, Carlos. Vamos revisar nossos processos.',
+    timestamp: new Date('2024-06-27T16:45:00Z'),
+    likes: 5,
+    dislikes: 3,
+    currentUserFeedback: 'DISLIKE'
+  },
+  {
+    id: '4',
+    userId: 'user4',
+    establishmentId: 'est3',
+    userImage: 'https://example.com/images/user4.jpg',
+    userName: 'Ana Costa',
+    rating: 5,
+    comment: 'Ambiente maravilhoso e ótimo custo-benefício.',
+    establishmentComment: 'Ficamos felizes que tenha gostado, Ana!',
+    timestamp: new Date('2024-06-28T18:00:00Z'),
+    likes: 12,
+    dislikes: 0,
+    currentUserFeedback: 'LIKE'
+  },
+  {
+    id: '5',
+    userId: 'user5',
+    establishmentId: 'est2',
+    userImage: 'https://example.com/images/user5.jpg',
+    userName: 'Pedro Souza',
+    rating: 2,
+    comment: 'Infelizmente, não gostei da comida. Estava fria.',
+    establishmentComment: 'Pedimos desculpas, Pedro. Vamos verificar o ocorrido.',
+    timestamp: new Date('2024-06-29T20:15:00Z'),
+    likes: 3,
+    dislikes: 5,
+    currentUserFeedback: 'DISLIKE'
+  },
+  {
+    id: '6',
+    userId: 'user6',
+    establishmentId: 'est3',
+    userImage: 'https://example.com/images/user6.jpg',
+    userName: 'Fernanda Lima',
+    rating: 4,
+    comment: 'Boa experiência, mas poderia ter mais opções no cardápio.',
+    establishmentComment: 'Agradecemos o feedback, Fernanda. Estamos adicionando novas opções.',
+    timestamp: new Date('2024-06-30T22:30:00Z'),
+    likes: 7,
+    dislikes: 1,
+    currentUserFeedback: 'LIKE'
   }
 ];
