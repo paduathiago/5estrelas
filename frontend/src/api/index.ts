@@ -66,6 +66,47 @@ export const fetchEstablishments = async (): Promise<EstablishmentType[]> => {
   }
 };
 
+export const fetchFavorites = async (): Promise<EstablishmentType[]> => {
+  try {
+    const response = await api({
+      method: 'get',
+      url: 'http://localhost:3000/user/favorites',
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching establishments:', error);
+    throw error;
+  }
+};
+
+export const fetchUserEstablishments = async (): Promise<EstablishmentType[]> => {
+  try {
+    const response = await api({
+      method: 'get',
+      url: 'http://localhost:3000/user/establishments',
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching establishments:', error);
+    throw error;
+  }
+};
+
+
+export const favoriteEstablishment = async (establishmentId: string, favorite: boolean): Promise<void> => {
+  if (!favorite) return;
+  try {
+    await api({
+      method: 'get',
+      url: 'http://localhost:3000/user/favorite-establishment/' + establishmentId,
+    });
+    return;
+  } catch (error) {
+    console.error('Error favoriting establishment:', error);
+    throw error;
+  }
+};
+
 
 type SignupInput = {
   name: string,
@@ -126,14 +167,6 @@ export const updateFeedback = async (userId: string, reviewId: string, feedback?
 };
 
 export const answerReview = async (reviewId: string, comment: string): Promise<void> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 500);
-  });
-};
-
-export const favouriteEstablishment = async (establishmentId: string, favVal: boolean): Promise<void> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve();

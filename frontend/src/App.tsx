@@ -8,6 +8,8 @@ import Login from './routes/login/Login'
 import Register from './routes/register/Register'
 import NewEstablishment from './routes/new-establishment/NewEstablishment'
 import { useCookies } from "react-cookie"
+import Favorites from './routes/favourites/Favourites'
+import UserEstablishments from './routes/user-establishments/UserEstablishments'
 
 
 
@@ -24,11 +26,13 @@ function App() {
                     <Route index element={<MainPage />} />
                     <Route path="/establishments" element={<Establishments />} />
                     <Route path="/establishments/:id" element={<Establishment />} />
-                    <Route path="/user/:id" element={<UserProfile />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    {loggedIn &&
+                    {loggedIn && <>
                         <Route path="/new-establishment" element={<NewEstablishment />} />
+                        <Route path="/favorites" element={<Favorites />} />
+                        <Route path="/my-services" element={<UserEstablishments />} />
+                    </>
                     }
                     <Route path="*" element={<div>404 not found</div>} />
                 </Route>

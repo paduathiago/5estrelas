@@ -24,9 +24,8 @@ export class UserService {
         return user;
     }
 
-    async addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<User | null> {
-        const user = await this.userRepository.addEstablishmentToFavorites(userId, establishmentId)
-        return user
+    async addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<void> {
+        await this.userRepository.addEstablishmentToFavorites(userId, establishmentId);
     }
 
     async getFavoriteEstablishments(userId: string): Promise<Establishment[]> {
