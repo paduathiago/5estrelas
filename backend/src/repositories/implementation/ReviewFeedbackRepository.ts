@@ -65,4 +65,22 @@ export class ReviewFeedbackRepository implements ReviewFeedbackRepositoryInterfa
             );
         });
     }
+
+    async getFeedbacksByReview(reviewId: string): Promise<ReviewFeedback[]> {
+        return new Promise<ReviewFeedback[]>((resolve, reject) => {
+            this.db.all(
+                'SELECT * FROM review_feedbacks WHERE reviewId = ?',
+                [reviewId],
+                (err, rows) => {
+                    if (err) {
+                        console.error('Error fetching review feedbacks by reviewId:', err.message);
+                        reject(err);
+                    } else {
+                        const feedbacks: ReviewFeedback[] = rows.map((row: any) => row as ReviewFeedback);
+                        resolve(feedbacks);
+                    }
+                }
+            );
+        });
+    }
 }

@@ -1,16 +1,18 @@
-import { Review } from '../entities';
+import { Review, ReviewFeedback, Comment } from '../entities';
 import { ReviewRepositoryInterface } from '../../repositories/interfaces';
 import { ReviewRepository } from '../../repositories/implementation/ReviewRepository';
-import { ReviewFeedback } from '../entities';
-import { ReviewFeedbackRepositoryInterface } from '../../repositories/interfaces';
-import { ReviewFeedbackRepository } from '../../repositories/implementation/ReviewFeedbackRepository';
+import { CommentService } from './commentService';
+import { ReviewFeedbackService } from './reviewFeedbackService';
 
 export class ReviewService {
     private reviewRepository: ReviewRepositoryInterface
-    private reviewFeedbackRepository: ReviewFeedbackRepositoryInterface
+    private commentService: CommentService
+    private reviewFeedbackService: ReviewFeedbackService
+
     constructor() {
         this.reviewRepository = new ReviewRepository()
-        this.reviewFeedbackRepository = new ReviewFeedbackRepository()
+        this.commentService = new CommentService()
+        this.reviewFeedbackService = new ReviewFeedbackService()
     }
 
     async createReview(userId: string, establishmentId: string, rating: number, comment: string): Promise<Review> {
@@ -58,7 +60,26 @@ export class ReviewService {
         const currentDislikes = currentReview.dislikes;
         const updatedReview = await this.reviewRepository.updateDislike(id,currentDislikes+1)
         return updatedReview;
-        
+    }
 
+    async getReviewsByEstablishmentId(establishmentId: string): Promise<Review[]> {
+        const reviews: Review[] = await this.reviewRepository.getReviewsByEstablishmentId(establishmentId);
+        return reviews;
+    }
+
+    async getReviewsFromEstablishment(establishmentId: string, userId: string): Promise<Review[]> {
+        const reviews = await this.getReviewsByEstablishmentId(establishmentId);
+            const reviewsWithDetails: Review[] = await Promise.all(reviews.map(async (review) => {
+            const comments = await this.commentService.getCommentsByReview(review.id);
+            const userFeedback = await this.reviewFeedbackService.getReviewFeedback(userId,review.id);
+            
+            return {
+                ...review,
+                comments,
+                userFeedback
+            };
+        }));
+    
+        return reviewsWithDetails;
     }
 }

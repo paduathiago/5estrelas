@@ -73,6 +73,24 @@ export class ReviewRepository implements ReviewRepositoryInterface {
         });
     }
 
+    async getReviewsByEstablishmentId(establishmentId: string): Promise<Review[]> {
+        return new Promise<Review[]>((resolve, reject) => {
+            this.db.all(
+                'SELECT * FROM reviews WHERE establishmentId = ?',
+                [establishmentId],
+                (err, rows) => {
+                    if (err) {
+                        console.error('Error fetching Reviews by establishmentId:', err.message);
+                        reject(err);
+                    } else {
+                        const reviews: Review[] = rows.map((row: any) => row as Review);
+                        resolve(reviews);
+                    }
+                }
+            );
+        });
+    }
+
     async delete(id: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             this.db.run(

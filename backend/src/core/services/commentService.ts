@@ -18,5 +18,10 @@ export class CommentService {
         const user = await this.commentRepository.get(id)
         return user
     }
+
+    async getCommentsByReview(reviewId: string): Promise<Comment[]> {
+        const comments = await this.getCommentsByReview(reviewId)
+        return comments
+    }
 }
 

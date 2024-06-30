@@ -21,6 +21,7 @@ export interface ReviewRepositoryInterface {
     create(reviewData: { userId: string; establishmentId: string; rating: number; comment?: string; timestamp: Date; likes: number; dislikes: number }): Promise<Review>;
     get(id: string): Promise<Review | null>;
     delete(id: string): Promise<void>;
+    getReviewsByEstablishmentId(establishmentId: string): Promise<Review[]>;
     updateLike(id: string, amountOfLikes: number): Promise<Review | null>;
     updateDislike(id: string, amountOfDislikes: number): Promise<Review | null>;
 }
@@ -33,4 +34,5 @@ export interface ReviewFeedbackRepositoryInterface {
 export interface CommentRepositoryInterface {
     create(commentData: { reviewId: string; comment: string; timestamp: Date }): Promise<Comment>;
     get(id: string): Promise<Comment | null>;
+    getCommentsByReview(reviewId: string): Promise<Comment[]>;
 }

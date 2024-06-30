@@ -15,15 +15,4 @@ router.post('/', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/:id', async (req: Request, res: Response) => {
-  const { userId, reviewId } = req.params;
-  const review = await reviewService.getReviewFeedback(userId, reviewId);
-
-  if (review) {
-    res.json(review);
-  } else {
-    res.status(404).send('Review feedback not found');
-  }
-});
-
 export default router;
