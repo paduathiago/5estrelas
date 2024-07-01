@@ -25,6 +25,7 @@ type Params = {
 
 function Establishment() {
   const { id } = useParams<Params>();
+  const [ mustFetch, setMustFetch ] = useState(false);
   const { data: establishment } = useAsync<any>(
     async () => {
       const e = await fetchEstablishment(id);
@@ -35,7 +36,7 @@ function Establishment() {
       return e;
 
     },
-    [id]
+    [id, mustFetch]
   );
   const { data: reviews } = useAsync<Review[]>(() => getReviews(id), [id]);
   const [fav, setFav] = useState(false);
@@ -48,6 +49,8 @@ function Establishment() {
     favoriteEstablishment(id, !fav);
     setFav(!fav);
   }
+
+  console.log(establishment);
 
   const mainImage = establishment?.mainImage
     ? JSON.parse(establishment?.mainImage)
@@ -148,7 +151,11 @@ function Establishment() {
       </div>
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Avaliações</h1>
-        <SendReview />
+        <SendReview establishmentId={establishment?.id} onSubmitReview={
+          () => {
+            setMustFetch(!mustFetch);
+          }
+        }/>
       </div>
       <div className="flex flex-col gap-4">
         {reviews?.map((review) => {
@@ -156,7 +163,7 @@ function Establishment() {
             <UserReview
               key={review.id}
               {...review}
-              {...establishment}
+              establishment={establishment}
             ></UserReview>
           );
         })}

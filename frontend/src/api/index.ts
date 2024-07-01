@@ -159,6 +159,22 @@ export const getReviews = async (establishmentId?: string): Promise<Review[]> =>
       method: 'get',
       url: '/review/' + establishmentId,
     });
+
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching establishment:', error);
+    throw error;
+  }
+};
+
+export const createReview = async (input: any): Promise<Review[]> => {
+  try {
+    const response = await api({
+      method: 'post',
+      url: '/review' ,
+      data: input
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching establishment:', error);

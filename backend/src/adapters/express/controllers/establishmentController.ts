@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import { EstablishmentService } from '../../../core/services/establishmentService';
 import { getUserId } from '../../../utils/authentication';
 
-const establishmentService = new EstablishmentService();
+export const establishmentService = new EstablishmentService();
 
 const router = express.Router();
 
