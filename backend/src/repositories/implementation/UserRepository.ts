@@ -158,4 +158,21 @@ export class UserRepository implements UserRepositoryInterface {
         });
     }
 
+    async getUserEstablishments(userId: string): Promise<Establishment[]> {
+        return new Promise<Establishment[]>((resolve, reject) => {
+            this.db.all(
+                'SELECT * FROM establishments WHERE userId = ?',
+                [userId],
+                (err, rows) => {
+                    if (err) {
+                        console.error('Error fetching user establishments:', err.message);
+                        reject(err);
+                    } else {
+                        resolve(rows as Establishment[]);
+                    }
+                }
+            );
+        });
+    }
+
 }

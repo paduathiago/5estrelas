@@ -12,6 +12,7 @@ export interface UserRepositoryInterface {
     addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<User | null>;
     getFavoriteEstablishments(userId: string): Promise<Establishment[]>;
     removeEstablishmentFromFavorites(userId: string, establishmentId: string): Promise<void>;
+    getUserEstablishments(userId: string): Promise<Establishment[]>;
 }
 
 export interface EstablishmentRepositoryInterface {
