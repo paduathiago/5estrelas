@@ -24,12 +24,20 @@ export class UserService {
     }
 
     async addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<void> {
+        const favorites = await this.getFavoriteEstablishments(userId);
+        const favIds = favorites.map(fav => fav.id);
+        if (favIds.includes(establishmentId)) return;
         await this.userRepository.addEstablishmentToFavorites(userId, establishmentId);
     }
 
     async getFavoriteEstablishments(userId: string): Promise<Establishment[]> {
         const establishments = await this.userRepository.getFavoriteEstablishments(userId)
-        return establishments
+        return establishments.map(establishment => {
+
+            establishment.favorited = true;
+            return establishment
+
+        });
     }
 
     async removeEstablishmentFromFavorites(userId: string, establishmentId: string): Promise<void> {
@@ -38,7 +46,13 @@ export class UserService {
 
     async getUserEstablishments(userId: string): Promise<Establishment[]> {
         const establishments = await this.userRepository.getUserEstablishments(userId)
-        return establishments
+        const favorites = await this.getFavoriteEstablishments(userId);
+        const favIds = favorites.map(fav => fav.id);
+
+        return establishments.map(establishment => {
+            establishment.favorited = favIds.includes(establishment.id);
+            return establishment
+        });
     }
 
 }

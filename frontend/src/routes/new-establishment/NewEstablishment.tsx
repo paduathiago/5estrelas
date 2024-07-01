@@ -19,15 +19,45 @@ import MultipleSelector from '@/components/ui/multi-select'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { createEstablishment } from '@/api'
 import { useNavigate } from 'react-router-dom'
+import ImageContainer from "@/components/image-container/ImageContainer";
+import { CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, Carousel } from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
 
 const daysOfWeek = [
-  { value: "Sunday", label: "Domingo" },
-  { value: "Monday", label: "Segunda-feira" },
-  { value: "Tuesday", label: "Terça-feira" },
-  { value: "Wednesday", label: "Quarta-feira" },
-  { value: "Thursday", label: "Quinta-feira" },
-  { value: "Friday", label: "Sexta-feira" },
-  { value: "Saturday", label: "Sábado" },
+  { value: "Domingo", label: "Domingo" },
+  { value: "Segunda-feira", label: "Segunda-feira" },
+  { value: "Terça-feira", label: "Terça-feira" },
+  { value: "Quarta-feira", label: "Quarta-feira" },
+  { value: "Quinta-feira", label: "Quinta-feira" },
+  { value: "Sexta-feira", label: "Sexta-feira" },
+  { value: "Sábado", label: "Sábado" },
+];
+
+const hours = [
+  { value: "00:00", label: "00:00" },
+  { value: "01:00", label: "01:00" },
+  { value: "02:00", label: "02:00" },
+  { value: "03:00", label: "03:00" },
+  { value: "04:00", label: "04:00" },
+  { value: "05:00", label: "05:00" },
+  { value: "06:00", label: "06:00" },
+  { value: "07:00", label: "07:00" },
+  { value: "08:00", label: "08:00" },
+  { value: "09:00", label: "09:00" },
+  { value: "10:00", label: "10:00" },
+  { value: "11:00", label: "11:00" },
+  { value: "12:00", label: "12:00" },
+  { value: "13:00", label: "13:00" },
+  { value: "14:00", label: "14:00" },
+  { value: "15:00", label: "15:00" },
+  { value: "16:00", label: "16:00" },
+  { value: "17:00", label: "17:00" },
+  { value: "18:00", label: "18:00" },
+  { value: "19:00", label: "19:00" },
+  { value: "20:00", label: "20:00" },
+  { value: "21:00", label: "21:00" },
+  { value: "22:00", label: "22:00" },
+  { value: "23:00", label: "23:00" }
 ];
 
 const categories = [
@@ -52,13 +82,13 @@ const imageSchema = z.object({
 const dowSchema = z
   .array(
     z.enum([
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
+      "Domingo",
+      "Segunda-feira",
+      "Terça-feira",
+      "Quarta-feira",
+      "Quinta-feira",
+      "Sexta-feira",
+      "Sábado",
     ])
   )
   .min(1, "Selecione pelo menos um dia da semana")
@@ -73,6 +103,8 @@ const formSchema = z.object({
   images: z.array(imageSchema).optional(),
   daysOfWeek: dowSchema,
   category: z.string(),
+  startHour: z.string(),
+  endHour: z.string(),
 });
 
 const convertToBase64 = (file: any) => {
@@ -129,7 +161,25 @@ function renderPhoneField(form: any) {
         <FormItem>
           <FormLabel>Telefone do estabelecimento</FormLabel>
           <FormControl>
-            <Textarea placeholder="Telefone" {...field} />
+            <Input type="text" placeholder="Telefone" {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+}
+
+function renderAddressField(form: any) {
+  return (
+    <FormField
+      control={form.control}
+      name="address"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Endereço:</FormLabel>
+          <FormControl>
+            <Input type="text" placeholder="Endereço" {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -182,12 +232,9 @@ function renderImageField(form: any) {
           <div>
             <div className="flex flex-row gap-3 overflow-x-auto">
               {image.map((image: any, index: any) => (
-                <img
-                  key={"image-" + index}
-                  src={image.base64}
-                  alt={image.name}
-                  width="300"
-                />
+                <ImageContainer key={"image-" + index} src={image.base64} alt={image.name} className="min-w-72 h-72">
+
+                </ImageContainer>
               ))}
             </div>
           </div>
@@ -237,17 +284,39 @@ function renderImagesField(form: UseFormReturn<z.infer<typeof formSchema>>) {
             <FormMessage />
           </FormItem>
 
-          <div>
-            <div className="flex flex-row gap-3 overflow-x-auto">
-              {images.map((image: any, index: any) => (
-                <img
-                  key={"image-" + index}
-                  src={image.base64}
-                  alt={image.name}
-                  width="300"
-                />
-              ))}
-            </div>
+          <div className="flex items-center justify-center" >
+            {images && <Carousel
+              opts={{
+                align: "start",
+              }}
+              className="w-10/12"
+            >
+              <CarouselContent>
+                {images?.map((image: any, index: any) => (
+                  <CarouselItem
+                    key={"image-" + index}
+                    className="md:basis-1/2 lg:basis-1/3"
+                  >
+                    <div className="p-1">
+                      <Card>
+                        <CardContent className="flex aspect-square items-center justify-center">
+                          <div className="w-full h-full overflow-hidden flex items-center justify-center rounded-lg">
+                            <img
+                              src={image.base64}
+                              alt="Estabelecimento"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              {images.length > 0 && <CarouselPrevious />}
+              {images.length > 0 && <CarouselNext />}
+            </Carousel>
+            }
           </div>
         </>
       )}
@@ -275,6 +344,82 @@ function renderDaysOfWeekSelector(
               defaultOptions={daysOfWeek}
               onChange={handleChange}
             ></MultipleSelector>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+}
+
+function renderStartHourSelector(
+  form: UseFormReturn<z.infer<typeof formSchema>>
+) {
+  function handleChange(e: any) {
+    form.setValue("startHour", e);
+  }
+
+  return (
+    <FormField
+      control={form.control}
+      name="category"
+      render={() => (
+        <FormItem>
+          <FormLabel>Horário de início</FormLabel>
+          <FormControl>
+            <Select onValueChange={handleChange}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Selecione horário de início" />
+              </SelectTrigger>
+              <SelectContent>
+                {hours.map((hour) => {
+                  const { value, label } = hour;
+                  return (
+                    <SelectItem key={hour.value} value={value}>
+                      {label}
+                    </SelectItem>
+                  );
+                })}
+              </SelectContent>
+            </Select>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+}
+
+function renderEndHourSelector(
+  form: UseFormReturn<z.infer<typeof formSchema>>
+) {
+  function handleChange(e: any) {
+    form.setValue("endHour", e);
+  }
+
+  return (
+    <FormField
+      control={form.control}
+      name="category"
+      render={() => (
+        <FormItem>
+          <FormLabel>Horário de fim</FormLabel>
+          <FormControl>
+            <Select onValueChange={handleChange}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Selecione horário de fim" />
+              </SelectTrigger>
+              <SelectContent>
+                {hours.map((hour) => {
+                  const { value, label } = hour;
+                  return (
+                    <SelectItem key={hour.value} value={value}>
+                      {label}
+                    </SelectItem>
+                  );
+                })}
+              </SelectContent>
+            </Select>
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -336,6 +481,8 @@ function NewEstablishment() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+
+    console.log(values);
     const establishment = await createEstablishment({
       name: values.name,
       description: values.description,
@@ -343,6 +490,9 @@ function NewEstablishment() {
       category: values.category,
       mainImage: JSON.stringify(values.mainImage),
       images: JSON.stringify(values.images),
+      daysOpen: JSON.stringify(values.daysOfWeek),
+      phone: values.phone,
+      workingHours:  `${values.startHour} às ${values.endHour}`
     });
 
 
@@ -359,10 +509,13 @@ function NewEstablishment() {
           {renderNameField(form)}
           {renderDescriptionField(form)}
           {renderPhoneField(form)}
+          {renderAddressField(form)}
           {renderImageField(form)}
           {renderImagesField(form)}
           {renderDaysOfWeekSelector(form)}
           {renderCategorySelector(form)}
+          {renderStartHourSelector(form)}
+          {renderEndHourSelector(form)}
 
           <Button type="submit">Criar estabelecimento ou serviço</Button>
         </form>

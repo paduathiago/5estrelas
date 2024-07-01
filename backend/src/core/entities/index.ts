@@ -21,6 +21,7 @@ export type Establishment = {
   phone: string;
   mainImage: string;
   images: string;
+  favorited?: boolean;
 }
 
 

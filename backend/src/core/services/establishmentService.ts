@@ -1,6 +1,7 @@
-import {Establishment} from '../entities'
-import {EstablishmentRepositoryInterface} from "../../repositories/interfaces"
-import {EstablishmentRepository} from "../../repositories/implementation/EstablishmentRepository"
+import { Establishment } from '../entities'
+import { EstablishmentRepositoryInterface } from "../../repositories/interfaces"
+import { EstablishmentRepository } from "../../repositories/implementation/EstablishmentRepository"
+import { userService } from '../../adapters/express/controllers/userController'
 
 export class EstablishmentService {
     private establishmentRepository: EstablishmentRepositoryInterface
@@ -9,18 +10,32 @@ export class EstablishmentService {
     }
 
     async createEstablishment(userId: string, name: string, address: string, category: string, description: string, images: string, mainImage: string, workingHours: string, daysOpen: string, phone: string): Promise<Establishment> {
-        const establishmentData = {name, address, category, description, userId, images, mainImage, workingHours, daysOpen, phone}
+        const establishmentData = { name, address, category, description, userId, images, mainImage, workingHours, daysOpen, phone }
         const newEstablishment = await this.establishmentRepository.create(establishmentData)
         return newEstablishment
     }
 
-    async getEstablishment(id: string): Promise<Establishment | null> {
+    async getEstablishment(id: string, userId?: string): Promise<Establishment | null> {
         const establishment = await this.establishmentRepository.get(id)
+        if (userId && establishment) {
+            const favorites = await userService.getFavoriteEstablishments(userId);
+            const favIds = favorites.map(fav => fav.id);
+            establishment.favorited = favIds.includes(establishment.id);
+        }
         return establishment
     }
 
-    async getEstablishments(): Promise<Establishment[]> {
+    async getEstablishments(userId?: string): Promise<Establishment[]> {
         const establishments = await this.establishmentRepository.getAll()
+        if (userId && establishments) {
+            const favorites = await userService.getFavoriteEstablishments(userId);
+            const favIds = favorites.map(fav => fav.id);
+            return establishments.map(establishment => {
+                establishment.favorited = favIds.includes(establishment.id);
+                return establishment
+
+            });
+        }
         return establishments
     }
 

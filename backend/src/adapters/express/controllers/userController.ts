@@ -5,7 +5,7 @@ import { KEY, getUserId } from '../../../utils/authentication';
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const userService = new UserService();
+export const userService = new UserService();
 
 const router = express.Router();
 
@@ -57,11 +57,18 @@ router.post('/signup', async (req, res) => {
   }
 })
 
-router.get('/favorite-establishment/:establishmentId', async (req: Request, res: Response) => {
-  const { establishmentId } = req.params;
+router.get('/favorite-establishment/:establishmentId/:fav', async (req: Request, res: Response) => {
+  const { establishmentId, fav } = req.params;
   const userId = getUserId(req);
   if (userId) {
-    await userService.addEstablishmentToFavorites(userId, establishmentId);
+    if (fav === 'true') {
+      await userService.addEstablishmentToFavorites(userId, establishmentId);
+    }
+    else {
+      console.log('asdf')
+      await userService.removeEstablishmentFromFavorites(userId, establishmentId);
+    }
+
     res.status(200);
   } else {
     res.status(404).send('User not found');

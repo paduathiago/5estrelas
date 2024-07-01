@@ -7,7 +7,7 @@ type StarsProps = {
 
 function Stars({ score }: StarsProps) {
 
-    if(!score) score = 5;
+    if(!score) score = 0;
 
     let fullStars = 5;
     let halfStar = false;
