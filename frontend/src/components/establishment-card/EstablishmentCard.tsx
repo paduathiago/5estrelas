@@ -13,6 +13,12 @@ import { favoriteEstablishment } from "@/api";
 import { useLocation } from "react-router-dom";
 import { EstablishmentType } from "@/backTypes";
 
+function truncateToDecimals(number: number) {
+    if (!number) return;
+    const factor = Math.pow(10, 2);
+    return Math.trunc(number * factor) / factor;
+}
+
 function EstablishmentCard({ ...props }: EstablishmentType) {
     const href = `/establishments/${props.category}/${props.id}`;
 
@@ -49,7 +55,7 @@ function EstablishmentCard({ ...props }: EstablishmentType) {
 
                 </CardContent>
                 <CardFooter>
-                    <Stars score={props.rating} /> (0) {props.numberOfReviews === 0 && 'Ainda não avaliado'}
+                    <Stars score={props.rating} /> ({truncateToDecimals(props.rating)}) {props.numberOfReviews === 0 && 'Ainda não avaliado'}
                 </CardFooter>
             </Card>
         </a>

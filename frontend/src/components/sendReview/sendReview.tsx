@@ -48,9 +48,12 @@ export function DialogCloseButton({ establishmentId, onSubmitReview }: any) {
     resolver: zodResolver(FormSchema),
   });
 
-  async function onSubmit(data: z.infer<typeof FormSchema>) {
-    await createReview({ establishmentId, rating: data.rating, comment: data.comment });
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    console.log("aqui");
     setOpened(false);
+    createReview({ establishmentId, rating: data.rating, comment: data.comment });
+    
+    console.log(opened)
     onSubmitReview();
   }
 
@@ -118,7 +121,7 @@ export function DialogCloseButton({ establishmentId, onSubmitReview }: any) {
         </div>
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
-            <Button type="button" variant="secondary">
+            <Button type="button" variant="secondary" onClick={() => setOpened(false)}>
               Cancelar
             </Button>
           </DialogClose>

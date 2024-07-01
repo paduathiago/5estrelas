@@ -16,10 +16,7 @@ router.post('/', async (req: Request, res: Response) => {
 
   const { establishmentId, rating, comment } = req.body;
   try {
-    // TODO: Fazer o updateRating usando abaixo, e também atualizando o number of reviews
-
-    // establishmentService.updateRating()
-    const newReview = await reviewService.createReview(userId, establishmentId, rating, comment);
+    const newReview = await reviewService.createReview(userId, establishmentId, parseInt(rating), comment);
     res.status(201).json(newReview);
   } catch (error) {
     res.status(500).json({ message: 'Failed to create review' });

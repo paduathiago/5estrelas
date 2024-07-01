@@ -5,6 +5,7 @@ import { CommentService } from './commentService';
 import { ReviewFeedbackService } from './reviewFeedbackService';
 import { userService } from '../../adapters/express/controllers/userController';
 import { commentService } from '../../adapters/express/controllers/commentController';
+import { establishmentService } from '../../adapters/express/controllers/establishmentController';
 
 interface ExtendedReview extends Review {
     useName: string,
@@ -24,6 +25,7 @@ export class ReviewService {
         let dislikes = 0;
         let timestamp = new Date();
         const newReview = await this.reviewRepository.create({ userId, establishmentId, rating, comment, timestamp, likes, dislikes })
+        await establishmentService.updateRating(establishmentId, rating);
         return newReview
     }
 
