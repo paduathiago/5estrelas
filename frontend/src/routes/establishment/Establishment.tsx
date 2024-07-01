@@ -58,10 +58,11 @@ function Establishment() {
     ? JSON.parse(establishment?.images)
     : undefined;
 
-  const daysOpen = establishment?.daysOpen ? JSON.parse(establishment?.daysOpen)
+  const daysOpen = establishment?.daysOpen
+    ? JSON.parse(establishment?.daysOpen)
     : undefined;
 
-  const daysOpenString = Array.isArray(daysOpen) ? daysOpen.join(", ") : ''
+  const daysOpenString = Array.isArray(daysOpen) ? daysOpen.join(", ") : "";
 
   return (
     <div className="flex flex-col p-8 gap-6">
@@ -94,20 +95,26 @@ function Establishment() {
 
             <p>{daysOpenString}</p>
 
-
             <div className="mt-2 flex items-center justify-between">
               <p className="text-gray-700">
                 <strong>Telefone: </strong> {establishment?.phone}
                 {/* TODO: Inserir telefone no estabelecimento */}
               </p>
             </div>
-            <div className="flex items-center">
+            <div className="mt-2 flex items-center justify-between">
+              <p className="text-gray-700">
+                <strong>Endereço: </strong> {establishment?.address}
+                {/* TODO: Inserir telefone no estabelecimento */}
+              </p>
+            </div>
+            <p className=" text-gray-700">{establishment?.description}</p>
+            <div className="flex items-center mt-4">
               <Stars score={establishment?.rating}></Stars>
               <span className="ml-2 text-gray-600">
-                ({establishment?.rating}) {establishment?.numberOfReviews === 0 && 'Ainda não avaliado'}
+                ({establishment?.rating}){" "}
+                {establishment?.numberOfReviews === 0 && "Ainda não avaliado"}
               </span>
             </div>
-            <p className="mt-4 text-gray-700">{establishment?.description}</p>
           </div>
         </div>
       </div>

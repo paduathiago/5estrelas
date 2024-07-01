@@ -12,15 +12,27 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from '@/components/ui/textarea'
-import MultipleSelector from '@/components/ui/multi-select'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { createEstablishment } from '@/api'
-import { useNavigate } from 'react-router-dom'
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import MultipleSelector from "@/components/ui/multi-select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { createEstablishment } from "@/api";
+import { useNavigate } from "react-router-dom";
 import ImageContainer from "@/components/image-container/ImageContainer";
-import { CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, Carousel } from "@/components/ui/carousel";
+import {
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  Carousel,
+} from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 
 const daysOfWeek = [
@@ -57,18 +69,18 @@ const hours = [
   { value: "20:00", label: "20:00" },
   { value: "21:00", label: "21:00" },
   { value: "22:00", label: "22:00" },
-  { value: "23:00", label: "23:00" }
+  { value: "23:00", label: "23:00" },
 ];
 
 const categories = [
   { value: "academia", label: "Academia" },
-  { value: "medicos", label: "Medicos" },
-  { value: "restaurantes", label: "Restaurantes" },
-  { value: "academias", label: "Academias" },
-  { value: "bares", label: "Bares" },
-  { value: "saloes", label: "Salões de Beleza" },
+  { value: "medico", label: "Medicos" },
+  { value: "restaurante", label: "Restaurantes" },
+  { value: "academia", label: "Academias" },
+  { value: "bar", label: "Bares" },
+  { value: "salao", label: "Salões de Beleza" },
   { value: "barbearia", label: "Barbearias" },
-  { value: "farmácia", label: "Farmácias" },
+  { value: "farmacia", label: "Farmácias" },
   { value: "eletricista", label: "Eletricistas" },
 ];
 
@@ -232,9 +244,12 @@ function renderImageField(form: any) {
           <div>
             <div className="flex flex-row gap-3 overflow-x-auto">
               {image.map((image: any, index: any) => (
-                <ImageContainer key={"image-" + index} src={image.base64} alt={image.name} className="min-w-72 h-72">
-
-                </ImageContainer>
+                <ImageContainer
+                  key={"image-" + index}
+                  src={image.base64}
+                  alt={image.name}
+                  className="min-w-72 h-72"
+                ></ImageContainer>
               ))}
             </div>
           </div>
@@ -284,39 +299,40 @@ function renderImagesField(form: UseFormReturn<z.infer<typeof formSchema>>) {
             <FormMessage />
           </FormItem>
 
-          <div className="flex items-center justify-center" >
-            {images && <Carousel
-              opts={{
-                align: "start",
-              }}
-              className="w-10/12"
-            >
-              <CarouselContent>
-                {images?.map((image: any, index: any) => (
-                  <CarouselItem
-                    key={"image-" + index}
-                    className="md:basis-1/2 lg:basis-1/3"
-                  >
-                    <div className="p-1">
-                      <Card>
-                        <CardContent className="flex aspect-square items-center justify-center">
-                          <div className="w-full h-full overflow-hidden flex items-center justify-center rounded-lg">
-                            <img
-                              src={image.base64}
-                              alt="Estabelecimento"
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              {images.length > 0 && <CarouselPrevious />}
-              {images.length > 0 && <CarouselNext />}
-            </Carousel>
-            }
+          <div className="flex items-center justify-center">
+            {images && (
+              <Carousel
+                opts={{
+                  align: "start",
+                }}
+                className="w-10/12"
+              >
+                <CarouselContent>
+                  {images?.map((image: any, index: any) => (
+                    <CarouselItem
+                      key={"image-" + index}
+                      className="md:basis-1/2 lg:basis-1/3"
+                    >
+                      <div className="p-1">
+                        <Card>
+                          <CardContent className="flex aspect-square items-center justify-center">
+                            <div className="w-full h-full overflow-hidden flex items-center justify-center rounded-lg">
+                              <img
+                                src={image.base64}
+                                alt="Estabelecimento"
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                {images.length > 0 && <CarouselPrevious />}
+                {images.length > 0 && <CarouselNext />}
+              </Carousel>
+            )}
           </div>
         </>
       )}
@@ -467,7 +483,6 @@ function renderCategorySelector(
 }
 
 function NewEstablishment() {
-
   const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -490,14 +505,12 @@ function NewEstablishment() {
       images: JSON.stringify(values.images),
       daysOpen: JSON.stringify(values.daysOfWeek),
       phone: values.phone,
-      workingHours:  `${values.startHour} às ${values.endHour}`
+      workingHours: `${values.startHour} às ${values.endHour}`,
     });
 
-
     if (establishment) {
-      navigate("/establishments/" + establishment.id);
+      navigate("/establishments/" + establishment.category);
     }
-
   }
 
   return (
