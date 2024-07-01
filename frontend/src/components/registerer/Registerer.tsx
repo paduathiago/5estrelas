@@ -22,6 +22,7 @@ import { Avatar } from '../ui/avatar';
 import { signup } from '@/api';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import { AvatarImage } from '@radix-ui/react-avatar';
 
 const imageSchema = z.object({
   name: z.string(),
@@ -82,8 +83,8 @@ function renderImageField(form: any) {
         <div>
           <div className='flex flex-row gap-3 overflow-x-auto justify-center'>
             {image.map((image: any, index: any) => (
-              <Avatar className="h-30 w-30 border-4 border-primary" key={"image-" + index}>
-                <img src={image.base64} alt={image.name} />
+              <Avatar className="w-24 h-24 border-4 border-primary" key={"image-" + index}>
+                <AvatarImage className='w-full h-full object-cover' src={image.base64} alt={image.name} />
               </Avatar>
 
             ))}
