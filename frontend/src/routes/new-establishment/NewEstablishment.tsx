@@ -275,7 +275,9 @@ function NewEstablishment() {
       name: values.name,
       description: values.description,
       address: values.address,
-      category: values.category
+      category: values.category,
+      mainImage: JSON.stringify(values.mainImage),
+      images: JSON.stringify(values.images)
     });
   }
 
