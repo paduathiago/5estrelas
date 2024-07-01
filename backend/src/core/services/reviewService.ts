@@ -1,17 +1,21 @@
-import { Review, ReviewFeedback, Comment } from '../entities';
+import { Review, ReviewFeedback, Comment, User } from '../entities';
 import { ReviewRepositoryInterface } from '../../repositories/interfaces';
 import { ReviewRepository } from '../../repositories/implementation/ReviewRepository';
 import { CommentService } from './commentService';
 import { ReviewFeedbackService } from './reviewFeedbackService';
+import { userService } from '../../adapters/express/controllers/userController';
+import { commentService } from '../../adapters/express/controllers/commentController';
 
+interface ExtendedReview extends Review {
+    useName: string,
+    userImage: string
+}
 export class ReviewService {
     private reviewRepository: ReviewRepositoryInterface
-    private commentService: CommentService
     private reviewFeedbackService: ReviewFeedbackService
 
     constructor() {
         this.reviewRepository = new ReviewRepository()
-        this.commentService = new CommentService()
         this.reviewFeedbackService = new ReviewFeedbackService()
     }
 
@@ -67,16 +71,28 @@ export class ReviewService {
         return reviews;
     }
 
+
     async getReviewsFromEstablishment(establishmentId: string, userId?: string): Promise<Review[]> {
         const reviews = await this.getReviewsByEstablishmentId(establishmentId);
         const reviewsWithDetails: Review[] = await Promise.all(reviews.map(async (review) => {
-            const comments = await this.commentService.getCommentsByReview(review.id);
             const userFeedback = userId ? await this.reviewFeedbackService.getReviewFeedback(userId, review.id) : undefined;
+
+            const reviewUser = await userService.getUser(review.userId);
+            review.timestamp = new Date(review.timestamp);
+
+
+            const reviewCommentRes = await commentService.getCommentsByReview(review.id);
+            let reviewComment = undefined;
+            if (reviewCommentRes && reviewCommentRes[0]) {
+                reviewComment = reviewCommentRes[0]
+            }
 
             return {
                 ...review,
-                comments,
-                userFeedback
+                userFeedback,
+                userImage: reviewUser?.image,
+                userName: reviewUser?.name,
+                reviewComment: JSON.stringify(reviewComment)
             };
         }));
 

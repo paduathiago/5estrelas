@@ -15,14 +15,15 @@ export class EstablishmentService {
         return newEstablishment
     }
 
-    async getEstablishment(id: string, userId?: string): Promise<Establishment | null> {
+    async getEstablishment(id: string, userId?: string): Promise<Establishment & { isFromUser?: boolean } | null> {
         const establishment = await this.establishmentRepository.get(id)
         if (userId && establishment) {
             const favorites = await userService.getFavoriteEstablishments(userId);
             const favIds = favorites.map(fav => fav.id);
             establishment.favorited = favIds.includes(establishment.id);
         }
-        return establishment
+        if(!establishment?.id) return null;
+        return { ...establishment, isFromUser: establishment?.userId === userId }
     }
 
     async getEstablishments(userId?: string): Promise<Establishment[]> {
