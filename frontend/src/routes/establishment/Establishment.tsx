@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { useParams } from "react-router-dom";
-import { favouriteEstablishment, fetchEstablishment, getReviews } from "@/api";
+import { favoriteEstablishment, fetchEstablishment, getReviews } from "@/api";
 import { EstablishmentType, Review } from "@/backTypes";
 import useAsync from "@/hooks/useAsync";
 import { Star } from "lucide-react";
