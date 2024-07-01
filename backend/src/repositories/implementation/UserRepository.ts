@@ -114,7 +114,10 @@ export class UserRepository implements UserRepositoryInterface {
     async getFavoriteEstablishments(userId: string): Promise<Establishment[]> {
         return new Promise<Establishment[]>((resolve, reject) => {
             this.db.all(
-                'SELECT * FROM user_favorite_establishments WHERE userId = ?',
+                `SELECT e.* 
+                 FROM establishments e
+                 INNER JOIN user_favorite_establishments ufe ON e.id = ufe.establishmentId
+                 WHERE ufe.userId = ?`,
                 [userId],
                 (err, rows) => {
                     if (err) {

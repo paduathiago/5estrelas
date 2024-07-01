@@ -22,14 +22,14 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
         category TEXT NOT NULL,
         description TEXT NOT NULL,
         images TEXT,
+        daysOpen TEXT,
+        workingHours TEXT,
+        phone TEXT,
         mainImage TEXT,
         rating REAL NOT NULL DEFAULT 0,
         numberOfReviews INTEGER NOT NULL DEFAULT 0,
         userId TEXT NOT NULL,
-        FOREIGN KEY (userId) REFERENCES users(id),
-        workingHours TEXT,
-        daysOpen TEXT,
-        phone TEXT
+        FOREIGN KEY (userId) REFERENCES users(id)
       )
     `);
     }
@@ -38,7 +38,7 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
         const { name, address, category, description, userId, mainImage, images, workingHours, daysOpen, phone} = establishmentData;
         return new Promise<Establishment>((resolve, reject) => {
             this.db.run(
-                'INSERT INTO establishments (name, address, category, description, userId, mainImage, images) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                'INSERT INTO establishments (name, address, category, description, userId, mainImage, images, workingHours, daysOpen, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 [name, address, category, description, userId, mainImage, images, workingHours, daysOpen, phone],
                 function (err) {
                     if (err) {

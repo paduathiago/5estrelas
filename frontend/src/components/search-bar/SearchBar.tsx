@@ -12,12 +12,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-type labels = {
+type SearchBarProps = {
   placeholder: string;
   buttonLabel: string;
+  onSubmit: (category: string) => void; // Função callback para o valor do input
 };
 
-function SearchBar({ placeholder, buttonLabel }: labels) {
+function SearchBar({ placeholder, buttonLabel, onSubmit }: SearchBarProps) {
   const FormSchema = z.object({
     category: z.string(),
   });
@@ -29,15 +30,15 @@ function SearchBar({ placeholder, buttonLabel }: labels) {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(JSON.stringify(data, null, 2));
+  function handleFormSubmit(data: z.infer<typeof FormSchema>) {
+    onSubmit(data.category); // Chama a função onSubmit recebida pelas props
   }
 
   return (
     <div className="flex justify-center items-center w-full">
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(handleFormSubmit)}
           className="flex items-center space-x-2 w-full"
         >
           <FormField

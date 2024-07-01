@@ -37,7 +37,10 @@ type CreateEstablishmentInput = {
   category: string,
   description: string,
   images: string,
-  mainImage: string
+  mainImage: string,
+  daysOpen: string,
+  workingHours: string,
+  phone: string,
 }
 
 export const createEstablishment = async (input: CreateEstablishmentInput): Promise<EstablishmentType | undefined> => {
@@ -96,11 +99,10 @@ export const fetchUserEstablishments = async (): Promise<EstablishmentType[]> =>
 
 
 export const favoriteEstablishment = async (establishmentId: string, favorite: boolean): Promise<void> => {
-  if (!favorite) return;
   try {
     await api({
       method: 'get',
-      url: '/user/favorite-establishment/' + establishmentId,
+      url: '/user/favorite-establishment/' + establishmentId + '/' + favorite,
     });
     return;
   } catch (error) {
