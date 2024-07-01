@@ -1,9 +1,14 @@
-import { Review, ReviewFeedback, Comment } from '../entities';
+import { Review, ReviewFeedback, Comment, User } from '../entities';
 import { ReviewRepositoryInterface } from '../../repositories/interfaces';
 import { ReviewRepository } from '../../repositories/implementation/ReviewRepository';
 import { CommentService } from './commentService';
 import { ReviewFeedbackService } from './reviewFeedbackService';
+import { userService } from '../../adapters/express/controllers/userController';
 
+interface ExtendedReview extends Review {
+    useName: string,
+    userImage: string
+}
 export class ReviewService {
     private reviewRepository: ReviewRepositoryInterface
     private commentService: CommentService
@@ -67,16 +72,19 @@ export class ReviewService {
         return reviews;
     }
 
+
     async getReviewsFromEstablishment(establishmentId: string, userId?: string): Promise<Review[]> {
         const reviews = await this.getReviewsByEstablishmentId(establishmentId);
         const reviewsWithDetails: Review[] = await Promise.all(reviews.map(async (review) => {
-            const comments = await this.commentService.getCommentsByReview(review.id);
             const userFeedback = userId ? await this.reviewFeedbackService.getReviewFeedback(userId, review.id) : undefined;
 
+            const reviewUser = await userService.getUser(review.userId);
+            review.timestamp = new Date(review.timestamp);
             return {
                 ...review,
-                comments,
-                userFeedback
+                userFeedback,
+                userImage: reviewUser?.image,
+                userName: reviewUser?.name
             };
         }));
 

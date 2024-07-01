@@ -16,6 +16,8 @@ const useAsync = <T,>(
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+
+    console.log("executando");
     const execute = async () => {
       try {
         const result = await asyncFunction();

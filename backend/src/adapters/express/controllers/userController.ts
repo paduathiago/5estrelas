@@ -65,7 +65,6 @@ router.get('/favorite-establishment/:establishmentId/:fav', async (req: Request,
       await userService.addEstablishmentToFavorites(userId, establishmentId);
     }
     else {
-      console.log('asdf')
       await userService.removeEstablishmentFromFavorites(userId, establishmentId);
     }
 

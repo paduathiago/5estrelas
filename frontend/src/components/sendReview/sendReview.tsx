@@ -29,10 +29,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { createReview } from "@/api";
+import { useState } from "react";
 
-export function DialogCloseButton() {
+export function DialogCloseButton({ establishmentId, onSubmitReview }: any) {
+
+  const [opened, setOpened] = useState(false);
   const FormSchema = z.object({
-    comment: z.string().max(200, {
+    comment: z.string().min(1).max(200, {
       message: "A mensagem não pode ser maior que 200 caracteres",
     }),
     rating: z.enum(["1", "2", "3", "4", "5"], {
@@ -44,14 +48,16 @@ export function DialogCloseButton() {
     resolver: zodResolver(FormSchema),
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    // console.log(JSON.stringify(data, null, 2)); // mandar isso para o backend
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    await createReview({ establishmentId, rating: data.rating, comment: data.comment });
+    setOpened(false);
+    onSubmitReview();
   }
 
   return (
-    <Dialog>
+    <Dialog open={opened}>
       <DialogTrigger asChild>
-        <Button variant="outline">Enviar Avaliação</Button>
+        <Button onClick={() => setOpened(true)} variant="outline">Escrever Avaliação</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
@@ -68,7 +74,7 @@ export function DialogCloseButton() {
                     <FormLabel>Comentário</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Tell us a little bit about yourself"
+                        placeholder="Escreva aqui o que você acha do serviço"
                         className="resize-none w-full h-48"
                         {...field}
                       />
@@ -105,7 +111,7 @@ export function DialogCloseButton() {
                 )}
               />
               <Button type="submit" className="w-full">
-                Enviar Resposta
+                Enviar Avaliação
               </Button>
             </form>
           </Form>
@@ -113,7 +119,7 @@ export function DialogCloseButton() {
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
             <Button type="button" variant="secondary">
-              Close
+              Cancelar
             </Button>
           </DialogClose>
         </DialogFooter>
