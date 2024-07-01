@@ -113,6 +113,9 @@ export class UserRepository implements UserRepositoryInterface {
                                     reject(err);
                                 } else {
                                     const theRow = row as User
+                                    if (!theRow.favoriteEstablishments) {
+                                        theRow.favoriteEstablishments = [];
+                                    }
                                     theRow.favoriteEstablishments.push(establishmentId);
                                     resolve(row as User | null);
                                 }
