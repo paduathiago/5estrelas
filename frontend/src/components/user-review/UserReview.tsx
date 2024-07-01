@@ -75,7 +75,6 @@ function UserReview({ ...props }: Review) {
     }
 
     function updateEstablishmentCommentDraft(ev: ChangeEvent<HTMLTextAreaElement>) {
-        console.log(ev.target.value)
         setCommentDraft(ev.target.value);
     }
 

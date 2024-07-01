@@ -1,4 +1,4 @@
-import {  fetchFavorites } from '@/api';
+import {  fetchUserEstablishments } from '@/api';
 import { EstablishmentType } from '@/backTypes';
 import EstablishmentList from '@/components/establishment-list/EstablishmentList'
 import { Input } from '@/components/ui/input'
@@ -6,9 +6,9 @@ import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, Pagi
 import useAsync from '@/hooks/useAsync';
 import React from 'react'
 
-function Favorites() {
+function UserEstablishments() {
 
-    const { data: establishments } = useAsync<EstablishmentType[]>(() => fetchFavorites(), []);
+    const { data: establishments } = useAsync<EstablishmentType[]>(() => fetchUserEstablishments(), []);
 
     return (
         <div className='flex flex-col w-full p-8 gap-2'>
@@ -36,4 +36,4 @@ function Favorites() {
     )
 }
 
-export default Favorites
+export default UserEstablishments

@@ -12,6 +12,8 @@ export type User = {
     category: string;
     description: string;
     rating: number;
+    mainImage: string;
+    images: string;
   }
   
   export type Review = {

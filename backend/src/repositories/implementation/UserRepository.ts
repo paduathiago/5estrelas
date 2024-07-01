@@ -19,7 +19,8 @@ export class UserRepository implements UserRepositoryInterface {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         email TEXT NOT NULL,
-        password TEXT NOT NULL
+        password TEXT NOT NULL,
+        image TEXT
       )
     `);
 
@@ -69,7 +70,24 @@ export class UserRepository implements UserRepositoryInterface {
                         console.error('Error fetching user by id:', err.message);
                         reject(err);
                     } else {
-                        resolve(row as User | null) ;
+                        resolve(row as User | null);
+                    }
+                }
+            );
+        });
+    }
+
+    async getByEmail(email: string): Promise<User | null> {
+        return new Promise<User | null>((resolve, reject) => {
+            this.db.get(
+                'SELECT * FROM users WHERE email = ?',
+                [email],
+                (err, row) => {
+                    if (err) {
+                        console.error('Error fetching user by email:', err.message);
+                        reject(err);
+                    } else {
+                        resolve(row as User | null);
                     }
                 }
             );
@@ -95,6 +113,9 @@ export class UserRepository implements UserRepositoryInterface {
                                     reject(err);
                                 } else {
                                     const theRow = row as User
+                                    if (!theRow.favoriteEstablishments) {
+                                        theRow.favoriteEstablishments = [];
+                                    }
                                     theRow.favoriteEstablishments.push(establishmentId);
                                     resolve(row as User | null);
                                 }
@@ -134,6 +155,23 @@ export class UserRepository implements UserRepositoryInterface {
                         reject(err);
                     } else {
                         resolve();
+                    }
+                }
+            );
+        });
+    }
+
+    async getUserEstablishments(userId: string): Promise<Establishment[]> {
+        return new Promise<Establishment[]>((resolve, reject) => {
+            this.db.all(
+                'SELECT * FROM establishments WHERE userId = ?',
+                [userId],
+                (err, rows) => {
+                    if (err) {
+                        console.error('Error fetching user establishments:', err.message);
+                        reject(err);
+                    } else {
+                        resolve(rows as Establishment[]);
                     }
                 }
             );

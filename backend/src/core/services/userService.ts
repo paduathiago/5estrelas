@@ -18,9 +18,13 @@ export class UserService {
         return user
     }
 
-    async addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<User | null> {
-        const user = await this.userRepository.addEstablishmentToFavorites(userId, establishmentId)
-        return user
+    async getUserByEmail(email: string): Promise<User | null> {
+        const user = await this.userRepository.getByEmail(email)
+        return user;
+    }
+
+    async addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<void> {
+        await this.userRepository.addEstablishmentToFavorites(userId, establishmentId);
     }
 
     async getFavoriteEstablishments(userId: string): Promise<Establishment[]> {
@@ -30,6 +34,11 @@ export class UserService {
 
     async removeEstablishmentFromFavorites(userId: string, establishmentId: string): Promise<void> {
         await this.userRepository.removeEstablishmentFromFavorites(userId, establishmentId)
+    }
+
+    async getUserEstablishments(userId: string): Promise<Establishment[]> {
+        const establishments = await this.userRepository.getUserEstablishments(userId)
+        return establishments
     }
 
 }

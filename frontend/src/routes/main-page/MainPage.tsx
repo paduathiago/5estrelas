@@ -71,7 +71,7 @@ function MainPage() {
 
   return (
     <div className="page-container">
-      <h1>Escolha uma Catégoria de Serviço</h1>
+      <h1>Escolha uma Categoria de Serviço</h1>
       <div className="search-bar">
         <SearchBar
           placeholder="Busque por uma categoria"

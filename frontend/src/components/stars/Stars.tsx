@@ -16,7 +16,6 @@ function Stars({ score }: StarsProps) {
         halfStar = score - fullStars >= 0.25;
     }
 
-    console.log(score, fullStars, halfStar)
     return (
         <div className='p-2 rounded-md bg-secondary'>
         <div className="relative">

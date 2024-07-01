@@ -8,14 +8,10 @@ type Props = {
 
 function EstablishmentList({ establishments }: Props) {
   return (
-    <div>
-      <div className="w-full grid gap-4 grid-cols-2 grid-rows-3">
-        {establishments.map((establishment) => {
-          return (
-            <EstablishmentCard key={establishment.id} {...establishment} />
-          );
-        })}
-      </div>
+    <div className="w-full grid gap-4 grid-cols-2 grid-rows-3">
+      {establishments.map((establishment) => {
+        return <EstablishmentCard key={establishment.id} {...establishment} />;
+      })}
     </div>
   );
 }

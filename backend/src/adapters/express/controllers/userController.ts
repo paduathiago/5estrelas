@@ -1,26 +1,89 @@
 import express, { Request, Response } from 'express';
 import { UserService } from '../../../core/services/userService';
+import { KEY, getUserId } from '../../../utils/authentication';
+
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const userService = new UserService();
 
 const router = express.Router();
 
-router.post('/', async (req: Request, res: Response) => {
-  const { name, email, password, image} = req.body;
-  try {
-    const newUser = await userService.createUser(name, email, password, image);
-    res.status(201).json(newUser);
-  } catch (error) {
-    res.status(500).json({ message: 'Failed to create user' });
+router.post('/login', async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  const user = await userService.getUserByEmail(email);
+  if (user) {
+    const success = await bcrypt.compare(password, user.password)
+
+    if (success) {
+      const token = jwt.sign(user.id, KEY);
+      res.json({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        image: user.image,
+        token
+      })
+    } else {
+      res.json({ detail: 'Wrong password' })
+    }
+
+    res.json(user);
+  } else {
+    res.status(404).send('User not found');
   }
 });
 
-router.get('/:id', async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const user = await userService.getUser(id);
+router.post('/signup', async (req, res) => {
+  const { email, password, name, image } = req.body;
+  const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(`${password}`, salt)
+  try {
+    const user = await userService.createUser(name, email, hashedPassword, image)
 
-  if (user) {
-    res.json(user);
+    const token = jwt.sign(user.id, KEY);
+
+    res.json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      image: user.image,
+      token
+    });
+  } catch (error) {
+    if (error) {
+      res.status(500).send(error);
+    }
+  }
+})
+
+router.get('/favorite-establishment/:establishmentId', async (req: Request, res: Response) => {
+  const { establishmentId } = req.params;
+  const userId = getUserId(req);
+  if (userId) {
+    await userService.addEstablishmentToFavorites(userId, establishmentId);
+    res.status(200);
+  } else {
+    res.status(404).send('User not found');
+  }
+});
+
+router.get('/favorites', async (req: Request, res: Response) => {
+  const userId = getUserId(req);
+  if (userId) {
+    const establishments = await userService.getFavoriteEstablishments(userId);
+    res.json(establishments);
+  } else {
+    res.status(404).send('User not found');
+  }
+});
+
+router.get('/establishments', async (req: Request, res: Response) => {
+  const userId = getUserId(req);
+  const token = req.headers['authorization'];
+  if (userId) {
+    const establishments = await userService.getUserEstablishments(userId);
+    res.json(establishments);
   } else {
     res.status(404).send('User not found');
   }

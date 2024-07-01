@@ -13,8 +13,14 @@ import UserProfile from "./routes/user-profile/UserProfile";
 import Login from "./routes/login/Login";
 import Register from "./routes/register/Register";
 import NewEstablishment from "./routes/new-establishment/NewEstablishment";
+import { useCookies } from "react-cookie";
+import Favorites from "./routes/favourites/Favourites";
+import UserEstablishments from "./routes/user-establishments/UserEstablishments";
 
 function App() {
+  const [cookies] = useCookies();
+
+  const loggedIn = cookies.AuthToken;
   return (
     <BrowserRouter>
       <Routes>
@@ -31,7 +37,13 @@ function App() {
           <Route path="/user/:id" element={<UserProfile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/new-establishment" element={<NewEstablishment />} />
+          {loggedIn && (
+            <>
+              <Route path="/new-establishment" element={<NewEstablishment />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/my-services" element={<UserEstablishments />} />
+            </>
+          )}
           <Route path="*" element={<div>404 not found</div>} />
         </Route>
       </Routes>

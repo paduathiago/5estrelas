@@ -9,7 +9,7 @@ import Stars from "../stars/Stars";
 import ImageContainer from "../image-container/ImageContainer";
 import { Star } from "lucide-react";
 import { useState } from "react";
-import { favouriteEstablishment } from "@/api";
+import { favoriteEstablishment } from "@/api";
 import { useLocation } from "react-router-dom";
 
 type Props = {
@@ -40,7 +40,7 @@ function EstablishmentCard({
   ): void {
     ev.preventDefault();
 
-    favouriteEstablishment(id, !fav);
+    favoriteEstablishment(id, !fav);
     setFav(!fav);
   }
 

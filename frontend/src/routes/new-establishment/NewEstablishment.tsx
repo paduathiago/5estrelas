@@ -160,8 +160,6 @@ function renderImageField(form: any) {
     try {
       form.setValue("mainImage", imageData[0]);
       setImage(imageData);
-      // Enviar os dados para o servidor
-      console.log("Dados válidos:", imageData);
     } catch (e) {
       if (!(e instanceof Error)) return;
       console.error("Dados inválidos:", e.message);
@@ -345,6 +343,8 @@ function NewEstablishment() {
       description: values.description,
       address: values.address,
       category: values.category,
+      mainImage: JSON.stringify(values.mainImage),
+      images: JSON.stringify(values.images),
     });
   }
 
