@@ -16,7 +16,7 @@ export interface UserRepositoryInterface {
 }
 
 export interface EstablishmentRepositoryInterface {
-    create(establishmentData: { name: string; address: string; category: string; description: string, userId: string }): Promise<Establishment>;
+    create(establishmentData: { name: string; address: string; category: string; description: string, userId: string, images: string, mainImage: string }): Promise<Establishment>;
     get(id: string): Promise<Establishment | null>;
     getAll(): Promise<Establishment[]>;
     updateRatingOnDb(id: string, newRating: number): Promise<void>;

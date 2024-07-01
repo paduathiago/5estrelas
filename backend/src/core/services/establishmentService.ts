@@ -8,8 +8,8 @@ export class EstablishmentService {
         this.establishmentRepository = new EstablishmentRepository()
     }
 
-    async createEstablishment(name: string, address: string, category: string, description: string, userId: string): Promise<Establishment> {
-        const newEstablishment = await this.establishmentRepository.create({ name, address, category, description, userId })
+    async createEstablishment(userId: string, name: string, address: string, category: string, description: string, images: string, mainImage: string): Promise<Establishment> {
+        const newEstablishment = await this.establishmentRepository.create({ name, address, category, description, userId, images, mainImage })
         return newEstablishment
     }
 

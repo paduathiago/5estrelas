@@ -36,13 +36,15 @@ type CreateEstablishmentInput = {
   address: string,
   category: string,
   description: string,
+  images: string,
+  mainImage: string
 }
 
 export const createEstablishment = async (input: CreateEstablishmentInput): Promise<EstablishmentType | undefined> => {
   try {
     const response = await api({
       method: 'post',
-      url: 'http://localhost:3000/establishments',
+      url: '/establishments',
       data: input
     });
     return response.data;
@@ -57,7 +59,7 @@ export const fetchEstablishments = async (): Promise<EstablishmentType[]> => {
   try {
     const response = await api({
       method: 'get',
-      url: 'http://localhost:3000/establishments',
+      url: '/establishments',
     });
     return response.data;
   } catch (error) {
@@ -70,7 +72,7 @@ export const fetchFavorites = async (): Promise<EstablishmentType[]> => {
   try {
     const response = await api({
       method: 'get',
-      url: 'http://localhost:3000/user/favorites',
+      url: '/user/favorites',
     });
     return response.data;
   } catch (error) {
@@ -81,9 +83,9 @@ export const fetchFavorites = async (): Promise<EstablishmentType[]> => {
 
 export const fetchUserEstablishments = async (): Promise<EstablishmentType[]> => {
   try {
-    const response = await api({
+    const response = await api({  
       method: 'get',
-      url: 'http://localhost:3000/user/establishments',
+      url: '/user/establishments',
     });
     return response.data;
   } catch (error) {
@@ -98,7 +100,7 @@ export const favoriteEstablishment = async (establishmentId: string, favorite: b
   try {
     await api({
       method: 'get',
-      url: 'http://localhost:3000/user/favorite-establishment/' + establishmentId,
+      url: '/user/favorite-establishment/' + establishmentId,
     });
     return;
   } catch (error) {
@@ -119,10 +121,9 @@ export const signup = async (input: SignupInput): Promise<{ token: string }> => 
   try {
     const response = await api({
       method: 'post',
-      url: 'http://localhost:3000/user/signup',
+      url: '/user/signup',
       data: input
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Error in sign up:', error);
@@ -139,7 +140,7 @@ export const login = async (input: LoginInput): Promise<{ token: string }> => {
   try {
     const response = await api({
       method: 'post',
-      url: 'http://localhost:3000/user/login',
+      url: '/user/login',
       data: input
     });
     return response.data;
@@ -149,12 +150,18 @@ export const login = async (input: LoginInput): Promise<{ token: string }> => {
   }
 };
 
-export const getReviews = async (id?: string): Promise<Review[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(reviews);
-    }, 500);
-  });
+export const getReviews = async (establishmentId?: string): Promise<Review[]> => {
+  if (!establishmentId) return [];
+  try {
+    const response = await api({
+      method: 'get',
+      url: '/review/' + establishmentId,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching establishment:', error);
+    throw error;
+  }
 };
 
 

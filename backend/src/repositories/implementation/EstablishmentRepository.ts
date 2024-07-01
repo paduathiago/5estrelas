@@ -21,6 +21,8 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
         address TEXT NOT NULL,
         category TEXT NOT NULL,
         description TEXT NOT NULL,
+        images TEXT,
+        mainImage TEXT,
         rating REAL NOT NULL DEFAULT 0,
         numberOfReviews INTEGER NOT NULL DEFAULT 0,
         userId TEXT NOT NULL,
@@ -29,12 +31,12 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
     `);
     }
 
-    async create(establishmentData: { name: string; address: string; category: string; description: string; userId: string }): Promise<Establishment> {
-        const { name, address, category, description, userId } = establishmentData;
+    async create(establishmentData: { name: string; address: string; category: string; description: string; userId: string, mainImage: string, images: string }): Promise<Establishment> {
+        const { name, address, category, description, userId, mainImage, images } = establishmentData;
         return new Promise<Establishment>((resolve, reject) => {
             this.db.run(
-                'INSERT INTO establishments (name, address, category, description, userId) VALUES (?, ?, ?, ?, ?)',
-                [name, address, category, description, userId],
+                'INSERT INTO establishments (name, address, category, description, userId, mainImage, images) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                [name, address, category, description, userId, mainImage, images],
                 function (err) {
                     if (err) {
                         console.error('Error inserting establishment:', err.message);
@@ -48,6 +50,8 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
                             description,
                             rating: 0,
                             numberOfReviews: 0,
+                            mainImage,
+                            images,
                             userId: userId
                         }
                         resolve(newEstablishment);

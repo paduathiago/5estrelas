@@ -34,14 +34,17 @@ function Establishment() {
     setFav(!fav);
   }
 
+  const mainImage = establishment?.mainImage ? JSON.parse(establishment?.mainImage) : undefined;
+
+  const images = establishment?.images ? JSON.parse(establishment?.images) : undefined;
 
   return (
     <div className="flex flex-col p-8 gap-6">
       <div className="container mx-auto p-16 shadow-lg rounded-lg bg-card">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/3 flex justify-center items-center">
-            <div>
-              <img src="https://www.ipropose.com.br/wp-content/uploads/2022/11/estabelecimento-comercial004.jpg" alt="Estabelecimento" className="w-full rounded-lg" />
+            <div className="w-72 h-72 overflow-hidden flex items-center justify-center rounded-lg">
+              <img src={mainImage?.base64} alt="Estabelecimento" className="w-full h-full object-cover" />
             </div>
           </div>
           <div className="md:w-2/3 md:pl-6 mt-4 md:mt-0 flex flex-col gap-2">
@@ -52,10 +55,10 @@ function Establishment() {
                 {fav ? 'Favorito' : 'Favoritar'}
               </Button>
             </div>
-            <span className="text-gray-600">Aberto: 8h - 22h</span>
+            <span className="text-gray-600">Aberto: 8h - 22h {/* TODO: Se der tempo, adicionar horário de abertura no estabelecimento */}</span>
             <div className="mt-2 flex items-center justify-between">
               <p className="text-gray-700">
-                <strong>Telefone:</strong> (00) 1234-5678
+                <strong>Telefone:</strong> {/* TODO: Inserir telefone no estabelecimento */}
               </p>
             </div>
             <div className="flex items-center">
@@ -65,8 +68,7 @@ function Establishment() {
               </span>
             </div>
             <p className="mt-4 text-gray-700">
-              Descrição do estabelecimento. Aqui você pode falar um pouco sobre
-              o que o estabelecimento oferece e suas principais características.
+              {establishment?.description}
             </p>
           </div>
         </div>
@@ -82,14 +84,14 @@ function Establishment() {
             className="w-full"
           >
             <CarouselContent>
-              {Array.from({ length: 5 }).map((_, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+              {images?.map((image: any, index: any) => (
+                <CarouselItem key={"image-" + index} className="md:basis-1/2 lg:basis-1/3">
                   <div className="p-1">
                     <Card>
-                      <CardContent className="flex aspect-square items-center justify-center p-6">
-                        <span className="text-3xl font-semibold">
-                          {index + 1}
-                        </span>
+                      <CardContent className="flex aspect-square items-center justify-center">
+                        <div className="w-full h-full overflow-hidden flex items-center justify-center rounded-lg">
+                          <img src={image.base64} alt="Estabelecimento" className="w-full h-full object-cover" />
+                        </div>
                       </CardContent>
                     </Card>
                   </div>
