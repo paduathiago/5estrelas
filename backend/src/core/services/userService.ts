@@ -37,4 +37,9 @@ export class UserService {
         await this.userRepository.removeEstablishmentFromFavorites(userId, establishmentId)
     }
 
+    async getUserEstablishments(userId: string): Promise<Establishment[]> {
+        const establishments = await this.userRepository.getUserEstablishments(userId)
+        return establishments
+    }
+
 }
