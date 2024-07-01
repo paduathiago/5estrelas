@@ -19,6 +19,12 @@ import { Button } from "@/components/ui/button";
 import DialogAnswer from "@/components/dialog-answer/DialogAnswer";
 import SendReview from "@/components/sendReview/sendReview";
 
+function truncateToDecimals(number: number) {
+  if (!number) return;
+  const factor = Math.pow(10, 2);
+  return Math.trunc(number * factor) / factor;
+}
+
 type Params = {
   id: string;
 };
@@ -111,7 +117,7 @@ function Establishment() {
             <div className="flex items-center mt-4">
               <Stars score={establishment?.rating}></Stars>
               <span className="ml-2 text-gray-600">
-                ({establishment?.rating}){" "}
+                ({truncateToDecimals(establishment?.rating)}){" "}
                 {establishment?.numberOfReviews === 0 && "Ainda não avaliado"}
               </span>
             </div>

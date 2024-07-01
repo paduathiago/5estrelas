@@ -99,7 +99,7 @@ function UserReview({ ...props }: Review & { establishment: any, reviewComment?:
                         <Stars score={props.rating}></Stars>
                         <p className='text-sm'>{formatDateToString(new Date(props.timestamp))}</p></div>
                     <div className='flex gap-2'>
-                        {props.establishment.isFromUser &&
+                        {props.establishment?.isFromUser &&
                             <DialogCloseButton onSendAnswer={(com: string) => { setComment(com) }} reviewId={props.id}></DialogCloseButton>
                         }
 
