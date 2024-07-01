@@ -22,8 +22,13 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { useState } from "react";
+import { answerReview } from "@/api";
 
-export function DialogCloseButton() {
+export function DialogCloseButton({ reviewId, onSendAnswer }: any) {
+
+  const [opened, setOpened] = useState(false);
+
   const FormSchema = z.object({
     comment: z
       .string()
@@ -39,14 +44,16 @@ export function DialogCloseButton() {
     resolver: zodResolver(FormSchema),
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(JSON.stringify(data, null, 2)); // mandar isso para o backend
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    await answerReview(reviewId, data.comment);
+    setOpened(false);
+    onSendAnswer(data.comment);
   }
 
   return (
-    <Dialog>
+    <Dialog open={opened}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="gap-1">
+        <Button variant="outline" className="gap-1" onClick={() => setOpened(true)}>
           <MessageCircle />
           Responder
         </Button>

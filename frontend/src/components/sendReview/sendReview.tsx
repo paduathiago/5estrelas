@@ -61,7 +61,7 @@ export function DialogCloseButton({ establishmentId, onSubmitReview }: any) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Escreva sua Resposta</DialogTitle>
+          <DialogTitle>Escreva sua Avaliação</DialogTitle>
         </DialogHeader>
         <div>
           <Form {...form}>
