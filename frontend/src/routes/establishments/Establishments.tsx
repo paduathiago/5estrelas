@@ -1,11 +1,9 @@
 import { fetchEstablishments } from "@/api";
 import { EstablishmentType } from "@/backTypes";
 import EstablishmentList from "@/components/establishment-list/EstablishmentList";
-import { Input } from "@/components/ui/input";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
-
-import InputForm from "@/components/search-bar/SearchBar";
+import SearchBar from "@/components/search-bar/SearchBar";
 
 import {
   Pagination,
@@ -30,28 +28,40 @@ function Establishments() {
   const formattedCategory =
     category.charAt(0).toUpperCase() + category.slice(1);
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   const categoryEstablishments = establishments?.filter((establishment) => {
     if (establishment.category === category) {
       return establishment;
     }
   });
 
-  console.log(categoryEstablishments);
+  const filteredEstablishments = categoryEstablishments?.filter(
+    (establishment) => {
+      return establishment.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+    }
+  );
+
+  const handleSearchSubmit = (search) => {
+    setSearchTerm(search);
+  };
+
   return (
     <div className="flex flex-col w-full p-8 gap-2">
       <h1 className="mb-4">{formattedCategory}</h1>
 
-      <InputForm
-        placeholder="Busque por uma catégoria"
+      <SearchBar
+        placeholder="Busque por um estabelecimento"
         buttonLabel="Buscar"
-      ></InputForm>
-      {establishments && (
-        <EstablishmentList
-          establishments={establishments.filter((establishment) => {
-            return establishment.category === category;
-          })}
-        ></EstablishmentList>
+        onSubmit={handleSearchSubmit}
+      />
+
+      {filteredEstablishments && (
+        <EstablishmentList establishments={filteredEstablishments} />
       )}
+
       <Pagination>
         <PaginationContent>
           <PaginationItem>

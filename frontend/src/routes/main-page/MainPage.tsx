@@ -1,15 +1,8 @@
-import EstablishmentList from "@/components/establishment-list/EstablishmentList";
-import React, { useEffect } from "react";
-import { fetchEstablishments } from "@/api";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-
 import CategoryCard from "@/components/category-card/category-card";
-import InputForm from "@/components/search-bar/SearchBar";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-
+import SearchBar from "@/components/search-bar/SearchBar";
 import "./main-page.css";
-
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
 const categories = [
@@ -56,43 +49,43 @@ const categories = [
     href: "farmacias",
   },
   {
-    id: "7",
-    name: "eletricistas",
+    id: "8",
+    name: "Eletricistas",
     img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4S3i0Vv04eORM_5HpLDY87XJjBvgevpDzYA&s",
-    href: " eleticistas",
+    href: "eletricistas",
   },
 ];
 
 function MainPage() {
   const location = useLocation();
   const fullUrl = `${window.location.protocol}//${window.location.host}${location.pathname}${location.search}${location.hash}`;
+  const [searchTerm, setSearchTerm] = useState("");
 
-  {
-    console.log(fullUrl);
-  }
+  const handleSearchSubmit = (search) => {
+    setSearchTerm(search);
+  };
+
+  const filteredCategories = categories.filter((category) =>
+    category.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="page-container">
       <h1>Escolha uma Catégoria de Serviço</h1>
       <div className="search-bar">
-        {/* <Input
-          type="email"
-          placeholder="Busque uma catégoria"
-          className="flex h-9 w-full rounded-md border border-input bg-white px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-        />
-        <Button>
-          <MagnifyingGlassIcon className="mr-2 h-4 w-4" /> Buscar
-        </Button> */}
-        <InputForm
-          placeholder="Busque por uma catégoria"
+        <SearchBar
+          placeholder="Busque por uma categoria"
           buttonLabel="Buscar"
-        ></InputForm>
+          onSubmit={handleSearchSubmit}
+        />
       </div>
       <div className="category-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {categories.map((category) => (
-          <a href={fullUrl + "establishments/" + category.href}>
+        {filteredCategories.map((category) => (
+          <a
+            key={category.id}
+            href={fullUrl + "establishments/" + category.href}
+          >
             <CategoryCard
-              key={category.id}
               id={category.id}
               img={category.img}
               name={category.name}
