@@ -21,6 +21,8 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
         address TEXT NOT NULL,
         category TEXT NOT NULL,
         description TEXT NOT NULL,
+        rating REAL NOT NULL DEFAULT 0,
+        numberOfReviews INTEGER NOT NULL DEFAULT 0,
         userId TEXT NOT NULL,
         FOREIGN KEY (userId) REFERENCES users(id)
       )
