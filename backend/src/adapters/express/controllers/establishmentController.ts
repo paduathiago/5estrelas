@@ -9,7 +9,10 @@ const router = express.Router();
 router.post('/', async (req: Request, res: Response) => {
   const { name, address, category, description, images, mainImage} = req.body;
   const userId = getUserId(req);
-  if(!userId) return;
+  if (!userId) {
+    res.status(404).send('User not found');
+    return;
+  }
   try {
     const newEstablishment = await establishmentService.createEstablishment(userId, name, address, category, description, images, mainImage);
     res.status(201).json(newEstablishment);
