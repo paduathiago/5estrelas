@@ -28,7 +28,6 @@ function EstablishmentCard({ ...props }: EstablishmentType) {
     }
 
     const image = props.mainImage ? JSON.parse(props.mainImage) : undefined;
-    console.log(props)
     return (
         <a href={href}>
             <Card>

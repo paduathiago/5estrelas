@@ -24,6 +24,7 @@ export const fetchEstablishment = async (id?: string): Promise<EstablishmentType
       method: 'get',
       url: '/establishments/' + id,
     });
+    
     return response.data;
   } catch (error) {
     console.error('Error fetching establishment:', error);
@@ -86,7 +87,7 @@ export const fetchFavorites = async (): Promise<EstablishmentType[]> => {
 
 export const fetchUserEstablishments = async (): Promise<EstablishmentType[]> => {
   try {
-    const response = await api({  
+    const response = await api({
       method: 'get',
       url: '/user/establishments',
     });
@@ -160,7 +161,6 @@ export const getReviews = async (establishmentId?: string): Promise<Review[]> =>
       url: '/review/' + establishmentId,
     });
 
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching establishment:', error);
@@ -172,7 +172,7 @@ export const createReview = async (input: any): Promise<Review[]> => {
   try {
     const response = await api({
       method: 'post',
-      url: '/review' ,
+      url: '/review',
       data: input
     });
     return response.data;
@@ -192,9 +192,15 @@ export const updateFeedback = async (userId: string, reviewId: string, feedback?
 };
 
 export const answerReview = async (reviewId: string, comment: string): Promise<void> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 500);
-  });
+  try {
+    const response = await api({
+      method: 'post',
+      url: '/comment',
+      data: { reviewId, comment }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error creating comment:', error);
+    throw error;
+  }
 };

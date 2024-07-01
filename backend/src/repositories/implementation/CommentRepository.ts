@@ -27,6 +27,7 @@ export class CommentRepository implements CommentRepositoryInterface {
     async create(commentData: { reviewId: string; comment: string, timestamp: Date }): Promise<Comment> {
         const { reviewId, comment, timestamp } = commentData;
         return new Promise<Comment>((resolve, reject) => {
+            console.log("criando review: ", reviewId, comment, timestamp)
             this.db.run(
                 'INSERT INTO comments (reviewId, comment, timestamp) VALUES (?, ?, ?)',
                 [reviewId, comment, timestamp],

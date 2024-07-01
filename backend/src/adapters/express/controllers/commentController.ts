@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { CommentService } from '../../../core/services/commentService';
 
-const commentService = new CommentService();
+export const commentService = new CommentService();
 
 const router = express.Router();
 

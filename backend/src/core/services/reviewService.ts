@@ -4,6 +4,7 @@ import { ReviewRepository } from '../../repositories/implementation/ReviewReposi
 import { CommentService } from './commentService';
 import { ReviewFeedbackService } from './reviewFeedbackService';
 import { userService } from '../../adapters/express/controllers/userController';
+import { commentService } from '../../adapters/express/controllers/commentController';
 
 interface ExtendedReview extends Review {
     useName: string,
@@ -11,12 +12,10 @@ interface ExtendedReview extends Review {
 }
 export class ReviewService {
     private reviewRepository: ReviewRepositoryInterface
-    private commentService: CommentService
     private reviewFeedbackService: ReviewFeedbackService
 
     constructor() {
         this.reviewRepository = new ReviewRepository()
-        this.commentService = new CommentService()
         this.reviewFeedbackService = new ReviewFeedbackService()
     }
 
@@ -80,11 +79,20 @@ export class ReviewService {
 
             const reviewUser = await userService.getUser(review.userId);
             review.timestamp = new Date(review.timestamp);
+
+
+            const reviewCommentRes = await commentService.getCommentsByReview(review.id);
+            let reviewComment = undefined;
+            if (reviewCommentRes && reviewCommentRes[0]) {
+                reviewComment = reviewCommentRes[0]
+            }
+
             return {
                 ...review,
                 userFeedback,
                 userImage: reviewUser?.image,
-                userName: reviewUser?.name
+                userName: reviewUser?.name,
+                reviewComment: JSON.stringify(reviewComment)
             };
         }));
 

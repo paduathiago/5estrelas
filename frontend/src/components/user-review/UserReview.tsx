@@ -44,7 +44,7 @@ function formatDateToString(date: Date) {
 
 
 
-function UserReview({ ...props }: Review & {establishment: any}) {
+function UserReview({ ...props }: Review & { establishment: any, reviewComment?: string }) {
     const [feedback, setFeedback] = useState(props.currentUserFeedback);
 
     const [openComment, setOpenComment] = useState(false);
@@ -53,7 +53,9 @@ function UserReview({ ...props }: Review & {establishment: any}) {
 
     const [commentDraft, setCommentDraft] = useState<string>(props.establishmentComment || "");
 
-    const [comment, setComment] = useState(props.establishmentComment);
+    const establishmentComment = props.reviewComment ? JSON.parse(props.reviewComment).comment : '';
+
+    const [comment, setComment] = useState(establishmentComment);
 
     function updateUserFeedback(newFeedback?: 'LIKE' | 'DISLIKE') {
         if (newFeedback === feedback && newFeedback !== undefined) {
@@ -63,10 +65,10 @@ function UserReview({ ...props }: Review & {establishment: any}) {
         }
 
         if (newFeedback) {
-            if(newFeedback === 'LIKE' && feedback === 'DISLIKE') {
+            if (newFeedback === 'LIKE' && feedback === 'DISLIKE') {
                 feedbackNumber['DISLIKE'] = feedbackNumber['DISLIKE'] - 1;
             }
-            if(newFeedback === 'DISLIKE' && feedback === 'LIKE') {
+            if (newFeedback === 'DISLIKE' && feedback === 'LIKE') {
                 feedbackNumber['LIKE'] = feedbackNumber['LIKE'] - 1;
             }
             feedbackNumber[newFeedback] = feedbackNumber[newFeedback] + 1;
@@ -74,19 +76,6 @@ function UserReview({ ...props }: Review & {establishment: any}) {
         }
         setFeedback(newFeedback);
         updateFeedback("userid", props.id, newFeedback);
-    }
-
-    function updateEstablishmentCommentDraft(ev: ChangeEvent<HTMLTextAreaElement>) {
-        setCommentDraft(ev.target.value);
-    }
-
-    function handlePopOver(e: boolean) {
-        setOpenComment(e);
-
-        if (!e) {
-            setComment(commentDraft);
-            answerReview(props.id, commentDraft);
-        }
     }
 
     const image = props.userImage ? JSON.parse(props.userImage).base64 : undefined;
@@ -110,17 +99,10 @@ function UserReview({ ...props }: Review & {establishment: any}) {
                         <Stars score={props.rating}></Stars>
                         <p className='text-sm'>{formatDateToString(new Date(props.timestamp))}</p></div>
                     <div className='flex gap-2'>
-                        {/* <Popover onOpenChange={handlePopOver}>
-                            <PopoverTrigger asChild>
-                                <Button variant={openComment ? "default" : "outline"} className='gap-1'>
-                                    <MessageCircle />
-                                    Responder
-                                </Button></PopoverTrigger>
-                            <PopoverContent className='w-96 h-44'>
-                                <Textarea value={commentDraft} className='w-full h-full' onChange={updateEstablishmentCommentDraft}></Textarea>
-                            </PopoverContent>
-                        </Popover> */}
-                        <DialogCloseButton></DialogCloseButton>
+                        {props.establishment.isFromUser &&
+                            <DialogCloseButton onSendAnswer={(com: string) => { setComment(com) }} reviewId={props.id}></DialogCloseButton>
+                        }
+
                         <Button variant={feedback === 'LIKE' ? "default" : "outline"} className='gap-1' onClick={() => updateUserFeedback('LIKE')}>
                             <ThumbsUp />
                             {feedbackNumber['LIKE']}

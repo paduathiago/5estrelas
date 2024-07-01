@@ -25,16 +25,20 @@ type Params = {
 
 function Establishment() {
   const { id } = useParams<Params>();
-  const [mustFetch, setMustFetch] = useState(false);
-  const { data: establishment } = useAsync<any>(async () => {
-    const e = await fetchEstablishment(id);
+  const [mustFetch, setMustFetch] = useState({ id: 2 });
+  const { data: establishment } = useAsync<any>(
+    async () => {
+      const e = await fetchEstablishment(id);
 
-    if (e.favorited) {
-      setFav(true);
-    }
-    return e;
-  }, [id, mustFetch]);
-  const { data: reviews } = useAsync<Review[]>(() => getReviews(id), [id]);
+      if (e.favorited) {
+        setFav(true);
+      }
+      return e;
+
+    },
+    [id, mustFetch]
+  );
+  const { data: reviews } = useAsync<Review[]>(() => getReviews(id), [id, mustFetch]);
   const [fav, setFav] = useState(false);
 
   function handleFavouriteCLick(
@@ -45,8 +49,6 @@ function Establishment() {
     favoriteEstablishment(id, !fav);
     setFav(!fav);
   }
-
-  console.log(establishment);
 
   const mainImage = establishment?.mainImage
     ? JSON.parse(establishment?.mainImage)
@@ -154,12 +156,14 @@ function Establishment() {
       </div>
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Avaliações</h1>
-        <SendReview
-          establishmentId={establishment?.id}
-          onSubmitReview={() => {
-            setMustFetch(!mustFetch);
-          }}
-        />
+        {!establishment?.isFromUser &&
+          <SendReview establishmentId={establishment?.id} onSubmitReview={
+            () => {
+              const test = { ...mustFetch };
+              setMustFetch(test);
+            }
+          } />
+        }
       </div>
       <div className="flex flex-col gap-4">
         {reviews?.map((review) => {

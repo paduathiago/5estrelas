@@ -496,7 +496,6 @@ function NewEstablishment() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     const establishment = await createEstablishment({
       name: values.name,
       description: values.description,
