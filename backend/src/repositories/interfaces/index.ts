@@ -9,7 +9,7 @@ export interface UserRepositoryInterface {
     create(userData: { name: string; email: string, password: string, image: string }): Promise<User>;
     get(id: string): Promise<User | null>;
     getByEmail(email: string): Promise<User | null>;
-    addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<User | null>;
+    addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<void>;
     getFavoriteEstablishments(userId: string): Promise<Establishment[]>;
     removeEstablishmentFromFavorites(userId: string, establishmentId: string): Promise<void>;
     getUserEstablishments(userId: string): Promise<Establishment[]>;

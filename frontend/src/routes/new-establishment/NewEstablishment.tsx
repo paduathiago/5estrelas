@@ -12,18 +12,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import MultipleSelector from "@/components/ui/multi-select";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { createEstablishment } from "@/api";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Textarea } from '@/components/ui/textarea'
+import MultipleSelector from '@/components/ui/multi-select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { createEstablishment } from '@/api'
+import { useNavigate } from 'react-router-dom'
 
 const daysOfWeek = [
   { value: "Sunday", label: "Domingo" },
@@ -327,6 +322,9 @@ function renderCategorySelector(
 }
 
 function NewEstablishment() {
+
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -337,8 +335,8 @@ function NewEstablishment() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    createEstablishment({
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const establishment = await createEstablishment({
       name: values.name,
       description: values.description,
       address: values.address,
@@ -346,6 +344,12 @@ function NewEstablishment() {
       mainImage: JSON.stringify(values.mainImage),
       images: JSON.stringify(values.images),
     });
+
+
+    if (establishment) {
+      navigate("/establishments/" + establishment.id);
+    }
+
   }
 
   return (

@@ -16,6 +16,9 @@ export type Establishment = {
   rating: number;
   numberOfReviews: number;
   userId: string;
+  workingHours: string;
+  daysOpen: string;
+  phone: string;
   mainImage: string;
   images: string;
 }

@@ -26,17 +26,20 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
         rating REAL NOT NULL DEFAULT 0,
         numberOfReviews INTEGER NOT NULL DEFAULT 0,
         userId TEXT NOT NULL,
-        FOREIGN KEY (userId) REFERENCES users(id)
+        FOREIGN KEY (userId) REFERENCES users(id),
+        workingHours TEXT,
+        daysOpen TEXT,
+        phone TEXT
       )
     `);
     }
 
-    async create(establishmentData: { name: string; address: string; category: string; description: string; userId: string, mainImage: string, images: string }): Promise<Establishment> {
-        const { name, address, category, description, userId, mainImage, images } = establishmentData;
+    async create(establishmentData: { name: string; address: string; category: string; description: string; userId: string, mainImage: string, images: string, workingHours: string, daysOpen:string, phone: string}): Promise<Establishment> {
+        const { name, address, category, description, userId, mainImage, images, workingHours, daysOpen, phone} = establishmentData;
         return new Promise<Establishment>((resolve, reject) => {
             this.db.run(
-                'INSERT INTO establishments (name, address, category, description, userId, mainImage, images) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                [name, address, category, description, userId, mainImage, images],
+                'INSERT INTO establishments (name, address, category, description, userId, mainImage, images) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                [name, address, category, description, userId, mainImage, images, workingHours, daysOpen, phone],
                 function (err) {
                     if (err) {
                         console.error('Error inserting establishment:', err.message);
@@ -52,7 +55,10 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
                             numberOfReviews: 0,
                             mainImage,
                             images,
-                            userId: userId
+                            userId: userId,
+                            workingHours,
+                            daysOpen,
+                            phone
                         }
                         resolve(newEstablishment);
                     }

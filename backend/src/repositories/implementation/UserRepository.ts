@@ -94,33 +94,17 @@ export class UserRepository implements UserRepositoryInterface {
         });
     }
 
-    async addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<User | null> {
-        return new Promise<User | null>((resolve, reject) => {
+    async addEstablishmentToFavorites(userId: string, establishmentId: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
             this.db.run(
                 'INSERT INTO user_favorite_establishments (userId, establishmentId) VALUES (?, ?)',
                 [userId, establishmentId],
-                (err) => {
+                function (err) {
                     if (err) {
                         console.error('Error inserting favorite establishment:', err.message);
                         reject(err);
                     } else {
-                        this.db.get(
-                            'SELECT * FROM users WHERE id = ?',
-                            [userId],
-                            (err, row) => {
-                                if (err) {
-                                    console.error('Error fetching user by id:', err.message);
-                                    reject(err);
-                                } else {
-                                    const theRow = row as User
-                                    if (!theRow.favoriteEstablishments) {
-                                        theRow.favoriteEstablishments = [];
-                                    }
-                                    theRow.favoriteEstablishments.push(establishmentId);
-                                    resolve(row as User | null);
-                                }
-                            }
-                        );
+                        resolve();
                     }
                 }
             );
