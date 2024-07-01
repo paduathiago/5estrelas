@@ -45,7 +45,7 @@ export function DialogCloseButton() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(JSON.stringify(data, null, 2)); // mandar isso para o backend
+    // console.log(JSON.stringify(data, null, 2)); // mandar isso para o backend
   }
 
   return (

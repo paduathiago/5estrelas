@@ -13,12 +13,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 
-type labels = {
+type SearchBarProps = {
   placeholder: string;
   buttonLabel: string;
+  onSubmit: (category: string) => void; // Função callback para o valor do input
 };
 
-function SearchBar({ placeholder, buttonLabel }: labels) {
+function SearchBar({ placeholder, buttonLabel }: SearchBarProps) {
   const FormSchema = z.object({
     category: z.string(),
   });
