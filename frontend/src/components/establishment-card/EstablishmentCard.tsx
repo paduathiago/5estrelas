@@ -38,7 +38,7 @@ function EstablishmentCard({ ...props }: EstablishmentType) {
     <a href={href}>
       <Card>
         <CardHeader className="flex items-center justify-between flex-row">
-          <CardTitle>{props.name}</CardTitle>
+          <h1>{props.name}</h1>
           <Star
             fill={fav ? "#FFBF00" : "white"}
             onClick={(ev) => handleFavouriteCLick(ev)}
@@ -70,7 +70,7 @@ function EstablishmentCard({ ...props }: EstablishmentType) {
           </div>
         </CardContent>
         <CardFooter>
-          <Stars score={props.rating} /> ({truncateToDecimals(props.rating)}){" "}
+          <Stars score={props.rating} />{" "}({truncateToDecimals(props.rating)})
           {props.numberOfReviews === 0 && "Ainda não avaliado"}
         </CardFooter>
       </Card>
