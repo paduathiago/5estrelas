@@ -54,10 +54,17 @@ function EstablishmentCard({ ...props }: EstablishmentType) {
               />
             </div>
             <div className="flex flex-col gap-4">
-              <strong>Funcionamento:</strong>
-              {" " + props?.workingHours} <strong>Telefone: </strong>{" "}
-              {props?.phone}
-              <strong>Endereço: </strong> {props?.address}
+              <span>
+                {" "}
+                <strong>Funcionamento:</strong>
+                {" " + props?.workingHours}
+              </span>
+              <span>
+                <strong>Telefone: </strong> {props?.phone}
+              </span>
+              <span>
+                <strong>Endereço: </strong> {props?.address}{" "}
+              </span>
               <strong>Descrição: </strong> {props.description}
             </div>
           </div>
