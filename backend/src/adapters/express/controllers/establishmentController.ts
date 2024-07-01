@@ -8,8 +8,14 @@ const router = express.Router();
 
 router.post('/', async (req: Request, res: Response) => {
   const { name, address, category, description} = req.body;
+  const userId = getUserId(req);
+  if (!userId) {
+    res.status(404).send('User not found');
+    return;
+  }
+
   try {
-    const newEstablishment = await establishmentService.createEstablishment(name, address, category, description);
+    const newEstablishment = await establishmentService.createEstablishment(name, address, category, description, userId);
     res.status(201).json(newEstablishment);
   } catch (error) {
     res.status(500).json({ message: 'Failed to create establishment' });
