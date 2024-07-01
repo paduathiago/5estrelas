@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { ReviewService } from '../../../core/services/reviewService';
 import { getUserId } from '../../../utils/authentication';
+import { establishmentService } from './establishmentController';
 
 const reviewService = new ReviewService();
 
@@ -15,6 +16,9 @@ router.post('/', async (req: Request, res: Response) => {
 
   const { establishmentId, rating, comment } = req.body;
   try {
+    // TODO: Fazer o updateRating usando abaixo, e também atualizando o number of reviews
+
+    // establishmentService.updateRating()
     const newReview = await reviewService.createReview(userId, establishmentId, rating, comment);
     res.status(201).json(newReview);
   } catch (error) {

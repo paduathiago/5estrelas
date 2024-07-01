@@ -42,7 +42,9 @@ function formatDateToString(date: Date) {
 
 
 
-function UserReview({ ...props }: Review) {
+
+
+function UserReview({ ...props }: Review & {establishment: any}) {
     const [feedback, setFeedback] = useState(props.currentUserFeedback);
 
     const [openComment, setOpenComment] = useState(false);
@@ -87,15 +89,17 @@ function UserReview({ ...props }: Review) {
         }
     }
 
+    const image = props.userImage ? JSON.parse(props.userImage).base64 : undefined;
+
     return (
         <Card>
             <CardHeader className='flex flex-row items-center gap-4'>
                 <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarImage src={image} />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 {/* TODO: trocar userid aqui */}
-                <CardTitle className='text-3xl'>{props.userId}</CardTitle>
+                <CardTitle className='text-3xl'>{props.userName}</CardTitle>
             </CardHeader>
             <CardContent>
                 <p>{props.comment}</p>
@@ -104,7 +108,7 @@ function UserReview({ ...props }: Review) {
                 <div className='flex justify-between gap-2 w-full'>
                     <div className='flex gap-2 items-center'>
                         <Stars score={props.rating}></Stars>
-                        <p className='text-sm'>{formatDateToString(props.timestamp)}</p></div>
+                        <p className='text-sm'>{formatDateToString(new Date(props.timestamp))}</p></div>
                     <div className='flex gap-2'>
                         {/* <Popover onOpenChange={handlePopOver}>
                             <PopoverTrigger asChild>

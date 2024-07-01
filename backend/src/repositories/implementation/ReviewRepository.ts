@@ -21,6 +21,7 @@ export class ReviewRepository implements ReviewRepositoryInterface {
         establishmentId TEXT NOT NULL,
         rating INTEGER  NOT NULL,
         comment TEXT,
+        establishmentResponse TEXT,
         timestamp DATETIME NOT NULL,
         likes INTEGER NOT NULL,
         dislikes INTEGER NOT NULL
@@ -66,7 +67,7 @@ export class ReviewRepository implements ReviewRepositoryInterface {
                         console.error('Error fetching Review by id:', err.message);
                         reject(err);
                     } else {
-                        resolve(row as Review | null) ;
+                        resolve(row as Review | null);
                     }
                 }
             );
@@ -96,7 +97,7 @@ export class ReviewRepository implements ReviewRepositoryInterface {
             this.db.run(
                 'DELETE FROM reviews WHERE id = ?',
                 [id],
-                function(err) {
+                function (err) {
                     if (err) {
                         console.error('Error deleting Review by id:', err.message);
                         reject(err);
@@ -114,7 +115,7 @@ export class ReviewRepository implements ReviewRepositoryInterface {
             this.db.get(
                 'SELECT * FROM reviews WHERE id = ?',
                 [id],
-                (err, row: Review) => { 
+                (err, row: Review) => {
                     if (err) {
                         console.error('Error retrieving review', err.message);
                         reject(err);
@@ -142,8 +143,8 @@ export class ReviewRepository implements ReviewRepositoryInterface {
                                                         resolve(null);
                                                     } else {
                                                         const updatedReview: Review = {
-                                                            ...updatedRow, 
-                                                            likes: amountOfLikes 
+                                                            ...updatedRow,
+                                                            likes: amountOfLikes
                                                         };
                                                         resolve(updatedReview);
                                                     }
@@ -190,7 +191,7 @@ export class ReviewRepository implements ReviewRepositoryInterface {
                                                     reject(err);
                                                 } else {
                                                     if (!updatedRow) {
-                                                        resolve(null); 
+                                                        resolve(null);
                                                     } else {
                                                         const updatedReview: Review = {
                                                             ...updatedRow,
