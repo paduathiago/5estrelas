@@ -25,13 +25,11 @@ function Establishments() {
 
   const location = useLocation();
   const category = location.pathname.split("/")[2];
-  const formattedCategory =
-    category.charAt(0).toUpperCase() + category.slice(1);
 
   const [searchTerm, setSearchTerm] = useState("");
 
   const categoryEstablishments = establishments?.filter((establishment) => {
-    if (establishment.category === category) {
+    if (category === undefined || establishment.category === category) {
       return establishment;
     }
   });
@@ -50,7 +48,7 @@ function Establishments() {
 
   return (
     <div className="flex flex-col w-full p-8 gap-2">
-      <h1 className="mb-4">{formattedCategory}</h1>
+      {category && <h1 className="mb-4">{category.charAt(0).toUpperCase() + category.slice(1)}</h1>}
 
       <SearchBar
         placeholder="Busque por um estabelecimento"

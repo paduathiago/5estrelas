@@ -27,6 +27,10 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />} />
           <Route
+            path="/establishments"
+            element={<Establishments />}
+          />
+          <Route
             path="/establishments/:category"
             element={<Establishments />}
           />
