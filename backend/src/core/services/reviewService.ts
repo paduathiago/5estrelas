@@ -19,7 +19,7 @@ export class ReviewService {
         let likes = 0;
         let dislikes = 0;
         let timestamp = new Date();
-        const newReview = await this.reviewRepository.create({ userId, establishmentId, rating, comment, timestamp, likes, dislikes})
+        const newReview = await this.reviewRepository.create({ userId, establishmentId, rating, comment, timestamp, likes, dislikes })
         return newReview
     }
 
@@ -28,9 +28,9 @@ export class ReviewService {
         return review
     }
 
-    async deleteReview(id:string, userId: string): Promise<void> {
+    async deleteReview(id: string, userId: string): Promise<void> {
         const review = await this.getReview(id);
-        if(!review) {
+        if (!review) {
             throw new Error('Review não encontrada');
         }
         if (review.userId != userId) {
@@ -43,22 +43,22 @@ export class ReviewService {
     async updateLike(id: string, reviewFeedback: ReviewFeedback): Promise<Review | null> {
         const currentReview = await this.getReview(id);
         if (!currentReview) {
-            return null; 
+            return null;
         }
-        
+
         const currentLikes = currentReview.likes;
-        const updatedReview = await this.reviewRepository.updateLike(id,currentLikes+1)
+        const updatedReview = await this.reviewRepository.updateLike(id, currentLikes + 1)
         return updatedReview;
     }
 
     async updateDislike(id: string, reviewFeedback: ReviewFeedback): Promise<Review | null> {
         const currentReview = await this.getReview(id);
         if (!currentReview) {
-            return null; 
+            return null;
         }
-        
+
         const currentDislikes = currentReview.dislikes;
-        const updatedReview = await this.reviewRepository.updateDislike(id,currentDislikes+1)
+        const updatedReview = await this.reviewRepository.updateDislike(id, currentDislikes + 1)
         return updatedReview;
     }
 
@@ -67,19 +67,19 @@ export class ReviewService {
         return reviews;
     }
 
-    async getReviewsFromEstablishment(establishmentId: string, userId: string): Promise<Review[]> {
+    async getReviewsFromEstablishment(establishmentId: string, userId?: string): Promise<Review[]> {
         const reviews = await this.getReviewsByEstablishmentId(establishmentId);
-            const reviewsWithDetails: Review[] = await Promise.all(reviews.map(async (review) => {
+        const reviewsWithDetails: Review[] = await Promise.all(reviews.map(async (review) => {
             const comments = await this.commentService.getCommentsByReview(review.id);
-            const userFeedback = await this.reviewFeedbackService.getReviewFeedback(userId,review.id);
-            
+            const userFeedback = userId ? await this.reviewFeedbackService.getReviewFeedback(userId, review.id) : undefined;
+
             return {
                 ...review,
                 comments,
                 userFeedback
             };
         }));
-    
+
         return reviewsWithDetails;
     }
 }

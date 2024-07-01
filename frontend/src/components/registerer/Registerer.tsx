@@ -120,8 +120,6 @@ function Registerer() {
     }
     const signData = await signup(input);
 
-    console.log(signData);
-
     setCookie('AuthToken', signData.token);
 
     navigate('/');

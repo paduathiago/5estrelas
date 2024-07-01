@@ -1,13 +1,19 @@
 import express, { Request, Response } from 'express';
 import { ReviewService } from '../../../core/services/reviewService';
+import { getUserId } from '../../../utils/authentication';
 
 const reviewService = new ReviewService();
 
 const router = express.Router();
 
 router.post('/', async (req: Request, res: Response) => {
-  // TODO: substituir aqui o userId pelo getUserId
-  const { userId, establishmentId, rating, comment} = req.body;
+  const userId = getUserId(req);
+  if (!userId) {
+    res.status(500).send('No user in header');
+    return;
+  }
+
+  const { establishmentId, rating, comment } = req.body;
   try {
     const newReview = await reviewService.createReview(userId, establishmentId, rating, comment);
     res.status(201).json(newReview);
@@ -17,20 +23,23 @@ router.post('/', async (req: Request, res: Response) => {
 });
 
 router.post('/:id/delete', async (req: Request, res: Response) => {
-  // TODO: substituir aqui o userId pelo getUserId
-  const { id, userId } = req.body;
+  const { id } = req.body;
+  const userId = getUserId(req);
+  if (!userId) {
+    res.status(500).send('No user in header');
+    return;
+  }
   try {
     await reviewService.deleteReview(id, userId);
-    res.status(201).send(); 
+    res.status(201).send();
   } catch (error: any) {
     console.error('Error deleting review:', error.message);
     res.status(500).send('Error deleting review');
   }
 });
 
-router.post('/:establishmentId/reviews', async (req: Request, res: Response) => {
-  // TODO: substituir aqui o userId pelo getUserId
-  const { userId } = req.body;
+router.get('/:establishmentId', async (req: Request, res: Response) => {
+  const userId = getUserId(req);
   const { establishmentId } = req.params;
   try {
     const reviews = await reviewService.getReviewsFromEstablishment(establishmentId, userId);
