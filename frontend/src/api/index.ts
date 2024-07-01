@@ -83,7 +83,7 @@ export const fetchFavorites = async (): Promise<EstablishmentType[]> => {
 
 export const fetchUserEstablishments = async (): Promise<EstablishmentType[]> => {
   try {
-    const response = await api({
+    const response = await api({  
       method: 'get',
       url: '/user/establishments',
     });
@@ -124,7 +124,6 @@ export const signup = async (input: SignupInput): Promise<{ token: string }> => 
       url: '/user/signup',
       data: input
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Error in sign up:', error);

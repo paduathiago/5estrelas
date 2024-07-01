@@ -18,7 +18,6 @@ function App() {
 
     const loggedIn = cookies.AuthToken;
 
-    console.log(cookies.AuthToken);
     return (
         <BrowserRouter>
             <Routes>

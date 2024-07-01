@@ -19,7 +19,6 @@ export class UserService {
     }
 
     async getUserByEmail(email: string): Promise<User | null> {
-        console.log(email);
         const user = await this.userRepository.getByEmail(email)
         return user;
     }
