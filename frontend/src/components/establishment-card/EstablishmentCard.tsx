@@ -11,10 +11,11 @@ type Props = {
     readonly address: string,
     readonly category: string,
     readonly description: string,
-    readonly rating: number
+    readonly rating: number,
+    readonly mainImage?: string
 }
 
-function EstablishmentCard({ id, name, address, category, description, rating }: Props) {
+function EstablishmentCard({ id, name, address, category, description, rating, mainImage }: Props) {
     const href = `/establishments/${id}`
 
     const [fav, setFav] = useState(false);
@@ -26,6 +27,7 @@ function EstablishmentCard({ id, name, address, category, description, rating }:
         setFav(!fav);
     }
 
+    const image = mainImage ? JSON.parse(mainImage) : undefined;
 
     return (
         <a href={href}>
@@ -37,7 +39,7 @@ function EstablishmentCard({ id, name, address, category, description, rating }:
                 <CardContent>
                     <div className='flex flex-row gap-8'>
                         <div className='flex flex-row'>
-                            <ImageContainer />
+                            <ImageContainer src={image.base64} alt="Estabelecimento" className='w-40 h-40' />
                         </div>
                         <div className='flex flex-col gap-4'>
                             <p>{description}</p>
