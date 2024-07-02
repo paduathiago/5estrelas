@@ -105,3 +105,47 @@ Os adaptadores são responsáveis por conectar as portas do sistema com o mundo 
 As portas, por outro lado, são responsáveis por definir as interfaces de comunicação entre as camadas da arquitetura hexagonal. Elas são implementadas no diretório backend/src/repositories/interfaces e possuem o papel de definir os métodos que serão utilizados para acessar os dados do sistema, sem se preocupar com a implementação dos mesmos.
 
 ## Backlog do Sprint (nova versão)
+- História #1: Como usuário, eu quero poder me cadastrar na plataforma fornecendo informações como nome, e-mail e senha. [COMPLETA ✅]
+	- Tarefas e responsáveis:
+ 		- Front-end: Inicializar rotas de cadastro e login (Gabriel)
+		- Front-end: Criar tela de login, cadastro e lógica de autenticação, criptografia e cookies (Gabriel)
+  		- Back-end: Desenvolver lógica de cadastro (Thiago)
+		- Back-end: Desenvolver lógica de autenticação, utilizando token de autenticação ou e-mail e senha (Thiago)
+
+- História #2: Como usuário, eu quero poder visualizar as avaliações deixadas para um determinado estabelecimento.[COMPLETA ✅]
+	- Tarefas e responsáveis:
+ 		- Front-end: Criar página para visualização de informações do estabelecimento (Gabriel e Janderson) 
+		- Front-end: Criar componente para visualização de avaliações (Gabriel e Janderson)
+		- Back-end: Criar rota para inserção e obtenção de avaliações (Mariano)
+
+- História #3: Como usuário, eu quero poder filtrar a lista de estabelecimentos por categoria (produto/serviço/lugar) para encontrar facilmente o que estou procurando. [FEITA MAS POSSUI ESPAÇO PARA MELHORIAS ⚠️]
+	- Tarefas e responsáveis:
+		- Front-end: Criar componente de listagem de estabelecimentos, com filtros (Janderson)
+		- Back-end: Criar rota para obtenção de estabelecimentos, com opção de ordenação e filtragem (Thiago)
+
+- História #4: Como cliente, eu quero poder avaliar um estabelecimento adicionando uma classificação em estrelas e deixando um comentário opcional sobre minha experiência. [COMPLETO ✅]
+	- Tarefas e responsáveis:
+		- Front-end: Criar componente de formulário de avaliação do usuário (Janderson e Gabriel)
+		- Back-end: Criar rota para inserção de avaliações e recalcular média de avaliação dos estabelecimentos (Mariano)
+
+- História #5: Como cliente, eu gostaria de manter uma lista de estabelecimentos favoritos. [COMPLETO ✅]
+	- Tarefas e responsáveis:
+		- Front-end: Criar componente de lista de favoritos e opção de adicionar estabelecimento aos favoritos em sua página (Gabriel)
+		- Back-end: Criar rota para inserção de estabelecimento na lista de favoritos de um usuário (Mariano)
+  		- Back-end: Criar rota para obtenção de lista de favoritos de determinado usuário (Mariano)
+
+- História #6: Como cliente, eu gostaria de poder votar (Like ou dislike) em uma avaliação. [INCOMPLETO, FOI IMPLEMENTADO SOMENTE O FRONTEND SEM CONEXÃO COM O BACK 🚩 ]
+	- Tarefas e responsáveis:
+		- Front-end: Adicionar opções de Like e dislike no componente de avaliação (Gabriel)
+		- Back-end: Criar rota para inserção de estabelecimento na lista de favoritos de um usuário (Mariano)
+  		- Back-end: Criar rota para obtenção de lista de favoritos de determinado usuário (Mariano)
+
+- História #7: Como dono de estabelecimento, eu quero poder adicionar um novo estabelecimento à plataforma, incluindo informações como nome, categoria (produto/serviço/lugar), endereço e descrição. [COMPLETO ✅]
+	- Tarefas e responsáveis:
+		- Front-end: Criar formulário de cadastro de novos estabelecimentos (Gabriel)
+		- Back-end: Criar rota para inserção de novos estabelecimentos (Mariano)
+
+- História #8: Como dono de estabelecimento, eu gostaria de responder comentários de clientes. [COMPLETO ✅]
+	- Tarefas e responsáveis:
+		- Front-end: Criar componente de formulário para resposta de avaliação, disponível apenas para o dono do estabelecimento (Janderson e Gabriel)
+		- Back-end: Criar rotas para inserção e obtenção de comentários em avaliações (Thiago)
