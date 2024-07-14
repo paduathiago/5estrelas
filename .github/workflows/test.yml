@@ -1,0 +1,42 @@
+name: Unit Tests
+
+on: [push]
+
+jobs:
+  unit-tests:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [20.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Backend steps
+      - name: Install Npm Packages for Backend
+        run: npm install
+        working-directory: backend
+
+      - name: Start Backend Server
+        run: npm run dev
+        working-directory: backend
+
+      # Frontend steps
+      - name: Install Npm Packages for Frontend
+        run: npm install
+        working-directory: frontend
+
+      - name: Run Frontend Development Server
+        run: npm run dev
+        working-directory: frontend
+
+      - name: Lighthouse tests
+        run: npm run ci:lighthouse
+        working-directory: frontend
