@@ -33,9 +33,9 @@ jobs:
         run: npm install
         working-directory: frontend
 
-      - name: Run Frontend Development Server
-        run: npm run dev
-        working-directory: frontend
+      # - name: Run Frontend Development Server
+      #   run: npm run dev
+      #   working-directory: frontend
 
       - name: Lighthouse tests
         run: npm run ci:lighthouse
