@@ -24,9 +24,9 @@ jobs:
         run: npm install
         working-directory: backend
 
-      - name: Start Backend Server
-        run: npm run dev
-        working-directory: backend
+      # - name: Start Backend Server
+      # run: npm run dev
+      # working-directory: backend
 
       # Frontend steps
       - name: Install Npm Packages for Frontend
