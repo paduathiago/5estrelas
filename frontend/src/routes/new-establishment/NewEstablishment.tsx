@@ -135,9 +135,9 @@ function renderNameField(form: any) {
       name="name"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Nome do estabelecimento</FormLabel>
+          <FormLabel>Nome do estabelecimento ou serviço</FormLabel>
           <FormControl>
-            <Input placeholder="Estabelecimento" {...field} />
+            <Input placeholder="Estabelecimento ou serviço" {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -153,7 +153,7 @@ function renderDescriptionField(form: any) {
       name="description"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Descrição do estabelecimento</FormLabel>
+          <FormLabel>Descrição do estabelecimento ou serviço</FormLabel>
           <FormControl>
             <Textarea placeholder="Descrição" {...field} />
           </FormControl>
@@ -171,7 +171,7 @@ function renderPhoneField(form: any) {
       name="phone"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Telefone do estabelecimento</FormLabel>
+          <FormLabel>Telefone do estabelecimento ou serviço</FormLabel>
           <FormControl>
             <Input type="text" placeholder="Telefone" {...field} />
           </FormControl>
@@ -457,7 +457,7 @@ function renderCategorySelector(
       name="category"
       render={() => (
         <FormItem>
-          <FormLabel>Categoria do estabelecimento</FormLabel>
+          <FormLabel>Categoria</FormLabel>
           <FormControl>
             <Select onValueChange={handleChange}>
               <SelectTrigger className="w-[180px]">
