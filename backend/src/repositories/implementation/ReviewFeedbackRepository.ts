@@ -49,17 +49,17 @@ export class ReviewFeedbackRepository implements ReviewFeedbackRepositoryInterfa
         });
     }
 
-    async get(id: string): Promise<ReviewFeedback | null> {
+    async get(userId: string, reviewId: string): Promise<ReviewFeedback | null> {
         return new Promise<ReviewFeedback | null>((resolve, reject) => {
             this.db.get(
-                'SELECT * FROM comments WHERE id = ?',
-                [id],
+                'SELECT * FROM reviewFeedbacks WHERE userId = ? AND reviewId = ?',
+                [userId, reviewId],
                 (err, row) => {
                     if (err) {
-                        console.error('Error fetching reviewFeedback by id:', err.message);
+                        console.error('Error fetching reviewFeedback by userId and reviewId:', err.message);
                         reject(err);
                     } else {
-                        resolve(row as ReviewFeedback | null) ;
+                        resolve(row as ReviewFeedback | null);
                     }
                 }
             );
