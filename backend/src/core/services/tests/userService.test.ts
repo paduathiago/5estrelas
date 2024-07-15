@@ -7,7 +7,7 @@ test('User created returns the correct user', async () => {
     expect(userCreated.image).toBe('test-image');
 })
 
-test('User created returns the correct user', async () => {
+test('Inserting random id doesnt retun an user', async () => {
     const userCreated = await userService.getUser('randomId');
     expect(userCreated).toBe(undefined);
 })
