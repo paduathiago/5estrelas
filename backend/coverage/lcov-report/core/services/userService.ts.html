@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.92% </span>
+                <span class="strong">92.59% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/27</span>
+                <span class='fraction'>25/27</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/12</span>
+                <span class='fraction'>11/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.16% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/24</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -131,8 +131,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -141,39 +141,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -197,40 +197,40 @@ export class UserService {
         return user
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    async </span>getUserByEmail(email: string): Promise&lt;User | null&gt; {
-        const user = <span class="cstat-no" title="statement not covered" >await this.userRepository.getByEmail(email)</span>
-<span class="cstat-no" title="statement not covered" >        return user;</span>
+    async getUserByEmail(email: string): Promise&lt;User | null&gt; {
+        const user = await this.userRepository.getByEmail(email)
+        return user;
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    async </span>addEstablishmentToFavorites(userId: string, establishmentId: string): Promise&lt;void&gt; {
-        const favorites = <span class="cstat-no" title="statement not covered" >await this.getFavoriteEstablishments(userId);</span>
-        const favIds = <span class="cstat-no" title="statement not covered" >favorites.map(<span class="fstat-no" title="function not covered" >fav </span>=&gt; <span class="cstat-no" title="statement not covered" >fav.id)</span>;</span>
-<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (favIds.includes(establishmentId)) <span class="cstat-no" title="statement not covered" >return;</span></span>
-<span class="cstat-no" title="statement not covered" >        await this.userRepository.addEstablishmentToFavorites(userId, establishmentId);</span>
+    async addEstablishmentToFavorites(userId: string, establishmentId: string): Promise&lt;void&gt; {
+        const favorites = await this.getFavoriteEstablishments(userId);
+        const favIds = favorites.map(<span class="fstat-no" title="function not covered" >fav </span>=&gt; <span class="cstat-no" title="statement not covered" >fav.id)</span>;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (favIds.includes(establishmentId)) <span class="cstat-no" title="statement not covered" >return;</span>
+        await this.userRepository.addEstablishmentToFavorites(userId, establishmentId);
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    async </span>getFavoriteEstablishments(userId: string): Promise&lt;Establishment[]&gt; {
-        const establishments = <span class="cstat-no" title="statement not covered" >await this.userRepository.getFavoriteEstablishments(userId)</span>
-<span class="cstat-no" title="statement not covered" >        return establishments.map(<span class="fstat-no" title="function not covered" >establishment </span>=&gt; {</span>
+    async getFavoriteEstablishments(userId: string): Promise&lt;Establishment[]&gt; {
+        const establishments = await this.userRepository.getFavoriteEstablishments(userId)
+        return establishments.map(establishment =&gt; {
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            establishment.favorited = true;</span>
-<span class="cstat-no" title="statement not covered" >            return establishment</span>
+            establishment.favorited = true;
+            return establishment
 &nbsp;
         });
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    async </span>removeEstablishmentFromFavorites(userId: string, establishmentId: string): Promise&lt;void&gt; {
-<span class="cstat-no" title="statement not covered" >        await this.userRepository.removeEstablishmentFromFavorites(userId, establishmentId)</span>
+    async removeEstablishmentFromFavorites(userId: string, establishmentId: string): Promise&lt;void&gt; {
+        await this.userRepository.removeEstablishmentFromFavorites(userId, establishmentId)
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    async </span>getUserEstablishments(userId: string): Promise&lt;Establishment[]&gt; {
-        const establishments = <span class="cstat-no" title="statement not covered" >await this.userRepository.getUserEstablishments(userId)</span>
-        const favorites = <span class="cstat-no" title="statement not covered" >await this.getFavoriteEstablishments(userId);</span>
-        const favIds = <span class="cstat-no" title="statement not covered" >favorites.map(<span class="fstat-no" title="function not covered" >fav </span>=&gt; <span class="cstat-no" title="statement not covered" >fav.id)</span>;</span>
+    async getUserEstablishments(userId: string): Promise&lt;Establishment[]&gt; {
+        const establishments = await this.userRepository.getUserEstablishments(userId)
+        const favorites = await this.getFavoriteEstablishments(userId);
+        const favIds = favorites.map(fav =&gt; fav.id);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        return establishments.map(<span class="fstat-no" title="function not covered" >establishment </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >            establishment.favorited = favIds.includes(establishment.id);</span>
-<span class="cstat-no" title="statement not covered" >            return establishment</span>
+        return establishments.map(establishment =&gt; {
+            establishment.favorited = favIds.includes(establishment.id);
+            return establishment
         });
     }
 &nbsp;
@@ -241,7 +241,7 @@ export class UserService {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-15T01:05:52.487Z
+                at 2024-07-15T19:12:04.423Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
