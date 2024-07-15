@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "ci:lighthouse": "lhci autorun"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.6.0",
@@ -42,6 +43,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.14.0",
     "@types/node": "^20.12.7",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
