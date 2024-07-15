@@ -17,6 +17,11 @@ test('Getting user by email', async () => {
     expect(user?.email).toBe("testemail@email.com");
 })
 
+test('Invalid email doesnt return an user', async () => {
+    const user = await userService.getUserByEmail('testemailnaoexiste@email.com');
+    expect(user?.email).toBe(undefined);
+})
+
 test('Getting establishment that was added to favorites', async () => {
     const userCreated = await userService.createUser('test-user', 'testemail@email.com', 'test-password', 'test-image');
     await userService.addEstablishmentToFavorites(userCreated.id,"10");
