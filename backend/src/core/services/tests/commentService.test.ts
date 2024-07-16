@@ -14,5 +14,5 @@ test('Inserting random id doesnt return a comment', async () => {
 
 test('Getting comments by review', async () => {
     const comments = await commentService.getCommentsByReview('1000');
-    expect(comments[0]).toBe('1000');
+    expect(comments[0].reviewId).toBe('1000');
 })
