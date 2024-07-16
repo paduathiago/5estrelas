@@ -107,4 +107,21 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
             );
         });
     }
+
+    async delete(id: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.db.run(
+                'DELETE FROM establishments WHERE id = ?',
+                [id],
+                (err) => {
+                    if (err) {
+                        console.error('Error deleting establishment:', err.message);
+                        reject(err);
+                    } else {
+                        resolve();
+                    }
+                }
+            );
+        });
+    }
 }

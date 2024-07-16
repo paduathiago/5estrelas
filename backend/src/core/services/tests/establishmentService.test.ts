@@ -1,4 +1,4 @@
-import test, { beforeEach } from 'node:test';
+import test, { afterEach, beforeEach } from 'node:test';
 import { EstablishmentService } from '../establishmentService';
 
 export const establishmentService = new EstablishmentService();
@@ -7,9 +7,13 @@ describe('EstablishmentService', () => {
 
     beforeEach(async () => {
         await establishmentService.createEstablishment(
-            '1', 'test-name', 'test-address', 'test-category',
+            '995', 'test-name', 'test-address', 'test-category',
             'test-description', 'test-images', 'test-mainImage',
             'test-workingHours', 'test-daysOpen', 'test-phone');
+    });
+
+    afterEach(async () => {
+        await establishmentService.deleteEstablishment('995');
     });
 
     test('Get establishment by id', async () => {
@@ -24,20 +28,23 @@ describe('EstablishmentService', () => {
 
     test('Get all establishments', async () => {
         await establishmentService.createEstablishment(
-            '2', 'test-name2', 'test-address2', 'test-category2',
-            'test-description2', 'test-images2', 'test-mainImage2',
-            'test-workingHours2', 'test-daysOpen2', 'test-phone2');
+            '996', 'test-name996', 'test-address996', 'test-category996',
+            'test-description996', 'test-images996', 'test-mainImage996',
+            'test-workingHours996', 'test-daysOpen996', 'test-phone996');
 
         await establishmentService.createEstablishment(
-            '3', 'test-name3', 'test-address3', 'test-category3',
-            'test-description3', 'test-images3', 'test-mainImage3',
-            'test-workingHours3', 'test-daysOpen3', 'test-phone3');
+            '996', 'test-name996', 'test-address996', 'test-category996',
+            'test-description996', 'test-images996', 'test-mainImage996',
+            'test-workingHours996', 'test-daysOpen996', 'test-phone996');
 
         const establishments = await establishmentService.getEstablishments();
         expect(establishments.length).toBe(3);
         expect(establishments[0].name).toBe('test-name');
-        expect(establishments[1].name).toBe('test-name2');
-        expect(establishments[2].name).toBe('test-name3');
+        expect(establishments[1].name).toBe('test-name996');
+        expect(establishments[2].name).toBe('test-name996');
+
+        await establishmentService.deleteEstablishment('996');
+        await establishmentService.deleteEstablishment('3');
     });
 
     test('Rating is updated correctly', async () => {

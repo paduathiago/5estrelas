@@ -51,4 +51,8 @@ export class EstablishmentService {
 
         await this.establishmentRepository.updateRatingOnDb(id, newGeneralRating)
     }
+
+    async deleteEstablishment(id: string): Promise<void> {
+        return this.establishmentRepository.delete(id)
+    }
 }
