@@ -11,7 +11,6 @@ export class ReviewFeedbackRepository implements ReviewFeedbackRepositoryInterfa
                 console.error('Error opening SQLite database:', err.message);
                 throw err;
             }
-            console.log('Connected to SQLite database');
         });
 
         this.db.run(`
@@ -26,7 +25,7 @@ export class ReviewFeedbackRepository implements ReviewFeedbackRepositoryInterfa
     `);
     }
 
-    async create(reviewFeedbackData: { userId: string; reviewId: string; feedback: 'LIKE' | 'DISLIKE'}): Promise<ReviewFeedback> {
+    async create(reviewFeedbackData: { userId: string; reviewId: string; feedback: 'LIKE' | 'DISLIKE' }): Promise<ReviewFeedback> {
         const { userId, reviewId, feedback } = reviewFeedbackData;
         return new Promise<ReviewFeedback>((resolve, reject) => {
             this.db.run(

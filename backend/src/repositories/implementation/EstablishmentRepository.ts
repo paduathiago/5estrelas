@@ -11,7 +11,6 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
                 console.error('Error opening SQLite database:', err.message);
                 throw err;
             }
-            console.log('Connected to SQLite database');
         });
 
         this.db.run(`
@@ -34,8 +33,8 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
     `);
     }
 
-    async create(establishmentData: { name: string; address: string; category: string; description: string; userId: string, mainImage: string, images: string, workingHours: string, daysOpen:string, phone: string}): Promise<Establishment> {
-        const { name, address, category, description, userId, mainImage, images, workingHours, daysOpen, phone} = establishmentData;
+    async create(establishmentData: { name: string; address: string; category: string; description: string; userId: string, mainImage: string, images: string, workingHours: string, daysOpen: string, phone: string }): Promise<Establishment> {
+        const { name, address, category, description, userId, mainImage, images, workingHours, daysOpen, phone } = establishmentData;
         return new Promise<Establishment>((resolve, reject) => {
             this.db.run(
                 'INSERT INTO establishments (name, address, category, description, userId, mainImage, images, workingHours, daysOpen, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
