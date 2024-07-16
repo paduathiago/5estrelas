@@ -46,28 +46,6 @@ export class ReviewService {
         }
     }
 
-    async updateLike(id: string, reviewFeedback: ReviewFeedback): Promise<Review | null> {
-        const currentReview = await this.getReview(id);
-        if (!currentReview) {
-            return null;
-        }
-
-        const currentLikes = currentReview.likes;
-        const updatedReview = await this.reviewRepository.updateLike(id, currentLikes + 1)
-        return updatedReview;
-    }
-
-    async updateDislike(id: string, reviewFeedback: ReviewFeedback): Promise<Review | null> {
-        const currentReview = await this.getReview(id);
-        if (!currentReview) {
-            return null;
-        }
-
-        const currentDislikes = currentReview.dislikes;
-        const updatedReview = await this.reviewRepository.updateDislike(id, currentDislikes + 1)
-        return updatedReview;
-    }
-
     async getReviewsByEstablishmentId(establishmentId: string): Promise<Review[]> {
         const reviews: Review[] = await this.reviewRepository.getReviewsByEstablishmentId(establishmentId);
         return reviews;
