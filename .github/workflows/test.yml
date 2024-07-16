@@ -1,6 +1,12 @@
 name: Unit Tests
 
-on: [push]
+on:
+  pull_request:
+    branches:
+      - "*"
+  push:
+    branches:
+      - "*"
 
 jobs:
   unit-tests:
@@ -22,6 +28,10 @@ jobs:
       # Backend steps
       - name: Install Npm Packages for Backend
         run: npm install
+        working-directory: backend
+
+      - name: Install Npm Packages for Backend
+        run: npm run test
         working-directory: backend
 
       # - name: Start Backend Server
