@@ -28,9 +28,9 @@ describe('EstablishmentService', () => {
 
     test('Get all establishments', async () => {
         await establishmentService.createEstablishment(
-            '996', 'test-name996', 'test-address996', 'test-category996',
-            'test-description996', 'test-images996', 'test-mainImage996',
-            'test-workingHours996', 'test-daysOpen996', 'test-phone996');
+            '996', 'test-name998', 'test-address998', 'test-category998',
+            'test-description998', 'test-images998', 'test-mainImage998',
+            'test-workingHours998', 'test-daysOpen998', 'test-phone998');
 
         await establishmentService.createEstablishment(
             '996', 'test-name996', 'test-address996', 'test-category996',
@@ -40,11 +40,11 @@ describe('EstablishmentService', () => {
         const establishments = await establishmentService.getEstablishments();
         expect(establishments.length).toBe(3);
         expect(establishments[0].name).toBe('test-name');
-        expect(establishments[1].name).toBe('test-name996');
+        expect(establishments[1].name).toBe('test-name998');
         expect(establishments[2].name).toBe('test-name996');
 
         await establishmentService.deleteEstablishment('996');
-        await establishmentService.deleteEstablishment('3');
+        await establishmentService.deleteEstablishment('998');
     });
 
     test('Rating is updated correctly', async () => {
