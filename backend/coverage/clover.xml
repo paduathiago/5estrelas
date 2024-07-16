@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1721154681543" clover="3.2.0">
-  <project timestamp="1721154681543" name="All files">
-    <metrics statements="105" coveredstatements="79" conditionals="17" coveredconditionals="8" methods="34" coveredmethods="26" elements="156" coveredelements="113" complexity="0" loc="105" ncloc="105" packages="1" files="5" classes="5"/>
-    <file name="commentService.ts" path="/home/gabrielmmf/pds/5estrelas/backend/src/core/services/commentService.ts">
+<coverage generated="1721164125441" clover="3.2.0">
+  <project timestamp="1721164125442" name="All files">
+    <metrics statements="106" coveredstatements="79" conditionals="17" coveredconditionals="8" methods="35" coveredmethods="26" elements="158" coveredelements="113" complexity="0" loc="106" ncloc="106" packages="1" files="5" classes="5"/>
+    <file name="commentService.ts" path="C:\Users\thiag\5estrelas\backend\src\core\services\commentService.ts">
       <metrics statements="10" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="2"/>
       <line num="3" count="2" type="stmt"/>
       <line num="5" count="2" type="stmt"/>
@@ -15,8 +15,8 @@
       <line num="23" count="5" type="stmt"/>
       <line num="24" count="5" type="stmt"/>
     </file>
-    <file name="establishmentService.ts" path="/home/gabrielmmf/pds/5estrelas/backend/src/core/services/establishmentService.ts">
-      <metrics statements="29" coveredstatements="10" conditionals="8" coveredconditionals="3" methods="8" coveredmethods="3"/>
+    <file name="establishmentService.ts" path="C:\Users\thiag\5estrelas\backend\src\core\services\establishmentService.ts">
+      <metrics statements="30" coveredstatements="10" conditionals="8" coveredconditionals="3" methods="9" coveredmethods="3"/>
       <line num="3" count="2" type="stmt"/>
       <line num="4" count="2" type="stmt"/>
       <line num="6" count="2" type="stmt"/>
@@ -46,8 +46,9 @@
       <line num="49" count="0" type="stmt"/>
       <line num="50" count="0" type="stmt"/>
       <line num="52" count="0" type="stmt"/>
+      <line num="56" count="0" type="stmt"/>
     </file>
-    <file name="reviewFeedbackService.ts" path="/home/gabrielmmf/pds/5estrelas/backend/src/core/services/reviewFeedbackService.ts">
+    <file name="reviewFeedbackService.ts" path="C:\Users\thiag\5estrelas\backend\src\core\services\reviewFeedbackService.ts">
       <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <line num="3" count="2" type="stmt"/>
       <line num="5" count="2" type="stmt"/>
@@ -57,7 +58,7 @@
       <line num="17" count="6" type="stmt"/>
       <line num="18" count="6" type="stmt"/>
     </file>
-    <file name="reviewService.ts" path="/home/gabrielmmf/pds/5estrelas/backend/src/core/services/reviewService.ts">
+    <file name="reviewService.ts" path="C:\Users\thiag\5estrelas\backend\src\core\services\reviewService.ts">
       <metrics statements="35" coveredstatements="33" conditionals="8" coveredconditionals="5" methods="7" coveredmethods="7"/>
       <line num="3" count="2" type="stmt"/>
       <line num="5" count="2" type="stmt"/>
@@ -95,7 +96,7 @@
       <line num="70" count="5" type="stmt"/>
       <line num="79" count="1" type="stmt"/>
     </file>
-    <file name="userService.ts" path="/home/gabrielmmf/pds/5estrelas/backend/src/core/services/userService.ts">
+    <file name="userService.ts" path="C:\Users\thiag\5estrelas\backend\src\core\services\userService.ts">
       <metrics statements="24" coveredstatements="24" conditionals="1" coveredconditionals="0" methods="12" coveredmethods="11"/>
       <line num="3" count="3" type="stmt"/>
       <line num="5" count="3" type="stmt"/>
