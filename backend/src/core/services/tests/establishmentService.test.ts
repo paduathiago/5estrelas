@@ -1,7 +1,16 @@
-import test, { beforeEach } from 'node:test';
+import test, { afterEach, beforeEach } from 'node:test';
 import { EstablishmentService } from '../establishmentService';
 
 export const establishmentService = new EstablishmentService();
+
+test('Establishment is created correctly', async () => {
+    const establishment = await establishmentService.createEstablishment(
+        '750', 'test-name', 'test-address', 'test-category',
+        'test-description', 'test-images', 'test-mainImage',
+        'test-workingHours', 'test-daysOpen', 'test-phone');
+    expect(establishment.name).toBe('test-name');
+    await establishmentService.deleteEstablishment('750');
+});
 
 describe('EstablishmentService', () => {
 
