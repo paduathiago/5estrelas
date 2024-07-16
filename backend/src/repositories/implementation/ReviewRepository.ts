@@ -11,7 +11,6 @@ export class ReviewRepository implements ReviewRepositoryInterface {
                 console.error('Error opening SQLite database:', err.message);
                 throw err;
             }
-            console.log('Connected to SQLite database');
         });
 
         this.db.run(`
