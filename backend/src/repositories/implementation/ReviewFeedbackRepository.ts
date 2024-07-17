@@ -29,7 +29,6 @@ export class ReviewFeedbackRepository implements ReviewFeedbackRepositoryInterfa
                 [userId, reviewId, feedback],
                 function (err) {
                     if (err) {
-                        console.error('Error inserting comment:', err.message);
                         reject(err);
                     } else {
                         const newReviewFeedback: ReviewFeedback = {
@@ -51,28 +50,9 @@ export class ReviewFeedbackRepository implements ReviewFeedbackRepositoryInterfa
                 [userId, reviewId],
                 (err, row) => {
                     if (err) {
-                        console.error('Error fetching reviewFeedback by userId and reviewId:', err.message);
                         reject(err);
                     } else {
                         resolve(row as ReviewFeedback | null);
-                    }
-                }
-            );
-        });
-    }
-
-    async getFeedbacksByReview(reviewId: string): Promise<ReviewFeedback[]> {
-        return new Promise<ReviewFeedback[]>((resolve, reject) => {
-            this.db.all(
-                'SELECT * FROM review_feedbacks WHERE reviewId = ?',
-                [reviewId],
-                (err, rows) => {
-                    if (err) {
-                        console.error('Error fetching review feedbacks by reviewId:', err.message);
-                        reject(err);
-                    } else {
-                        const feedbacks: ReviewFeedback[] = rows.map((row: any) => row as ReviewFeedback);
-                        resolve(feedbacks);
                     }
                 }
             );

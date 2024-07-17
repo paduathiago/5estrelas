@@ -37,7 +37,6 @@ export class UserRepository implements UserRepositoryInterface {
                 [name, email, password, image],
                 function (err) {
                     if (err) {
-                        console.error('Error inserting user:', err.message);
                         reject(err);
                     } else {
                         const newUser: User = {
@@ -62,7 +61,6 @@ export class UserRepository implements UserRepositoryInterface {
                 [id],
                 (err, row) => {
                     if (err) {
-                        console.error('Error fetching user by id:', err.message);
                         reject(err);
                     } else {
                         resolve(row as User | null);
@@ -79,7 +77,6 @@ export class UserRepository implements UserRepositoryInterface {
                 [email],
                 (err, row) => {
                     if (err) {
-                        console.error('Error fetching user by email:', err.message);
                         reject(err);
                     } else {
                         resolve(row as User | null);
@@ -96,7 +93,6 @@ export class UserRepository implements UserRepositoryInterface {
                 [userId, establishmentId],
                 function (err) {
                     if (err) {
-                        console.error('Error inserting favorite establishment:', err.message);
                         reject(err);
                     } else {
                         resolve();
@@ -116,7 +112,6 @@ export class UserRepository implements UserRepositoryInterface {
                 [userId],
                 (err, rows) => {
                     if (err) {
-                        console.error('Error fetching favorite establishments:', err.message);
                         reject(err);
                     } else {
                         resolve(rows as Establishment[]);
@@ -133,7 +128,6 @@ export class UserRepository implements UserRepositoryInterface {
                 [userId, establishmentId],
                 function (err) {
                     if (err) {
-                        console.error('Error deleting favorite establishment:', err.message);
                         reject(err);
                     } else {
                         resolve();
@@ -150,7 +144,6 @@ export class UserRepository implements UserRepositoryInterface {
                 [userId],
                 (err, rows) => {
                     if (err) {
-                        console.error('Error fetching user establishments:', err.message);
                         reject(err);
                     } else {
                         resolve(rows as Establishment[]);
