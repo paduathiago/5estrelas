@@ -49,6 +49,7 @@ export class EstablishmentService {
         const numberOfReviews = establishment.numberOfReviews
         const newGeneralRating = ((oldRating * numberOfReviews) + newRating) / (numberOfReviews + 1);
 
+        console.log('ok');
         await this.establishmentRepository.updateRatingOnDb(id, newGeneralRating)
     }
 
