@@ -93,7 +93,6 @@ export class ReviewRepository implements ReviewRepositoryInterface {
                     if (err) {
                         reject(err);
                     } else {
-                        console.log(`Deleted review with id ${id}`);
                         resolve();
                     }
                 }

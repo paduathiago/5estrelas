@@ -28,7 +28,7 @@ describe('EstablishmentService', () => {
 
     test('Rating is updated correctly', async () => {
         const establishment = await establishmentService.createEstablishment(
-            '750', 'test-name', 'test-address', 'test-category',
+            'userId_test', 'test-name', 'test-address', 'test-category',
             'test-description', 'test-images', 'test-mainImage',
             'test-workingHours', 'test-daysOpen', 'test-phone');
         await establishmentService.updateRating(establishment.id, 5);

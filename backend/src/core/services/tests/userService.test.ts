@@ -1,50 +1,67 @@
+import { Establishment, User } from "../../entities";
 import { EstablishmentService } from "../establishmentService";
 import { UserService } from "../userService";
 
 export const userService = new UserService();
 export const establishmentService = new EstablishmentService();
 
-test('User created returns the correct user', async () => {
-    const userCreated = await userService.createUser('test-user', 'testemail@email.com', 'test-password', 'test-image');
-    expect(userCreated.image).toBe('test-image');
-})
 
-test('Inserting random id doesnt return an user', async () => {
-    const userCreated = await userService.getUser('randomId');
-    expect(userCreated).toBe(undefined);
-})
+describe('User Service Tests', () => {
+    let testUser: User;
 
-test('Getting user by email', async () => {
-    const user = await userService.getUserByEmail('testemail@email.com');
-    expect(user?.email).toBe("testemail@email.com");
-})
+    beforeAll(async () => {
+        testUser = await userService.createUser('test-user', 'testemail@email.com', 'test-password', 'test-image');
+    });
 
-test('Invalid email doesnt return an user', async () => {
-    const user = await userService.getUserByEmail('testemailnaoexiste@email.com');
-    expect(user?.email).toBe(undefined);
-})
+    test('User created returns the correct user', async () => {
+        expect(testUser.image).toBe('test-image');
+    });
 
-test('Getting establishment that was added to favorites', async () => {
-    const userCreated = await userService.createUser('test-user', 'testemail@email.com', 'test-password', 'test-image');
-    const establishmentCreated = await establishmentService.createEstablishment(
-        '750', 'test-name', 'test-address', 'test-category',
-        'test-description', 'test-images', 'test-mainImage',
-        'test-workingHours', 'test-daysOpen', 'test-phone');
-    await userService.addEstablishmentToFavorites(userCreated.id, establishmentCreated.id);
-    const establishment = await userService.getFavoriteEstablishments(userCreated.id)
-    expect(establishment[0].id).toBe(parseInt(establishmentCreated.id))
-})
+    test('Inserting inexistent id does not return a user', async () => {
+        const user = await userService.getUser('inexistentId');
+        expect(user).toBe(undefined);
+    });
 
-test('Establishment removed from favorites not found', async () => {
-    const userCreated = await userService.createUser('test-user', 'testemail@email.com', 'test-password', 'test-image');
-    await userService.addEstablishmentToFavorites(userCreated.id, "10");
-    await userService.removeEstablishmentFromFavorites(userCreated.id, "10");
-    const establishment = await userService.getFavoriteEstablishments(userCreated.id)
-    expect(establishment.length).toBe(0)
-})
+    test('Getting user by email', async () => {
+        const user = await userService.getUserByEmail('testemail@email.com');
+        expect(user?.email).toBe("testemail@email.com");
+    });
 
-test('Getting users establishments', async () => {
-    const userCreated = await userService.createUser('test-user', 'testemail@email.com', 'test-password', 'test-image');
-    const establishment = await userService.getUserEstablishments(userCreated.id)
-    expect(establishment.length).toBe(0)
-})
+    test('Invalid email does not return a user', async () => {
+        const user = await userService.getUserByEmail('testemailnaoexiste@email.com');
+        expect(user).toBe(undefined);
+    });
+});
+
+describe('Establishment Service Tests', () => {
+    let testUser: User;
+    let establishmentCreated: Establishment;
+
+    beforeAll(async () => {
+        testUser = await userService.createUser('test-user', 'testemail@email.com', 'test-password', 'test-image');
+        establishmentCreated = await establishmentService.createEstablishment(
+            testUser.id, 'test-name', 'test-address', 'test-category',
+            'test-description', 'test-images', 'test-mainImage',
+            'test-workingHours', 'test-daysOpen', 'test-phone'
+        );
+    });
+
+    test('Getting establishment that was added to favorites', async () => {
+        await userService.addEstablishmentToFavorites(testUser.id, establishmentCreated.id);
+        const establishment = await userService.getFavoriteEstablishments(testUser.id);
+        expect(establishment[0].id).toBe(parseInt(establishmentCreated.id));
+    });
+
+    test('Establishment removed from favorites not found', async () => {
+        await userService.addEstablishmentToFavorites(testUser.id, establishmentCreated.id);
+        await userService.removeEstablishmentFromFavorites(testUser.id, establishmentCreated.id);
+        const establishment = await userService.getFavoriteEstablishments(testUser.id);
+        expect(establishment.length).toBe(0);
+    });
+
+    test('Getting user establishments', async () => {
+        const establishments = await userService.getUserEstablishments(testUser.id);
+        expect(establishments.length).toBe(1);
+        expect(establishments[0].name).toBe('test-name');
+    });
+});
