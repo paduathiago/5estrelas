@@ -27,25 +27,13 @@ describe("Favorite Establishment Test", () => {
     // Aguarda a requisição ser concluída
     cy.wait("@getEstablishments");
 
-    // Favorita o estabelecimento "The Templo Bar"
-    cy.contains("The Temple Bar")
-      .parent()
-      .parent()
-      .find("svg.lucide-star")
-      .click({ multiple: true });
+    // Acessar o estabelecimento "The Temple Bar"
+    cy.contains("The Temple Bar").click();
 
-    // Navega para a página de favoritos
-    cy.get('a[href="/favorites"]').click();
+    cy.contains("button", "Favoritar").click({ force: true });
 
-    // Intercepta a requisição para obter favoritos
-    cy.intercept("GET", "/api/favorites", { fixture: "favorites.json" }).as(
-      "getFavorites"
-    );
+    cy.contains("Favoritos").click();
 
-    // Aguarda a requisição ser concluída
-    cy.wait("@getFavorites");
-
-    // Verifica se o estabelecimento "The Templo Bar" está na lista de favoritos
-    cy.contains("The Templo Bar").should("exist");
+    cy.contains("The Temple Bar").should("exist");
   });
 });
