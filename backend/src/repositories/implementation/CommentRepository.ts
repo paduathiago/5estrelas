@@ -1,4 +1,5 @@
 import { Comment } from '../../core/entities';
+import { database } from '../database';
 import { CommentRepositoryInterface } from '../interfaces';
 import sqlite3 from 'sqlite3';
 
@@ -6,13 +7,7 @@ export class CommentRepository implements CommentRepositoryInterface {
     private db: sqlite3.Database;
 
     constructor() {
-        this.db = new sqlite3.Database('./database.db', (err) => {
-            if (err) {
-                console.error('Error opening SQLite database:', err.message);
-                throw err;
-            }
-        });
-
+        this.db = database;
         this.db.run(`
       CREATE TABLE IF NOT EXISTS comments (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -58,7 +53,7 @@ export class CommentRepository implements CommentRepositoryInterface {
                         console.error('Error fetching comment by id:', err.message);
                         reject(err);
                     } else {
-                        resolve(row as Comment | null) ;
+                        resolve(row as Comment | null);
                     }
                 }
             );

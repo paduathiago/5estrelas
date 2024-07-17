@@ -1,4 +1,5 @@
 import { Establishment } from "../../core/entities";
+import { database } from "../database";
 import { EstablishmentRepositoryInterface } from "../interfaces";
 import sqlite3 from 'sqlite3';
 
@@ -6,13 +7,7 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
     private db: sqlite3.Database;
 
     constructor() {
-        this.db = new sqlite3.Database('./database.db', (err) => {
-            if (err) {
-                console.error('Error opening SQLite database:', err.message);
-                throw err;
-            }
-        });
-
+        this.db = database;
         this.db.run(`
       CREATE TABLE IF NOT EXISTS establishments (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -103,7 +98,15 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
         return new Promise<void>((resolve, reject) => {
             this.db.run(
                 'UPDATE establishments SET rating = ?, numberOfReviews = numberOfReviews + 1 WHERE id = ?',
-                [newRating, id]
+                [newRating, id],
+                (err) => {
+                    if (err) {
+                        console.error('Error updating rating', err.message);
+                        reject(err);
+                    } else {
+                        resolve();
+                    }
+                }
             );
         });
     }
