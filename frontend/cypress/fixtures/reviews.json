@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "userId": "3",
+    "establishmentId": "8",
+    "rating": 3,
+    "comment": "Muito bom restaurante",
+    "timestamp": "2024-07-01T19:03:30.982Z",
+    "likes": 0,
+    "dislikes": 0
+  },
+  {
+    "id": 3,
+    "userId": "3",
+    "establishmentId": "8",
+    "rating": 2,
+    "comment": "MElhor restaurante que ja conheci",
+    "timestamp": "2024-07-01T19:04:57.809Z",
+    "likes": 0,
+    "dislikes": 0
+  }
+]

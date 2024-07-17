@@ -35,7 +35,7 @@ function EstablishmentCard({ ...props }: EstablishmentType) {
 
   const image = props.mainImage ? JSON.parse(props.mainImage) : undefined;
   return (
-    <a href={href}>
+    <a href={href} className="establishment-card">
       <Card>
         <CardHeader className="flex items-center justify-between flex-row">
           <h1>{props.name}</h1>
@@ -70,7 +70,7 @@ function EstablishmentCard({ ...props }: EstablishmentType) {
           </div>
         </CardContent>
         <CardFooter>
-          <Stars score={props.rating} />{" "}({truncateToDecimals(props.rating)})
+          <Stars score={props.rating} /> ({truncateToDecimals(props.rating)})
           {props.numberOfReviews === 0 && "Ainda não avaliado"}
         </CardFooter>
       </Card>
