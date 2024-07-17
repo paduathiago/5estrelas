@@ -1,4 +1,5 @@
 import { Review } from '../../core/entities';
+import { database } from '../database';
 import { ReviewRepositoryInterface } from '../interfaces';
 import sqlite3 from 'sqlite3';
 
@@ -6,12 +7,7 @@ export class ReviewRepository implements ReviewRepositoryInterface {
     private db: sqlite3.Database;
 
     constructor() {
-        this.db = new sqlite3.Database('./database.db', (err) => {
-            if (err) {
-                console.error('Error opening SQLite database:', err.message);
-                throw err;
-            }
-        });
+        this.db = database;
 
         this.db.run(`
       CREATE TABLE IF NOT EXISTS reviews (
