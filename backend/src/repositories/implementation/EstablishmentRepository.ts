@@ -36,7 +36,7 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
                 [name, address, category, description, userId, mainImage, images, workingHours, daysOpen, phone],
                 function (err) {
                     if (err) {
-                        console.error('Error inserting establishment:', err.message);
+
                         reject(err);
                     } else {
                         const newEstablishment: Establishment = {
@@ -68,7 +68,6 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
                 [id],
                 (err, row) => {
                     if (err) {
-                        console.error('Error fetching establishment by id:', err.message);
                         reject(err);
                     } else {
                         resolve(row as Establishment | null);
@@ -84,7 +83,6 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
                 'SELECT * FROM establishments',
                 (err, rows) => {
                     if (err) {
-                        console.error('Error fetching all establishments:', err.message);
                         reject(err);
                     } else {
                         resolve(rows as Establishment[]);
@@ -101,7 +99,6 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
                 [newRating, id],
                 (err) => {
                     if (err) {
-                        console.error('Error updating rating', err.message);
                         reject(err);
                     } else {
                         resolve();
@@ -118,7 +115,6 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
                 [id],
                 (err) => {
                     if (err) {
-                        console.error('Error deleting establishment:', err.message);
                         reject(err);
                     } else {
                         resolve();

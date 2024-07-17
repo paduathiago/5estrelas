@@ -7,7 +7,7 @@
     "build": "tsc",
     "dev": "nodemon --exec ts-node ./src/index.ts",
     "prod": "node dist/index.js",
-    "test": "jest --coverage --collectCoverageFrom='src/core/services/*.{ts,tsx}'"
+    "test": "jest --coverage --collectCoverageFrom='src/core/services/*.{ts,tsx}' --collectCoverageFrom='src/repositories/implementation/*.{ts,tsx}'"
   },
   "keywords": [],
   "author": "",

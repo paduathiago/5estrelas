@@ -21,13 +21,11 @@ export class CommentRepository implements CommentRepositoryInterface {
     async create(commentData: { reviewId: string; comment: string, timestamp: Date }): Promise<Comment> {
         const { reviewId, comment, timestamp } = commentData;
         return new Promise<Comment>((resolve, reject) => {
-            console.log("criando review: ", reviewId, comment, timestamp)
             this.db.run(
                 'INSERT INTO comments (reviewId, comment, timestamp) VALUES (?, ?, ?)',
                 [reviewId, comment, timestamp],
                 function (err) {
                     if (err) {
-                        console.error('Error inserting comment:', err.message);
                         reject(err);
                     } else {
                         const newComment: Comment = {
@@ -50,7 +48,6 @@ export class CommentRepository implements CommentRepositoryInterface {
                 [id],
                 (err, row) => {
                     if (err) {
-                        console.error('Error fetching comment by id:', err.message);
                         reject(err);
                     } else {
                         resolve(row as Comment | null);
@@ -67,7 +64,6 @@ export class CommentRepository implements CommentRepositoryInterface {
                 [reviewId],
                 (err, rows) => {
                     if (err) {
-                        console.error('Error fetching comments by reviewId:', err.message);
                         reject(err);
                     } else {
                         const comments: Comment[] = rows.map((row: any) => row as Comment);

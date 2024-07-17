@@ -1,9 +1,12 @@
 import { EstablishmentService } from "../establishmentService";
 import { ReviewService } from "../reviewService";
+import { UserService } from "../userService";
 
 export const reviewService = new ReviewService();
 
 export const establishmentService = new EstablishmentService();
+
+export const userService = new UserService();
 
 test('Review created returns the correct review', async () => {
     const review = await reviewService.createReview('1', '2', 3, 'teste');
@@ -32,6 +35,20 @@ test('User trying to delete another users review', async () => {
     } catch (error: any) {
         expect(error.message).toBe("Usuário não autorizado");
     }
+})
+
+test('User trying to delete his review', async () => {
+    const userCreated = await userService.createUser('test-user', 'testemail@email.com', 'test-password', 'test-image');
+    const establishment = await establishmentService.createEstablishment(
+        '750', 'test-name', 'test-address', 'test-category',
+        'test-description', 'test-images', 'test-mainImage',
+        'test-workingHours', 'test-daysOpen', 'test-phone');
+
+    const reviewCreated = await reviewService.createReview(userCreated.id, establishment.id, 3, 'Muito bom restaurante');
+
+    expect(async () => {
+        await reviewService.deleteReview(reviewCreated.id, userCreated.id)
+    }).not.toThrow();
 })
 
 test('Getting reviews of an establishment', async () => {

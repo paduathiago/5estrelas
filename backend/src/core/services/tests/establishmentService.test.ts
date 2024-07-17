@@ -36,7 +36,7 @@ describe('EstablishmentService', () => {
         await establishmentService.updateRating(establishment.id, 3);
         await establishmentService.updateRating(establishment.id, 1);
 
-        const establishmentUpdated = await establishmentService.getEstablishment(establishment.id);
+        const establishmentUpdated = await establishmentService.getEstablishment(establishment.id, '1');
         expect(establishmentUpdated?.rating).toBe(3);
     });
 

@@ -32,7 +32,6 @@ export class ReviewRepository implements ReviewRepositoryInterface {
                 [userId, establishmentId, rating, comment, timestamp, likes, dislikes],
                 function (err) {
                     if (err) {
-                        console.error('Error inserting Review:', err.message);
                         reject(err);
                     } else {
                         const newReview: Review = {
@@ -59,7 +58,6 @@ export class ReviewRepository implements ReviewRepositoryInterface {
                 [id],
                 (err, row) => {
                     if (err) {
-                        console.error('Error fetching Review by id:', err.message);
                         reject(err);
                     } else {
                         resolve(row as Review | null);
@@ -76,7 +74,6 @@ export class ReviewRepository implements ReviewRepositoryInterface {
                 [establishmentId],
                 (err, rows) => {
                     if (err) {
-                        console.error('Error fetching Reviews by establishmentId:', err.message);
                         reject(err);
                     } else {
                         const reviews: Review[] = rows.map((row: any) => row as Review);
@@ -94,7 +91,6 @@ export class ReviewRepository implements ReviewRepositoryInterface {
                 [id],
                 function (err) {
                     if (err) {
-                        console.error('Error deleting Review by id:', err.message);
                         reject(err);
                     } else {
                         console.log(`Deleted review with id ${id}`);
