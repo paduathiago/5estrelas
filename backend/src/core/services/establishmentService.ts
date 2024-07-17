@@ -49,7 +49,8 @@ export class EstablishmentService {
         const numberOfReviews = establishment.numberOfReviews
         const newGeneralRating = ((oldRating * numberOfReviews) + newRating) / (numberOfReviews + 1);
 
-        await this.establishmentRepository.updateRatingOnDb(id, newGeneralRating)
+        console.log('ok');
+        await this.establishmentRepository.updateRatingOnDb(id, newGeneralRating + 1)
     }
 
     async deleteEstablishment(id: string): Promise<void> {
