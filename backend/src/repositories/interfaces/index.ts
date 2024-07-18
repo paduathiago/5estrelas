@@ -20,6 +20,7 @@ export interface EstablishmentRepositoryInterface {
     get(id: string): Promise<Establishment | null>;
     getAll(): Promise<Establishment[]>;
     updateRatingOnDb(id: string, newRating: number): Promise<void>;
+    delete(id: string): Promise<void>;
 }
 
 export interface ReviewRepositoryInterface {
@@ -27,8 +28,6 @@ export interface ReviewRepositoryInterface {
     get(id: string): Promise<Review | null>;
     delete(id: string): Promise<void>;
     getReviewsByEstablishmentId(establishmentId: string): Promise<Review[]>;
-    updateLike(id: string, amountOfLikes: number): Promise<Review | null>;
-    updateDislike(id: string, amountOfDislikes: number): Promise<Review | null>;
 }
 
 export interface ReviewFeedbackRepositoryInterface {

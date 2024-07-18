@@ -1,4 +1,5 @@
 import { Establishment } from "../../core/entities";
+import { database } from "../database";
 import { EstablishmentRepositoryInterface } from "../interfaces";
 import sqlite3 from 'sqlite3';
 
@@ -6,14 +7,7 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
     private db: sqlite3.Database;
 
     constructor() {
-        this.db = new sqlite3.Database('./database.db', (err) => {
-            if (err) {
-                console.error('Error opening SQLite database:', err.message);
-                throw err;
-            }
-            console.log('Connected to SQLite database');
-        });
-
+        this.db = database;
         this.db.run(`
       CREATE TABLE IF NOT EXISTS establishments (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,15 +28,15 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
     `);
     }
 
-    async create(establishmentData: { name: string; address: string; category: string; description: string; userId: string, mainImage: string, images: string, workingHours: string, daysOpen:string, phone: string}): Promise<Establishment> {
-        const { name, address, category, description, userId, mainImage, images, workingHours, daysOpen, phone} = establishmentData;
+    async create(establishmentData: { name: string; address: string; category: string; description: string; userId: string, mainImage: string, images: string, workingHours: string, daysOpen: string, phone: string }): Promise<Establishment> {
+        const { name, address, category, description, userId, mainImage, images, workingHours, daysOpen, phone } = establishmentData;
         return new Promise<Establishment>((resolve, reject) => {
             this.db.run(
                 'INSERT INTO establishments (name, address, category, description, userId, mainImage, images, workingHours, daysOpen, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 [name, address, category, description, userId, mainImage, images, workingHours, daysOpen, phone],
                 function (err) {
                     if (err) {
-                        console.error('Error inserting establishment:', err.message);
+
                         reject(err);
                     } else {
                         const newEstablishment: Establishment = {
@@ -74,7 +68,6 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
                 [id],
                 (err, row) => {
                     if (err) {
-                        console.error('Error fetching establishment by id:', err.message);
                         reject(err);
                     } else {
                         resolve(row as Establishment | null);
@@ -90,7 +83,6 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
                 'SELECT * FROM establishments',
                 (err, rows) => {
                     if (err) {
-                        console.error('Error fetching all establishments:', err.message);
                         reject(err);
                     } else {
                         resolve(rows as Establishment[]);
@@ -104,7 +96,30 @@ export class EstablishmentRepository implements EstablishmentRepositoryInterface
         return new Promise<void>((resolve, reject) => {
             this.db.run(
                 'UPDATE establishments SET rating = ?, numberOfReviews = numberOfReviews + 1 WHERE id = ?',
-                [newRating, id]
+                [newRating, id],
+                (err) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve();
+                    }
+                }
+            );
+        });
+    }
+
+    async delete(id: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.db.run(
+                'DELETE FROM establishments WHERE id = ?',
+                [id],
+                (err) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve();
+                    }
+                }
             );
         });
     }

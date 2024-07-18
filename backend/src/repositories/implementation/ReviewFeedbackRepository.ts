@@ -1,4 +1,5 @@
-import { Review, ReviewFeedback } from '../../core/entities';
+import { ReviewFeedback } from '../../core/entities';
+import { database } from '../database';
 import { ReviewFeedbackRepositoryInterface } from '../interfaces';
 import sqlite3 from 'sqlite3';
 
@@ -6,13 +7,7 @@ export class ReviewFeedbackRepository implements ReviewFeedbackRepositoryInterfa
     private db: sqlite3.Database;
 
     constructor() {
-        this.db = new sqlite3.Database('./database.db', (err) => {
-            if (err) {
-                console.error('Error opening SQLite database:', err.message);
-                throw err;
-            }
-            console.log('Connected to SQLite database');
-        });
+        this.db = database;
 
         this.db.run(`
       CREATE TABLE IF NOT EXISTS reviewFeedbacks (
@@ -26,7 +21,7 @@ export class ReviewFeedbackRepository implements ReviewFeedbackRepositoryInterfa
     `);
     }
 
-    async create(reviewFeedbackData: { userId: string; reviewId: string; feedback: 'LIKE' | 'DISLIKE'}): Promise<ReviewFeedback> {
+    async create(reviewFeedbackData: { userId: string; reviewId: string; feedback: 'LIKE' | 'DISLIKE' }): Promise<ReviewFeedback> {
         const { userId, reviewId, feedback } = reviewFeedbackData;
         return new Promise<ReviewFeedback>((resolve, reject) => {
             this.db.run(
@@ -34,7 +29,6 @@ export class ReviewFeedbackRepository implements ReviewFeedbackRepositoryInterfa
                 [userId, reviewId, feedback],
                 function (err) {
                     if (err) {
-                        console.error('Error inserting comment:', err.message);
                         reject(err);
                     } else {
                         const newReviewFeedback: ReviewFeedback = {
@@ -49,35 +43,16 @@ export class ReviewFeedbackRepository implements ReviewFeedbackRepositoryInterfa
         });
     }
 
-    async get(id: string): Promise<ReviewFeedback | null> {
+    async get(userId: string, reviewId: string): Promise<ReviewFeedback | null> {
         return new Promise<ReviewFeedback | null>((resolve, reject) => {
             this.db.get(
-                'SELECT * FROM comments WHERE id = ?',
-                [id],
+                'SELECT * FROM reviewFeedbacks WHERE userId = ? AND reviewId = ?',
+                [userId, reviewId],
                 (err, row) => {
                     if (err) {
-                        console.error('Error fetching reviewFeedback by id:', err.message);
                         reject(err);
                     } else {
-                        resolve(row as ReviewFeedback | null) ;
-                    }
-                }
-            );
-        });
-    }
-
-    async getFeedbacksByReview(reviewId: string): Promise<ReviewFeedback[]> {
-        return new Promise<ReviewFeedback[]>((resolve, reject) => {
-            this.db.all(
-                'SELECT * FROM review_feedbacks WHERE reviewId = ?',
-                [reviewId],
-                (err, rows) => {
-                    if (err) {
-                        console.error('Error fetching review feedbacks by reviewId:', err.message);
-                        reject(err);
-                    } else {
-                        const feedbacks: ReviewFeedback[] = rows.map((row: any) => row as ReviewFeedback);
-                        resolve(feedbacks);
+                        resolve(row as ReviewFeedback | null);
                     }
                 }
             );

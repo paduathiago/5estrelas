@@ -1,4 +1,5 @@
 import { Comment } from '../../core/entities';
+import { database } from '../database';
 import { CommentRepositoryInterface } from '../interfaces';
 import sqlite3 from 'sqlite3';
 
@@ -6,14 +7,7 @@ export class CommentRepository implements CommentRepositoryInterface {
     private db: sqlite3.Database;
 
     constructor() {
-        this.db = new sqlite3.Database('./database.db', (err) => {
-            if (err) {
-                console.error('Error opening SQLite database:', err.message);
-                throw err;
-            }
-            console.log('Connected to SQLite database');
-        });
-
+        this.db = database;
         this.db.run(`
       CREATE TABLE IF NOT EXISTS comments (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -27,13 +21,11 @@ export class CommentRepository implements CommentRepositoryInterface {
     async create(commentData: { reviewId: string; comment: string, timestamp: Date }): Promise<Comment> {
         const { reviewId, comment, timestamp } = commentData;
         return new Promise<Comment>((resolve, reject) => {
-            console.log("criando review: ", reviewId, comment, timestamp)
             this.db.run(
                 'INSERT INTO comments (reviewId, comment, timestamp) VALUES (?, ?, ?)',
                 [reviewId, comment, timestamp],
                 function (err) {
                     if (err) {
-                        console.error('Error inserting comment:', err.message);
                         reject(err);
                     } else {
                         const newComment: Comment = {
@@ -56,10 +48,9 @@ export class CommentRepository implements CommentRepositoryInterface {
                 [id],
                 (err, row) => {
                     if (err) {
-                        console.error('Error fetching comment by id:', err.message);
                         reject(err);
                     } else {
-                        resolve(row as Comment | null) ;
+                        resolve(row as Comment | null);
                     }
                 }
             );
@@ -73,7 +64,6 @@ export class CommentRepository implements CommentRepositoryInterface {
                 [reviewId],
                 (err, rows) => {
                     if (err) {
-                        console.error('Error fetching comments by reviewId:', err.message);
                         reject(err);
                     } else {
                         const comments: Comment[] = rows.map((row: any) => row as Comment);

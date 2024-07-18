@@ -1,4 +1,5 @@
 import { Establishment, User } from '../../core/entities';
+import { database } from '../database';
 import { UserRepositoryInterface } from '../interfaces';
 import sqlite3 from 'sqlite3';
 
@@ -6,13 +7,7 @@ export class UserRepository implements UserRepositoryInterface {
     private db: sqlite3.Database;
 
     constructor() {
-        this.db = new sqlite3.Database('./database.db', (err) => {
-            if (err) {
-                console.error('Error opening SQLite database:', err.message);
-                throw err;
-            }
-            console.log('Connected to SQLite database');
-        });
+        this.db = database;
 
         this.db.run(`
       CREATE TABLE IF NOT EXISTS users (
@@ -42,7 +37,6 @@ export class UserRepository implements UserRepositoryInterface {
                 [name, email, password, image],
                 function (err) {
                     if (err) {
-                        console.error('Error inserting user:', err.message);
                         reject(err);
                     } else {
                         const newUser: User = {
@@ -67,7 +61,6 @@ export class UserRepository implements UserRepositoryInterface {
                 [id],
                 (err, row) => {
                     if (err) {
-                        console.error('Error fetching user by id:', err.message);
                         reject(err);
                     } else {
                         resolve(row as User | null);
@@ -84,7 +77,6 @@ export class UserRepository implements UserRepositoryInterface {
                 [email],
                 (err, row) => {
                     if (err) {
-                        console.error('Error fetching user by email:', err.message);
                         reject(err);
                     } else {
                         resolve(row as User | null);
@@ -101,7 +93,6 @@ export class UserRepository implements UserRepositoryInterface {
                 [userId, establishmentId],
                 function (err) {
                     if (err) {
-                        console.error('Error inserting favorite establishment:', err.message);
                         reject(err);
                     } else {
                         resolve();
@@ -121,7 +112,6 @@ export class UserRepository implements UserRepositoryInterface {
                 [userId],
                 (err, rows) => {
                     if (err) {
-                        console.error('Error fetching favorite establishments:', err.message);
                         reject(err);
                     } else {
                         resolve(rows as Establishment[]);
@@ -138,7 +128,6 @@ export class UserRepository implements UserRepositoryInterface {
                 [userId, establishmentId],
                 function (err) {
                     if (err) {
-                        console.error('Error deleting favorite establishment:', err.message);
                         reject(err);
                     } else {
                         resolve();
@@ -155,7 +144,6 @@ export class UserRepository implements UserRepositoryInterface {
                 [userId],
                 (err, rows) => {
                     if (err) {
-                        console.error('Error fetching user establishments:', err.message);
                         reject(err);
                     } else {
                         resolve(rows as Establishment[]);

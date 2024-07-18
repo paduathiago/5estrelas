@@ -1,9 +1,9 @@
-name: Unit Tests
+name: Integration Tests
 
-on: [push]
+on: [pull_request]
 
 jobs:
-  unit-tests:
+  integration-tests:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -22,6 +22,10 @@ jobs:
       # Backend steps
       - name: Install Npm Packages for Backend
         run: npm install
+        working-directory: backend
+
+      - name: Run integration tests
+        run: npm run test
         working-directory: backend
 
       # - name: Start Backend Server

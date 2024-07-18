@@ -11,6 +11,7 @@ describe("Favorite Establishment Test", () => {
       "jandersonglaubermendesantos@hotmail.com"
     );
     cy.get('input[name="password"]').type("senhasenha");
+
     cy.get('button[type="submit"]').click();
 
     // Aguarda a requisição de login ser concluída e redireciona para a página inicial
